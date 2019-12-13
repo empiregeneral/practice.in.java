@@ -1,7 +1,5 @@
 package cn.pintia.zjo.practice.problem1006;
 
-import org.test4j.tools.commons.ResourceHelper;
-
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,8 +18,8 @@ import java.util.Scanner;
  **/
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        //Scanner input = new Scanner(new BufferedInputStream(System.in));
-        Scanner input = new Scanner(ResourceHelper.getResourceAsStream(Main.class, "TestCases_1006.txt"));
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        // Scanner input = new Scanner(ResourceHelper.getResourceAsStream(Main.class, "TestCases_1006.txt"));
 
         while (input.hasNextLine()) {
             String line = input.nextLine();
