@@ -13,7 +13,7 @@ import org.junit.Test;
  **/
 public class TestProblem1115 {
 
-    @Parameters({"24", "39", ""})
+    @Parameters({"24", "39", "9223372036854774807", "9223372036854774808"})
     @Test
     public void testDigitRoot(String value) {
 
