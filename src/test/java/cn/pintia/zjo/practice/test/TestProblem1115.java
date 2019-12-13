@@ -1,5 +1,6 @@
 package cn.pintia.zjo.practice.test;
 
+import cn.pintia.zjo.practice.problem1115.DigitRoot;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;

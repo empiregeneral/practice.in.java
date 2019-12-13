@@ -1,14 +1,14 @@
-package cn.pintia.zjo.practice.test;
+package cn.pintia.zjo.practice.problem1115;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
 
 /**
- * @ClassName: DigitRoot
- * @Description:
- * @Author :lei.zhu
- * @Date 2019/12/13 14:17
- * @Version 1.0
+ * @Author lei.zhu
+ * @Description DigitRoot的算法实现部分
+ * @Date 15:26 2019/12/13
+ * @Param Value 表示数字字符串
+ * @return digitRoot int类型最后的结果
  **/
 public class DigitRoot implements Readable {
     private char[] chars;
