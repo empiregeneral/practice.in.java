@@ -12,6 +12,15 @@ import java.util.Scanner;
  **/
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        int cases = input.nextInt();
+        for (int i = 0; i < cases; i++) {
+            int num = input.nextInt();
+            Readable readable = new BigNumber(num);
+            Scanner output = new Scanner(readable);
+            while(output.hasNext()) {
+                System.out.println(output.next());
+            }
+        }
     }
 }

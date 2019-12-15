@@ -3,7 +3,6 @@ package cn.pintia.zjo.practice.problem1526;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.CharBuffer;
-import java.nio.ReadOnlyBufferException;
 
 /**
  * @ClassName: BigNumber
@@ -14,11 +13,20 @@ import java.nio.ReadOnlyBufferException;
  * @Version 1.0
  **/
 public class BigNumber implements Readable {
-    private Integer n;
+    private int n;
     private int count = 1;
+    private final double log10_e = Math.log10(Math.E);
+    private final double log_2_pi = Math.log10(2 * Math.PI) / 2.0;
+    private double E = Math.E;
 
     public BigNumber(int num) {
         this.n = num;
+    }
+
+    private double stirlingFormula() {
+        double a = n;
+        double res = Math.ceil(log_2_pi + (a + 0.5) * Math.log10(a) -  a * log10_e);
+        return res;
     }
 
     private CharSequence digitInFactorialNum() {
@@ -26,7 +34,8 @@ public class BigNumber implements Readable {
         for (int i = 1; i<=n; i++) {
             d += Math.log10(i);
         }
-        BigDecimal bigDecimal= new BigDecimal(Math.ceil(d));
+        d = Math.ceil(d);
+        BigDecimal bigDecimal= new BigDecimal(""+d);
         return bigDecimal.toString();
     }
 
@@ -36,6 +45,9 @@ public class BigNumber implements Readable {
         if (--count < 0) {
             return -1;
         }
+
+        CharSequence charSequence = "" + stirlingFormula();
+        CharSequence result = charSequence.subSequence(0, charSequence.length()-2);
 
         cb.append(digitInFactorialNum());
 
