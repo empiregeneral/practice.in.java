@@ -10,7 +10,8 @@ import java.math.BigDecimal;
  * @Version 1.0
  **/
 public class Arith {
-    //默认除法运算精度
+    /**
+     * 默认除法运算精度 */
     private static final int DEF_DIV_SCALE = 10;
 
     private Arith(){
@@ -23,8 +24,10 @@ public class Arith {
      * @return 两个参数的和
      */
     public static double add(double v1,double v2){
-        BigDecimal b1 = new BigDecimal(Double.toString(v1));
-        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        String a = Double.toString(v1);
+        String b = Double.toString(v2);
+        BigDecimal b1 = new BigDecimal(a);
+        BigDecimal b2 = new BigDecimal(b);
         return b1.add(b2).doubleValue();
     }
     /**
@@ -34,10 +37,13 @@ public class Arith {
      * @return 两个参数的差
      */
     public static double sub(double v1,double v2){
-        BigDecimal b1 = new BigDecimal(Double.toString(v1));
-        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        String a = Double.toString(v1);
+        String b = Double.toString(v2);
+        BigDecimal b1 = new BigDecimal(a);
+        BigDecimal b2 = new BigDecimal(b);
         return b1.subtract(b2).doubleValue();
     }
+
     /**
      * 提供精确的乘法运算。
      * @param v1 被乘数

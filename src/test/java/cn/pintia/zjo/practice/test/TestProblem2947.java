@@ -22,7 +22,6 @@ public class TestProblem2947 {
         Readable readable = new CheckAbbreviation(firstWords, secondWords);
         Scanner scanner = new Scanner(readable);
         while(scanner.hasNext()) {
-            // System.out.println(scanner.next());
             Assert.assertEquals(scanner.next(), expect);
         }
     }
