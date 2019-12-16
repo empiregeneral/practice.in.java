@@ -35,8 +35,8 @@ public class BigNumber implements Readable {
             d += Math.log10(i);
         }
         d = Math.ceil(d);
-        BigDecimal bigDecimal= new BigDecimal(""+d);
-        return bigDecimal.toString();
+        BigDecimal bigDecimal= BigDecimal.valueOf(d).setScale(0);
+        return bigDecimal.toPlainString();
     }
 
 
@@ -46,10 +46,13 @@ public class BigNumber implements Readable {
             return -1;
         }
 
-        CharSequence charSequence = "" + stirlingFormula();
-        CharSequence result = charSequence.subSequence(0, charSequence.length()-2);
-
-        cb.append(digitInFactorialNum());
+        if (n == 1) {
+            cb.append('1');
+        } else {
+            CharSequence charSequence = BigDecimal.valueOf(stirlingFormula()).setScale(0).toPlainString();
+            cb.append(charSequence);
+        }
+        cb.append("");
 
         return 10;
     }

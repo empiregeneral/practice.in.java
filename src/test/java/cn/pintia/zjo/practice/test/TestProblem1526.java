@@ -6,20 +6,28 @@ import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import java.util.Scanner;
+
+
+/**
+ * @Author lei.zhu
+ * @Description 根据测试用例的要求，设计正向的测试用例10，20，分别计算
+ * 其阶乘的位数，边界用例1,10^7
+ * @Date 11:03 2019/12/16
+ * @Param
+ * @return
+ **/
 
 @RunWith(JUnitParamsRunner.class)
 public class TestProblem1526 {
 
-    @Parameters({"10,7", "20,19", "25,26", "100,158", "10000000,5565709"})
+    @Parameters({"10,7", "20,19", "10000000,65657060", "1,1"})
     @Test
     public void testBigNum(int n, int ans) {
         Readable readable = new BigNumber(n);
         Scanner out = new Scanner(readable);
         while (out.hasNext()) {
-            System.out.println(out.next());
-            //Assert.assertEquals(out.nextInt(), ans);
+            Assert.assertEquals(out.nextInt(), ans);
         }
     }
 }

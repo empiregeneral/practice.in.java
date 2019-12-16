@@ -51,6 +51,13 @@ public class CheckAbbreviation implements Readable, Comparator<CharSequence> {
         return 10;
     }
 
+    /**
+     * @Author lei.zhu
+     * @Description 注意equals为
+     * @Date 14:00 2019/12/16
+     * @Param [o1, o2]
+     * @return int
+     **/
     @Override
     public int compare(CharSequence o1, CharSequence o2) {
         return ((o1.length() == o2.length()) && (o1.equals(o2))) ? 0 : 1;

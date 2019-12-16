@@ -1,7 +1,6 @@
 package cn.pintia.zjo.practice.problem1006;
 
 import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
@@ -17,17 +16,15 @@ import java.util.Scanner;
  * @Version 1.0
  **/
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         Scanner input = new Scanner(new BufferedInputStream(System.in));
-        // Scanner input = new Scanner(ResourceHelper.getResourceAsStream(Main.class, "TestCases_1006.txt"));
-
         while (input.hasNextLine()) {
             String line = input.nextLine();
             String[] content = line.split(" ");
-            if (Integer.parseInt(content[0]) == 0) {
+            int key = Integer.parseInt(content[0]);
+            if (key == 0) {
                 break;
             }
-            int key = Integer.parseInt(content[0]);
             String cipherText = content[1];
             Scanner scanner = new Scanner(new Dotheuntwist(key, cipherText));
             System.out.println(scanner.next());
