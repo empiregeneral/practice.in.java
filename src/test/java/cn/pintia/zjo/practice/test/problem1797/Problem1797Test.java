@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.test;
+package cn.pintia.zjo.practice.test.problem1797;
 
 import cn.pintia.zjo.practice.problem1797.LeastCommonMultiple;
 import junitparams.JUnitParamsRunner;
@@ -6,9 +6,6 @@ import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * @ClassName: TestProblem1797
@@ -18,7 +15,7 @@ import java.util.stream.IntStream;
  * @Version 1.0
  **/
 @RunWith(JUnitParamsRunner.class)
-public class TestProblem1797 {
+public class Problem1797Test {
 
     @Parameters(method = "testData")
     @Test

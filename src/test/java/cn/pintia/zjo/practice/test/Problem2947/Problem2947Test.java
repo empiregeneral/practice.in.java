@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.test;
+package cn.pintia.zjo.practice.test.Problem2947;
 
 import cn.pintia.zjo.practice.problem2947.CheckAbbreviation;
 
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import java.util.Scanner;
 
 @RunWith(JUnitParamsRunner.class)
-public class TestProblem2947 {
+public class Problem2947Test {
 
     @Parameters({"Super Harddisc Drive Cooler,Spade Heart Diamond Club,SAME",
                  "Shen Guang Hao,Shuai Ge Hao,SAME",

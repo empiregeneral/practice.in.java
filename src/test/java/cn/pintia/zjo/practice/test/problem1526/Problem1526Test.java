@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.test;
+package cn.pintia.zjo.practice.test.problem1526;
 
 import cn.pintia.zjo.practice.problem1526.BigNumber;
 import junitparams.JUnitParamsRunner;
@@ -19,7 +19,7 @@ import java.util.Scanner;
  **/
 
 @RunWith(JUnitParamsRunner.class)
-public class TestProblem1526 {
+public class Problem1526Test {
 
     @Parameters({"10,7", "20,19", "10000000,65657060", "1,1"})
     @Test

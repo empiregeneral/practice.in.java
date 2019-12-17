@@ -18,7 +18,7 @@ public class Main {
         while (scanner.hasNextInt()) {
             int a = scanner.nextInt();
             int b = scanner.nextInt();
-            System.out.println(a+b);
+            out.println(a+b);
         }
         out.flush();
     }

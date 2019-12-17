@@ -1,6 +1,7 @@
 package cn.pintia.zjo.practice.problem1048;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.stream.DoubleStream;
 /**
  * @ClassName: Main
  * @Description: zjo 1048 Financial Management
- * 面向对象编程
+ * 要求是面向对象编程
  * @Author :lei.zhu
  * @Date 2019/12/11 16:37
  * @Version 1.0
@@ -31,28 +32,3 @@ public class Main {
     }
 }
 
-class FinancialManagement implements Readable{
-    private double mean;
-    private int count = 1;
-
-    public FinancialManagement(DoubleStream stream) {
-        double result = stream.reduce(0.0, (sum, d1) -> (sum + d1));
-        mean = result / 12;
-    }
-
-    public double getMean() {
-        return mean;
-    }
-
-    @Override
-    public int read(CharBuffer cb) throws IOException {
-        if (--count < 0) {
-            return -1;
-        }
-
-        cb.append(String.format("$%.02f", new Object[]{this.getMean()}));
-        cb.append("\n");
-
-        return 10;
-    }
-}

@@ -42,5 +42,4 @@ public class LeastCommonMultiple {
 
         return a;
     }
-
 }
