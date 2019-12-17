@@ -2,13 +2,12 @@ package cn.pintia.zjo.practice.problem1113;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.nio.ReadOnlyBufferException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * @ClassName: UCalcutionE
- * @Description: TODO
+ * @Description: zju 1113 无输入只有输出格式的要求
  * @Author :lei.zhu
  * @Date 2019/12/17 15:52
  * @Version 1.0
@@ -16,6 +15,7 @@ import java.util.regex.Pattern;
 public class UcalcutionE implements Readable {
 
     private int count = 1;
+    /** Avoid use Pattern.compile in method body. */
     private Pattern pattern = Pattern.compile("\\.0+$");
 
     @Override
@@ -54,5 +54,4 @@ public class UcalcutionE implements Readable {
         }
         return tmp;
     }
-
 }
