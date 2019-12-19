@@ -8,12 +8,10 @@ public class WordReversal implements Readable {
     private int count = 1;
     private Stack<Character> stack = new Stack<>();
     private char[] chars;
-    private int lineSize;
 
 
     public WordReversal(String wordsInLine) {
         this.chars = wordsInLine.toCharArray();
-        lineSize = chars.length;
     }
 
     @Override
