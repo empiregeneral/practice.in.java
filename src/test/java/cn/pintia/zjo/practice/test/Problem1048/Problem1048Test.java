@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.test.Problem1048;
 
 import cn.pintia.zjo.practice.problem1048.FinancialManagement;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -19,6 +21,8 @@ import java.util.stream.DoubleStream;
  * @Version 1.0
  **/
 @RunWith(JUnitParamsRunner.class)
+@Epic("基础题")
+@Feature("就是求解输入数据的平均数")
 public class Problem1048Test {
     @Parameters(method = "testData")
     @Test

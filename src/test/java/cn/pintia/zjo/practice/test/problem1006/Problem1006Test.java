@@ -3,6 +3,8 @@ package cn.pintia.zjo.practice.test.problem1006;
 import cn.pintia.zjo.practice.problem1006.DecipherFacade;
 import cn.pintia.zjo.practice.problem1006.DecipherMachineImp;
 import cn.pintia.zjo.practice.problem1006.TransformCodeImp;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -17,6 +19,8 @@ import org.junit.runner.RunWith;
  * @Version 1.0
  **/
 @RunWith(JUnitParamsRunner.class)
+@Epic("模拟题")
+@Feature("加密解密应用")
 public class Problem1006Test {
     @Parameters({"5,cs.,cat",
                  "101,thqqxw.lui.qswer,this_is_a_secret",

@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.test.problem1797;
 
 import cn.pintia.zjo.practice.problem1797.LeastCommonMultiple;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -14,6 +16,8 @@ import org.junit.runner.RunWith;
  * @Date 2019/12/16 15:12
  * @Version 1.0
  **/
+@Epic("数论题")
+@Feature("最大公倍数和最小公约数的应用，注意越界的问题")
 @RunWith(JUnitParamsRunner.class)
 public class Problem1797Test {
 

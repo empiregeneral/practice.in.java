@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.test.problem1526;
 
 import cn.pintia.zjo.practice.problem1526.BigNumber;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -17,7 +19,8 @@ import java.util.Scanner;
  * @Param
  * @return
  **/
-
+@Epic("数论题")
+@Feature("斯特林公式应用")
 @RunWith(JUnitParamsRunner.class)
 public class Problem1526Test {
 

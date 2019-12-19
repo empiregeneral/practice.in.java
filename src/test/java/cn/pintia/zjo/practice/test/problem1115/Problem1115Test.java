@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.test.problem1115;
 
 import cn.pintia.zjo.practice.problem1115.DigitRoot;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -17,6 +19,8 @@ import java.util.Scanner;
  * @Version 1.0
  **/
 @RunWith(JUnitParamsRunner.class)
+@Epic("数论题")
+@Feature("求数根，数会很大，有现成的推导公式")
 public class Problem1115Test {
 
     @Parameters({"24,6", "39,3", "9223372036854774807,6", "9223372036854774808,7"})
