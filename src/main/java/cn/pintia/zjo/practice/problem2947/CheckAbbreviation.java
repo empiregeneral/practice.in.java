@@ -53,13 +53,19 @@ public class CheckAbbreviation implements Readable, Comparator<CharSequence> {
 
     /**
      * @Author lei.zhu
-     * @Description 注意equals为
+     * @Description 注意equals的使用，需要考虑0 1 -1三种情况
      * @Date 14:00 2019/12/16
      * @Param [o1, o2]
      * @return int
      **/
     @Override
     public int compare(CharSequence o1, CharSequence o2) {
-        return ((o1.length() == o2.length()) && (o1.equals(o2))) ? 0 : 1;
+        if ((o1.length() == o2.length()) && (o1.equals(o2))) {
+            return 0;
+        } else if (o1.length() > o2.length()) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

@@ -24,6 +24,7 @@ public class Problem3609Test {
         Readable readable = new ModuleInverse(a, m);
         Scanner output = new Scanner(readable);
         // System.out.println(output.nextLine());
+        /** 如果使用next()会遇到空格自动输出，所以使用nextLine()输出 */
         Assert.assertEquals(output.nextLine(), ans);
     }
 }
