@@ -3,9 +3,10 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-target/
-.idea/
-.allure/
+/target/
+/.idea/
+/.allure/
+/allure-results/
 
 # Other files and folders
 .settings/
