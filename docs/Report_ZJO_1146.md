@@ -1,0 +1,1 @@
+# ZJO 1146的解题报告## 原题链接[ZJO_1146](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364645)## 解题报告
