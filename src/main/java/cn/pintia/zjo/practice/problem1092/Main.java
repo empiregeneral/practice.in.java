@@ -42,67 +42,7 @@ class DirectedEdge {
     }
 }
 
-class Bag<Item> implements Iterable<Item> {
-    private Node<Item> first;    // beginning of bag
-    private int n;               // number of elements in bag
 
-    // helper linked list class
-    private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
-    }
-
-    public Bag() {
-        first = null;
-        n = 0;
-    }
-
-    public boolean isEmpty() {
-        return first == null;
-    }
-
-    public int size() {
-        return n;
-    }
-
-    public void add(Item item) {
-        Node<Item> oldfirst = first;
-        first = new Node<Item>();
-        first.item = item;
-        first.next = oldfirst;
-        n++;
-    }
-
-    @Override
-    public Iterator<Item> iterator()  {
-        return new LinkedIterator(first);
-    }
-
-    // an iterator, doesn't implement remove() since it's optional
-    private class LinkedIterator implements Iterator<Item> {
-        private Node<Item> current;
-
-        public LinkedIterator(Node<Item> first) {
-            current = first;
-        }
-
-        @Override
-        public boolean hasNext()  { return current != null;                     }
-
-        @Override
-        public void remove()      { throw new UnsupportedOperationException();  }
-
-        @Override
-        public Item next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-    }
-}
 
 class EdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
@@ -218,11 +158,6 @@ class EdgeWeightedDirectedCycle {
     private boolean[] onStack;            // onStack[v] = is vertex on the stack?
     private Stack<DirectedEdge> cycle;    // directed cycle (or null if no such cycle)
 
-    /**
-     * Determines whether the edge-weighted digraph {@code G} has a directed cycle and,
-     * if so, finds such a cycle.
-     * @param G the edge-weighted digraph
-     */
     public EdgeWeightedDirectedCycle(EdgeWeightedDigraph G) {
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];

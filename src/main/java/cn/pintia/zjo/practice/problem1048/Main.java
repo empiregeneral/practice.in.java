@@ -1,11 +1,10 @@
 package cn.pintia.zjo.practice.problem1048;
 
+
 import java.io.*;
-import java.math.BigDecimal;
-import java.nio.CharBuffer;
-import java.util.Arrays;
+
 import java.util.Scanner;
-import java.util.stream.DoubleStream;
+
 
 /**
  * @ClassName: Main
@@ -18,13 +17,14 @@ import java.util.stream.DoubleStream;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
-        double[] balanceInMonthly = new double[12];
+        final int totalMonthly = 12;
+        Bag<Double> bag = new Bag();
 
-        for (int i = 0; i < 12; i++) {
-            balanceInMonthly[i] = scanner.nextDouble();
+        for (int i = 0; i < totalMonthly; i++) {
+            bag.add(scanner.nextDouble());
         }
 
-        Readable readable = new FinancialManagement(Arrays.stream(balanceInMonthly));
+        Readable readable = new FinancialManagement(bag);
         Scanner output = new Scanner(readable);
         while (output.hasNext()) {
             System.out.println(output.next());
