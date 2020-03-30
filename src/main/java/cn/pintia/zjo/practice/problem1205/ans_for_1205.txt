@@ -1,5 +1,5 @@
-package cn.pintia.zjo.practice.problem1205;
-
+import java.io.BufferedInputStream;
+import java.util.Scanner;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.*;
  * @Date 2019/12/16 14:08
  * @Version 1.0
  **/
-public class MartianAddition implements Readable, Comparator<CharSequence> {
+class MartianAddition implements Readable, Comparator<CharSequence> {
     private CharSequence firstNum;
     private CharSequence secondNum;
     private Stack<Character> stack = new Stack<>();
@@ -46,13 +46,6 @@ public class MartianAddition implements Readable, Comparator<CharSequence> {
         return Arrays.binarySearch(martianAlphabets, c);
     }
 
-    /**
-      * @Author lei.zhu
-      * @Description 用'0'填补两个字符串相差的空位
-      * @Date 15:38 2020/3/29
-      * @Param [seq, scale]
-      * @return java.lang.String
-     **/
     private String coverCharSequence(CharSequence seq, int scale) {
         StringBuilder sb = new StringBuilder("");
         char[] tmpChars = new char[scale];
@@ -99,5 +92,28 @@ public class MartianAddition implements Readable, Comparator<CharSequence> {
     @Override
     public int compare(CharSequence o1, CharSequence o2) {
         return o1.length() - o2.length();
+    }
+}
+
+
+
+/**
+ * @ClassName: Main
+ * @Description: zjo 1205
+ * @Author :lei.zhu
+ * @Date 2019/12/16 14:08
+ * @Version 1.0
+ **/
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        while(input.hasNextLine()) {
+            String one = input.nextLine();
+            String two = input.nextLine();
+            Scanner out = new Scanner(new MartianAddition(one, two));
+            while(out.hasNext()) {
+                System.out.println(out.next());
+            }
+        }
     }
 }

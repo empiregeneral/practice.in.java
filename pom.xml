@@ -122,12 +122,12 @@
             <artifactId>algs4</artifactId>
             <version>1.0.0</version>
         </dependency> -->
-        <!-- <dependency>
+         <dependency>
             <groupId>edu.princeton.cs</groupId>
             <artifactId>algs4</artifactId>
             <version>1.0.4</version>
             <type>jar</type>
-        </dependency> -->
+        </dependency>
 
     </dependencies>
 </project>

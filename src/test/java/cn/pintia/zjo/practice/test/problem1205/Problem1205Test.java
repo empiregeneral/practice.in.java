@@ -27,6 +27,7 @@ public class Problem1205Test {
             "1234567890,abcdefghij,bdfi02467j",
             "99999jjjjj,9999900001,iiiij00000",
             "jjjjjjjjjj,0000000001,10000000000",
+            ",j,j"
     })
     @Test
     public void matriansPlus(String one, String two, String result) {

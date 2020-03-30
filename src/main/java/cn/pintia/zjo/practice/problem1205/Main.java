@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 /**
  * @ClassName: Main
- * @Description: zjo 1205
+ * @Description: zjo 1205，消耗的时间121ms
+ *               内存10972KB
  * @Author :lei.zhu
  * @Date 2019/12/16 14:08
  * @Version 1.0
