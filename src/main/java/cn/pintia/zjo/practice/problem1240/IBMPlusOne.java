@@ -11,17 +11,20 @@ import java.nio.CharBuffer;
   * @return
  **/
 public class IBMPlusOne implements Readable {
-    private int count = 1;
+    private int count;
     private final int PLUSONE = 1;
+    private final int valueOfZ = (int)'Z';
+    private final int numOfAlphabets = 26;
     private CharSequence input;
 
-    public IBMPlusOne(CharSequence charSequence) {
+    public IBMPlusOne(CharSequence charSequence, int count) {
         this.input = charSequence;
+        this.count = count;
     }
 
-    private char getNumbericeValue(char ch, int offset) {
+    private char getNumericValue(char ch, int offset) {
         int ret = (ch + offset);
-        return (char) ((ret > 90) ? ret - 26 : ret);
+        return (char) ((ret > valueOfZ) ? ret - numOfAlphabets : ret);
     }
 
 
@@ -32,7 +35,7 @@ public class IBMPlusOne implements Readable {
         }
 
         for (int i = 0; i < input.length(); i++) {
-            cb.append("" +getNumbericeValue(input.charAt(i), PLUSONE));
+            cb.append("" + getNumericValue(input.charAt(i), PLUSONE));
         }
         cb.append("");
 
