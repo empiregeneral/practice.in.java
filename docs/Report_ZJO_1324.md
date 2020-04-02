@@ -34,13 +34,15 @@ dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 
 ## 解题思路和报告内容
 1. 查看过unix ls的coreutils源代码，ls.c的代码异常复杂，你要看清楚其打印逻辑，黄花菜都凉了。
-2. 题目要求是在60个字符内格式化输出文件名，输入的数据可以存储在ArrayList<String>中，后面就针对ArrayList<String>进行处理操作就可以了。
+2. 题目要求是在60个字符内格式化输出文件名，输入的数据可以存储在```ArrayList<String>```中，后面就针对```ArrayList<String>```进行处理操作就可以了。
 3. 避免面向过程编程，要通过Java设计的类和接口组织输出的结果。
 设计思路
-使用接口来封装格式化ArrayList<String>的行文
+使用接口来封装格式化```ArrayList<String>```的行文
+```
 interface FormattedListInString {
     Readable formatted();
 }
+```
 实际上输出的是Formatted类read函数处理的结果，注意Main函数为其总接口。
 
 代码实现容易，Debug往往很难，但是要掌握一条原则，在设计的过程只要掌握合理的设计的思路（包含合适设计模式、数据结构），无需关心过多的输入输出的细节，这样coding的结果才高效可信。
