@@ -1,10 +1,10 @@
 # ZJO 1146的解题报告
 
-## 原题链接
+## 原题内容
 
 [ZJO_1146](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364645)
 
-LCD Display问题，考验输出能力，类似的问题有LCD Test可以相互参考设计。
+LCD Display，主要考验是输出能力，类似的问题有LCD Test可以相互参考设计。
 
 ## 解题报告
 解题思路
