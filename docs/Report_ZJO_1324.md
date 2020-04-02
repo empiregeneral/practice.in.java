@@ -26,8 +26,10 @@ dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 这仅仅是一个“特殊”的测试用例，注意两行文件名的长度应该是大于等于60个字符。
 
 题外话：通过Linux命令可以生产最多32未字符，轻易地造数据并组织测试用例：
-```date +%s%N | md5sum | head -c 64
-   cat /dev/urandom | head -n 10 | md5sum
+```
+date +%s%N | md5sum | head -c 64
+cat /dev/urandom | head -n 10 | md5sum
+
 ```
 
 注意最多只输出32个字符
