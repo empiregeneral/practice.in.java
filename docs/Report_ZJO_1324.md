@@ -43,7 +43,7 @@ interface FormattedListInString {
     Readable formatted();
 }
 ```
-实际上输出的是Formatted类read函数处理的结果，注意Main函数为其总接口。
+实际上输出的是Formatted类中处理List中字符串的结果，当然Main是输入输出的总开关。
 
 代码实现容易，Debug往往很难，但是要掌握一条原则，在设计的过程只要掌握合理的设计的思路（包含合适设计模式、数据结构），无需关心过多的输入输出的细节，这样coding的结果才高效可信。
 
