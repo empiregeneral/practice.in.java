@@ -10,11 +10,11 @@ public class Main {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
         while(scanner.hasNext()) {
             int capacity = scanner.nextInt();
-            List<String> inputList = new ArrayList<String>(capacity);
+            List<String> inputList = new ArrayList<>(capacity);
             for (int i = 0; i < capacity; i++) {
                 inputList.add(scanner.next());
             }
-            Readable readable = new DecorateFormatted(inputList).formatted();
+            Readable readable = new FormattedListInStringImp(inputList).formatted();
             Scanner output = new Scanner(readable);
             while(output.hasNextLine()) {
                 System.out.println(output.nextLine());

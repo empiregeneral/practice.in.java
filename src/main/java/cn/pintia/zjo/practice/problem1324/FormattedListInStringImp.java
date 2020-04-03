@@ -9,7 +9,7 @@ public class FormattedListInStringImp implements FormattedListInString {
     private Readable readable;
 
     public FormattedListInStringImp(List<String> inputList) {
-        readable = new Formatted(inputList);
+        readable = new DecorateFormatted(inputList);
     }
 
     @Override
