@@ -73,7 +73,7 @@ interface FormattedListInString {
 
 面对文本类型输出格式就没有别的好办法了，目前为止程序中还是读取文件ouput_1324.txt每行的内容做比对。
 
-设计一个ListInStringMapper.class适配器是运行该测试方法的核心内容。
+设计一个ListInStringMapper.class适配器是运行该测试方法的核心。
 ```
     @Test
     @FileParameters(value = "src/test/resources/test_1324.csv", mapper = ListInStringMapper.class)
