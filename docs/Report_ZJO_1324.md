@@ -64,13 +64,18 @@ interface FormattedListInString {
    获取ROWS和COLUMNS的算法我还未推敲清楚，只是看着答案来编程，需要继续琢磨……
 
 最后如果要编写测试代码，需要怎么样设计，能否设计程序之初就编写好了测试代码？
+
 1. 使用proxy代理反馈interface的结果？
+
 2. JUnitParams中读取csv文件来组织测试函数的数据？
+
 这种文本类型的输入，使用JUnitParams框架@@FileParameters来组织数据。
+
 面对文本类型输出格式就没有别的好办法了，目前为止程序中还是读取文件ouput_1324.txt每行的内容做比对。
+
 设计一个ListInStringMapper.class适配器是运行该测试方法的核心内容。
 ```
-@Test
+    @Test
     @FileParameters(value = "src/test/resources/test_1324.csv", mapper = ListInStringMapper.class)
     public void testFormattedListInString(List<String> inputList) throws FileNotFoundException {
         Readable readable = new FormattedListInStringImp(inputList).formatted();
