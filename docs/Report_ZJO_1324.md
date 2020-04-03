@@ -23,12 +23,12 @@ dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 ```
 
-这仅仅是一个“特殊”的测试用例，注意两行文件名的长度应该是大于等于60个字符。
+这是一个“特殊”的测试用例，网页上的测试用例都是正常的用例，其包含的文件名的长度是大于等于60个字符的。
 
-可以在Linux终端，输入命令和设计脚本造60个字符以上的文件名。
+这里补充一点，可以在Linux终端，输入命令和脚本构造，60个字符以上的文件名。
 ```
-date +%s%N | md5sum | head -c 64
-cat /dev/urandom | head -n 10 | md5sum
+date +%s%N | md5sum | head -c 64 （32个字符）
+cat /dev/urandom | head -n 10 | md5sum （32个字符）
 
 ```
 ```function randStr { j=0; for i in {a..z};do array[$j]=$i;j=$(($j+1));done; for i in {A..Z};do array[$j]=$i;j=$(($j+1));done; for ((i=0;i<64;i++));do strs="$strs${array[$(($RANDOM%$j))]}"; done; echo $strs; }```
@@ -42,8 +42,8 @@ cat /dev/urandom | head -n 10 | md5sum
 
 编程注意点：
 1. 输入超过60个字符的文件名如何，结果应该还是要按需打印的。
-2. 每一行最后的文件名不要带空格，带了空格的文件名输出的答案ACM显示PE，通过diff命令会报错。空格处理的正则表达式为```"[　*| *| *|//s*]*$"```
-3. 考虑输出个数在ArrayList<String>数组超限的问题。
+2. 每一行最后的文件名不要带空格，带了空格的文件名输出的答案ACM显示PE，如果肉眼看不出，通过diff命令比较正确程序编辑的答案和编写程序输出的结果就会报错。这里空格处理的正则表达式为```"[　*| *| *|//s*]*$"```
+3. 考虑输出个数在ArrayList<String>数组中超限的问题。
 
 设计思路：
 1. 使用接口来封装格式化文件名的列表
@@ -54,6 +54,7 @@ interface FormattedListInString {
 ```
 2. 输出的是Formatted类中处理List中字符串的结果，Main类是负责处理输入和得出最终的输出。
 
+经验总结和设计的坑
 代码实现容易，Debug往往很难，但是要掌握一条原则，在设计的过程只要掌握合理的设计的思路（包含合适设计模式、数据结构），无需关心过多的输入输出的细节，这样实现的结果才大致和目标值一致，最后通过debug关注细节问题。
 
 但是该问题的Debug确实有很多坑：
@@ -62,6 +63,8 @@ interface FormattedListInString {
 2. 获取输出的ROWS和COLUMNS的边界问题，有些用例容易越界。
    获取ROWS和COLUMNS的算法我还未推敲清楚，只是看着答案来编程，需要继续琢磨……
 
-最后还需要思考一下，测试代码要怎么样设计才能简洁明了，可否在设计代码之初就将测试代码设计好了。
-mock interface的最终结果???
+最后如果要编写测试代码，需要怎么样设计，能否设计程序之初就编写好了测试代码？
+1. 使用proxy代理反馈interface的结果？
+2. JUnitParams中读取csv文件来组织测试函数的数据？
+
 
