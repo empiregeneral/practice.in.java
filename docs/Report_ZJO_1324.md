@@ -1,14 +1,15 @@
-# ZJO 1324的解题报告
+# ZJO 1324 Solved Report
 
-## 问题内容
-[ZJO_1324](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364823)
+## Subject
+[Unix ls](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364823)
 
 
 题目大意
-模拟unix终端中ls命令的输出，其中要求模拟屏幕的宽度下打印文件名列表，文件的名称的限制（其实不用去管，呵呵）为{a-zA-Z.-_}。
+模拟unix终端中ls命令的输出，其中要求模拟屏幕的宽度下打印文件名列表，文件的名称的限制为字符集{a-zA-Z.-_}。
 
-每个文件名以最大文件名为准向左对齐，每列输出之间隔着两个空格。
+每个文件名以最大文件名为准向左对齐，每列输出的文件名之间隔着两个空格。
 
+测试用例：
 输入：
 ```
 2
@@ -23,27 +24,39 @@ dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 dbe2fc281529420a0a5d8e28151b49ec373a0afa07c6b58cb4bd6ec36defcfa7
 ```
 
-这是一个“特殊”的测试用例，网页上的测试用例都是正常的用例，其包含的文件名的长度是大于等于60个字符的。
+此为“特殊”的测试用例，与网页上的不同，其包含的文件名的长度是大于等于60个字符的。
 
-这里补充一点，可以在Linux终端，输入命令和脚本构造，60个字符以上的文件名。
+在Linux终端中，通过输入的命令和编写shell脚本，可以一步得出60个以上字符的文件名。
 ```
 date +%s%N | md5sum | head -c 64 （32个字符）
 cat /dev/urandom | head -n 10 | md5sum （32个字符）
 
 ```
-```function randStr { j=0; for i in {a..z};do array[$j]=$i;j=$(($j+1));done; for i in {A..Z};do array[$j]=$i;j=$(($j+1));done; for ((i=0;i<64;i++));do strs="$strs${array[$(($RANDOM%$j))]}"; done; echo $strs; }```
+
+```
+function randStr { 
+            j=0; 
+            for i in {a..z};do array[$j]=$i;j=$(($j+1));done; 
+            for i in {A..Z};do array[$j]=$i;j=$(($j+1));done; 
+            for ((i=0;i<64;i++)); 
+            do 
+                strs="$strs${array[$(($RANDOM%$j))]}"; 
+            done; 
+            echo $strs; }
+```
 
 
 ## 解题思路和报告内容
 解题思路：
-1. 查看过unix ls的coreutils源代码，ls.c的代码异常复杂，你要看清楚其打印逻辑，黄花菜都凉了。
-2. 题目要求是在60个字符内格式化输出文件名，输入的数据可以存储在```ArrayList<String>```中，后面就针对```ArrayList<String>```进行打印输出就可以了。
-3. 参考了某人的正确代码，看着像面条一样，可读性极差。为了纠正其反动本质，要用面向接口编程来组织代码。
+1. 查看过unix ls的coreutils源代码，ls.c的代码异常复杂，等到看清楚其打印逻辑，黄花菜都凉了。
+2. 输入的数据可以存储在```ArrayList<String>```中，设计的类Formatted和接口都是围绕其做格式化处理。
+3. 看着Cpp编写的正确的代码，非常难受，使用面向接口编程至少读起来比起清晰明了。
+4. 输出的结果可否使用装饰器格式来修饰。
 
 编程注意点：
 1. 输入超过60个字符的文件名如何，结果应该还是要按需打印的。
-2. 每一行最后的文件名不要带空格，带了空格的文件名输出的答案ACM显示PE，如果肉眼看不出，通过diff命令比较正确程序编辑的答案和编写程序输出的结果就会报错。这里空格处理的正则表达式为```"[　*| *| *|//s*]*$"```
-3. 考虑输出个数在ArrayList<String>数组中超限的问题。
+2. 每一行最后的文件名后面不能有空格输出。如果肉眼能看不出结果，可以使用diff -c命令来比。
+3. 考虑输出个数组列表index值超出ArrayList<String>长度的处理。
 
 设计思路：
 1. 使用接口来封装格式化文件名的列表
@@ -53,12 +66,14 @@ interface FormattedListInString {
 }
 ```
 2. 输出的是Formatted类中处理List中字符串的结果，Main类是负责处理输入和得出最终的输出。
+3. 通过装饰器DecorateFormatted来修饰Formatted类的最终输出结果。
+
 
 经验总结和设计的坑
 代码实现容易，Debug往往很难，但是要掌握一条原则，在设计的过程只要掌握合理的设计的思路（包含合适设计模式、数据结构），无需关心过多的输入输出的细节，这样实现的结果才大致和目标值一致，最后通过debug关注细节问题。
 
 但是该问题的Debug确实有很多坑：
-1. 输出的每一行最后不存在空格，这点我一开始纠结了很久，需要查看ls的命令的结果和网上的答案才搞清楚。
+1. 输出的每一行最后不存在空格，这点我一开始纠结了很久，需要查看ls的命令的结果，才知道打印文件名实现的结果。
    狠了一点，使用diff -c命令比较输出的结果，这上面花了不少的时间。
 2. 获取输出的ROWS和COLUMNS的边界问题，有些用例容易越界。
    获取ROWS和COLUMNS的算法我还未推敲清楚，只是看着答案来编程，需要继续琢磨……
@@ -87,4 +102,6 @@ interface FormattedListInString {
     }
 ```
 
+## Hit Problems
+[Formate text](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364646)
 

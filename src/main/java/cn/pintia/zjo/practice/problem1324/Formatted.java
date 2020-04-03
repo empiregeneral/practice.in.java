@@ -10,46 +10,34 @@ import java.util.List;
 
 /**
   * @Author lei.zhu
-  * @Description 向unix系统的ls命令一样输出
-  * @Date 22:47 2020/3/31
-  * @Param
-  * @return
+  * @Description 格式化输出打印结果
+  * @Date 1:05 2020/4/4
+  * @Param 
+  * @return 
  **/
-public class Unixls implements Readable {
-
-    private int count = 1;
-    private FormattedListInString format;
-
-    public Unixls(String files) {
-        List<String> fileList = new ArrayList<>();
-        this.format = new FormattedListInString(fileList);
-    }
-
-
-    @Override
-    public int read(CharBuffer cb) throws IOException {
-        if (--count < 0) {
-            return -1;
-        }
-
-        return 10;
-    }
-
-    public static void main(String[] args) {
-
-    }
-}
-
-class FormattedListInString {
-    private List<String> outputList = new ArrayList<>();
+public class Formatted implements FormattedListInString, Readable {
+    private List<String> outputList =  new ArrayList<>();
     private List<String> inputList;
     private int paddedScale;
+    private int count = 1;
+    private final int DEFAULT_ROWS = 10;
+    private final int DEFAULT_COLUMNS = 1;
+    private final int SCREEN_WIDTH = 60;
+    private int ROWS = DEFAULT_ROWS;
+    private int COLUMNS = DEFAULT_COLUMNS;
 
-    public FormattedListInString(List<String> inputList) {
+    public Formatted(List<String> inputList) {
         this.inputList = inputList;
+        int n = inputList.size();
         this.paddedScale = findLongestStrLength(inputList) + 2;
         Collections.sort(this.inputList, Collator.getInstance());
         formatedStrList(this.inputList, this.paddedScale);
+        if (this.paddedScale > SCREEN_WIDTH) {
+            COLUMNS = 1;
+        } else {
+            COLUMNS = SCREEN_WIDTH / this.paddedScale; // 怎么推算的？
+        }
+        ROWS = ((n - 1) / COLUMNS ) + 1; // 怎么推算的？
     }
 
     private int findLongestStrLength(List<String> inputList) {
@@ -74,14 +62,11 @@ class FormattedListInString {
         }
     }
 
-    public List<String> getFormatedStrList() {
-        return this.outputList;
-    }
-
     @Override
     public String toString() {
         return outputList.toString();
     }
+
 
     private String paddedCharSequence(CharSequence seq, int scale) {
         StringBuilder sb = new StringBuilder("");
@@ -91,5 +76,32 @@ class FormattedListInString {
         }
         sb.append(seq).append(tmpChars);
         return sb.toString();
+    }
+
+    @Override
+    public int read(CharBuffer cb) throws IOException {
+        if (--count < 0) {
+            return -1;
+        }
+
+        /* 将一维列表作为二维矩阵打印出来，要注意的是越界的问题 */
+        for (int row = 0; row < ROWS; row++) {
+            for (int column = 0; column < COLUMNS; column++) {
+                int index = column * ROWS + row;
+                if (index >= outputList.size()) {
+                    break;
+                }
+                cb.append(outputList.get(index));
+            }
+            cb.append("\n");
+        }
+        cb.append("");
+
+        return 0;
+    }
+
+    @Override
+    public Readable formatted() {
+        return this;
     }
 }
