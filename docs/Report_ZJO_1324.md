@@ -1,6 +1,6 @@
 # ZJO 1324的解题报告
 
-## 原题内容
+## 问题内容
 [ZJO_1324](https://zoj.pintia.cn/problem-sets/91827364500/problems/91827364823)
 
 
