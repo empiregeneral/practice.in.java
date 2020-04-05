@@ -14,7 +14,7 @@ public class Main {
             for (int i = 0; i < capacity; i++) {
                 inputList.add(scanner.next());
             }
-            Readable readable = new DecorateFormatted(inputList).formatted();
+            Readable readable = new FormattedListInStringImp(inputList).formatted();
             Scanner output = new Scanner(readable);
             while(output.hasNextLine()) {
                 System.out.println(output.nextLine());
