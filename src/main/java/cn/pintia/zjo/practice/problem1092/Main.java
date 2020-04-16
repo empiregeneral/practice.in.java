@@ -457,6 +457,12 @@ public class Main {
 
             if (spt.hasNegativeCycle()) {
                 System.out.println("Case " + cases + ":" + " Yes");
+                Iterable<DirectedEdge> cycle = spt.negativeCycle();
+                Iterator<DirectedEdge> cycleIterator = cycle.iterator();
+                while(cycleIterator.hasNext()) {
+                    DirectedEdge edge = cycleIterator.next();
+                    System.out.println(edge.toString());
+                }
             } else {
                 System.out.println("Case " + cases + ":" + " No");
             }
