@@ -1,8 +1,8 @@
 package cn.pintia.zjo.practice.problem1048;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.CharBuffer;
+import java.util.Iterator;
 import java.util.stream.DoubleStream;
 
 /**
@@ -19,6 +19,15 @@ public class FinancialManagement implements Readable{
     public FinancialManagement(DoubleStream stream) {
         double result = stream.reduce(0.0, (sum, d1) -> (sum + d1));
         mean =  result / 12;
+    }
+
+    public FinancialManagement(Bag<Double> bag) {
+        Iterator<Double> iterator = bag.iterator();
+        double sum = 0.0;
+        while(iterator.hasNext()) {
+            sum = sum + iterator.next();
+        }
+        mean = sum / 12.00;
     }
 
     public double getMean() {
