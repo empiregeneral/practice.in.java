@@ -7,8 +7,7 @@ import cn.hutool.aop.aspects.TimeIntervalAspect;
 import java.io.IOException;
 import java.nio.CharBuffer;
 
-public class HumbleNumberGenerate implements Readable, Generate<Integer> {
-    private int count = 1;
+public class HumbleNumberGenerate implements Generate<Integer> {
     private int p2;
     private int p3;
     private int p5;
@@ -63,11 +62,6 @@ public class HumbleNumberGenerate implements Readable, Generate<Integer> {
 
     public boolean hasNext() {
         return (index < maxCapacity - 1) ;
-    }
-
-    @Override
-    public int read(CharBuffer cb) throws IOException {
-        return 0;
     }
 
     public static void main(String[] args) {
