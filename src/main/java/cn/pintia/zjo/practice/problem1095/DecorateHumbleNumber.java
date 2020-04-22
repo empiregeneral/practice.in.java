@@ -24,11 +24,16 @@ public class DecorateHumbleNumber implements Readable, Printable {
         }
         while(input.hasNext()) {
             int value = input.nextInt();
-            if ((n % 100 >= 11) && (n % 100 <= 13)) {
+            if ( n % 10 == 1 && n % 100 != 11) {
+                cb.append(String.format("The %dst humble number is %d.", new Object[]{n, value}));
+            } else if ( n % 10 == 2 && n % 100 != 12 ) {
+                cb.append(String.format("The %dnd humble number is %d.", new Object[]{n, value}));
+            } else if ( n % 10 == 3 && n % 100 != 13) {
+                cb.append(String.format("The %drd humble number is %d.", new Object[]{n, value}));
+            } else {
                 cb.append(String.format("The %dth humble number is %d.", new Object[]{n, value}));
             }
         }
-        cb.append("\n");
 
         return 10;
     }
@@ -36,13 +41,5 @@ public class DecorateHumbleNumber implements Readable, Printable {
     @Override
     public Readable print() {
         return this;
-    }
-
-    public static void main(String[] args) {
-        Readable readable = new DecorateHumbleNumber(111);
-        Scanner output = new Scanner(readable);
-        while(output.hasNextLine()) {
-            System.out.println(output.nextLine());
-        }
     }
 }

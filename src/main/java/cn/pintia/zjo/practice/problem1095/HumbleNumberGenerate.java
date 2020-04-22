@@ -1,36 +1,35 @@
 package cn.pintia.zjo.practice.problem1095;
 
-import benchmark.JvmRuntimeAspect;
-import cn.hutool.aop.ProxyUtil;
-import cn.hutool.aop.aspects.TimeIntervalAspect;
-
-import java.io.IOException;
-import java.nio.CharBuffer;
-
-public class HumbleNumberGenerate implements Generate<Integer> {
+public class HumbleNumberGenerate implements Generate {
     private int p2;
     private int p3;
     private int p5;
     private int p7;
+    private int[] humbleNumbers;
+    private int capacity;
     private int index = 0;
-    private Integer[] humbleNumbers;
-    private final int maxCapacity;
 
     public HumbleNumberGenerate() {
         this(5842);
     }
 
-    public HumbleNumberGenerate(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-        humbleNumbers = new Integer[this.maxCapacity];
-        humbleNumbers[index] = 1;
+    public HumbleNumberGenerate(int capacity) {
+        this.capacity = capacity;
+        humbleNumbers = new int[this.capacity+1];
+        humbleNumbers[0] = 1;
         p2 = 0;
         p3 = 0;
         p5 = 0;
         p7 = 0;
     }
 
-    private void dp() {
+    @Override
+    public int next() {
+        dp();
+        return humbleNumbers[index];
+    }
+
+    public void dp() {
         humbleNumbers[++index] = Math.min(Math.min(humbleNumbers[p2] * 2, humbleNumbers[p3] * 3), Math.min(humbleNumbers[p5] * 5, humbleNumbers[p7] * 7));
         if (humbleNumbers[index] == humbleNumbers[p2] * 2) {
             p2++;
@@ -47,13 +46,7 @@ public class HumbleNumberGenerate implements Generate<Integer> {
     }
 
     @Override
-    public Integer next() {
-        dp();
-        return humbleNumbers[index];
-    }
-
-    @Override
-    public Integer[] createTable() {
+    public int[] createTable() {
         while(hasNext()) {
             next();
         }
@@ -61,12 +54,7 @@ public class HumbleNumberGenerate implements Generate<Integer> {
     }
 
     public boolean hasNext() {
-        return (index < maxCapacity - 1) ;
+        return (index < capacity) ;
     }
 
-    public static void main(String[] args) {
-        Generate<Integer> generator = ProxyUtil.proxy(new HumbleNumberGenerate(), JvmRuntimeAspect.class);
-        Integer[] arr = generator.createTable();
-        System.out.println(arr[5841]);
-    }
 }
