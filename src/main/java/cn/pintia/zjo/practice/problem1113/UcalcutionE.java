@@ -18,6 +18,8 @@ public class UcalcutionE implements Readable {
     /** Avoid use Pattern.compile in method body. */
     private Pattern pattern = Pattern.compile("\\.0+$");
 
+    private final int TOTAL = 9;
+
     @Override
     public int read(CharBuffer cb) throws IOException {
         if ( count-- == 0) {
@@ -28,7 +30,7 @@ public class UcalcutionE implements Readable {
         sb.append("n e\n");
         sb.append("- -----------\n");
         double sum = 0.0;
-        for ( int i = 0; i <=9; i++) {
+        for ( int i = 0; i <=TOTAL; i++) {
             sum += 1.0 / factor(i);
 
             if ( i < 3) {

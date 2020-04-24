@@ -1,25 +1,22 @@
-package cn.pintia.zjo.practice.test.problem1324;
+package cn.pintia.zjo.practice.test.problem1095;
 
 import junitparams.mappers.DataMapper;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class ListInStringMapper implements DataMapper {
+public class NumberMapper implements DataMapper {
     private final int lineToSkip;
 
-    public ListInStringMapper() {
+    public NumberMapper() {
         this(1);
     }
 
-    public ListInStringMapper(int lineToSkip) {
+    public NumberMapper(int lineToSkip) {
         this.lineToSkip = lineToSkip;
     }
-
 
     @Override
     public Object[] map(Reader reader) {
@@ -30,22 +27,13 @@ public class ListInStringMapper implements DataMapper {
         try {
             while((line = br.readLine()) != null) {
                 if (++lineNo > lineToSkip) {
-                    params.add(new Object[]{toList(line)});
+                    String[] parts = line.split(",");
+                    params.add(new Object[]{Integer.parseInt(parts[0]),parts[1]});
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return params.toArray();
     }
-
-    private List<String> toList(String strList) {
-        Scanner input = new Scanner(new ByteArrayInputStream(strList.getBytes()));
-        List<String> myList = new ArrayList<>();
-        while(input.hasNext()) {
-            myList.add(input.next());
-        }
-        return myList;
-    }
-
 }
