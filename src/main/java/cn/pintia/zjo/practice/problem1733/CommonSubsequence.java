@@ -1,7 +1,9 @@
 package cn.pintia.zjo.practice.problem1733;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.CharBuffer;
+import java.util.Scanner;
 
 public class CommonSubsequence implements FindCommonSubsequence, Readable{
     private int count = 1;
@@ -10,6 +12,18 @@ public class CommonSubsequence implements FindCommonSubsequence, Readable{
     private int[][] dp;
     private int row;
     private int column;
+
+    public CommonSubsequence(String line) {
+        Scanner scanner = new Scanner(new ByteArrayInputStream(line.getBytes()));
+        while(scanner.hasNext()) {
+            one = scanner.next();
+            two = scanner.next();
+            row = one.length()+1;
+            column = two.length()+1;
+            dp= new int[row][column];
+        }
+        initMatrixInZero();
+    }
 
     public CommonSubsequence(CharSequence one, CharSequence two) {
         this.one = one;
@@ -34,7 +48,7 @@ public class CommonSubsequence implements FindCommonSubsequence, Readable{
                 if (one.charAt(i-1) == two.charAt(j-1)) {
                     dp[i][j] = dp[i-1][j-1] + 1;
                 } else {
-                    dp[i][j] = (dp[i-1][j] > dp[i][j-1] ? dp[i-1][j] : dp[i][j-1]);
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
                 }
             }
         }

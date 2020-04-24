@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+//        StreamTokenizer tokenizer = new StreamTokenizer(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
         while (scanner.hasNextInt()) {
             int a = scanner.nextInt();
