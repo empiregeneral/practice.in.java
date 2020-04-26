@@ -1,66 +1,65 @@
 package cn.pintia.zjo.practice.problem1111;
 
-import java.util.*;
 
 public enum HandType {
     /**
-     * 同花顺
+     * 同花顺，按照最大的牌面大小排序。
      */
-    STRAIGHT_FLUSH() {
+    STRAIGHT_FLUSH("STRAIGHT_FLUSH: 5 cards of the same suit with consecutive values. Ranked by the highest card in the hand.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasStraightFlush(hand);
         }
     },
     /**
-     * 四条,4个同样的牌加一个牌
+     * 四条,4个同样的牌加一个牌，按照4张牌面大小排序。
      */
-    FOUR_Of_A_KIND() {
+    FOUR_Of_A_KIND("4 cards with the same value. Ranked by the value of the 4 cards.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasFourOfAKind(hand);
         }
     },
     /**
-     * 葫芦，3个同样的牌加上1个对子
+     * 葫芦，3个同样的牌加上1个对子，按照3张相同的牌面大小排序。
      */
-    FULL_HOUSE() {
+    FULL_HOUSE("FULL_HOUSE: 3 cards of the same value, with the remaining 2 cards forming a pair. Ranked by the value of the 3 cards.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasFullHouse(hand);
         }
     },
     /**
-     * 同花，5个花色一样的牌
+     * 同花，5个花色一样的牌, 按照最大牌面大小排序。
      */
-    FLUSH() {
+    FLUSH("Hand contains 5 cards of the same suit. Hands which are both flushes are ranked using the rules for High Card.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasFlush(hand);
         }
     },
     /**
-     * 顺子,五张依次递增的牌
+     * 顺子,五张依次递增的牌,按照最大牌的大小排序
      */
-    STRAIGHT() {
+    STRAIGHT("Hand contains 5 cards with consecutive values. Hands which both contain a straight are ranked by their highest card.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasStraight(hand);
         }
     },
     /**
-     * 三条，3个同样牌
+     * 三条，3个同样牌，按照3张牌的牌面大小排序
      */
-    THREE_OF_A_KIND() {
+    THREE_OF_A_KIND("THREE_OF_A_KIND: Three of the cards in the hand have the same value. Hands which both contain three of a kind are ranked by the value of the 3 cards.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasFourOfAKind(hand);
         }
     },
     /**
-     * 2个对子
+     * 2个对子,按照最大的一对对子的大小进行排序，如果相同，比较较小的一对对子，如果还是相同，请比较剩下的牌面
      */
-    TWO_PAIRS() {
+    TWO_PAIRS("TWO PAIRS: The hand contains 2 different pairs. Hands which both contain 2 pairs are ranked by the value of their highest pair. Hands with the same highest pair are ranked by the value of their other pair. If these values are the same the hands are ranked by the value of the remaining card.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasTwoPairs(hand);
@@ -69,7 +68,7 @@ public enum HandType {
     /**
      * 1个对子
      */
-    ONE_PARIS() {
+    PAIR("2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the cards forming the pair. If these values are the same, the hands are ranked by the values of the cards not forming the pair, in decreasing order.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasOnePair(hand);
@@ -78,12 +77,23 @@ public enum HandType {
     /**
      * 牌面最大的牌
      */
-    HIGH_CARD() {
+    HIGH_CARD("Hands which do not fit any higher category are ranked by the value of their highest card. If the highest cards have the same value, the hands are ranked by the next highest, and so on.") {
         @Override
         protected boolean isValid(Card[] hand) {
             return HandTypeEvaluator.hasHighestCard(hand);
         }
     };
+
+
+    private String description;
+
+    HandType(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Verify if a handType is present in a given hand.
@@ -94,90 +104,9 @@ public enum HandType {
      */
     protected abstract boolean isValid(Card[] hand);
 
-    /**
-     * Verify if a hand type is present in a game. The idea is to maximize the use
-     * of the deck (where the order matters). Thus, the search begins with all the
-     * cards of the deck, avoiding the deck + hand combinations.
-     *
-     * @param hand Player's cards.
-     * @param deck Deck's cards.
-     * @return {@code true} if the hand type is present in the game, {@code false}
-     *         otherwise.
-     */
-    public boolean contains(List<Card> hand, List<Card> deck) {
-        // Generate all the combinations with the hand
-        List<List<Card>>[] allCombinations = getCombinations(hand);
-
-        for (int i = deck.size(); i >= 0; i--) {
-            int nSlots = deck.size() - i;
-
-            // Case 1: Using all the deck
-            if (nSlots == 0) {
-                Card[] deckTest = deck.toArray(new Card[deck.size()]);
-                Arrays.sort(deckTest);
-
-                if (isValid(deckTest)) {
-                    return true;
-                }
-                continue;
-            }
-
-            // Case 2: Using the deck partially
-            List<List<Card>> combinations = allCombinations[nSlots - 1];
-            Card[] handTest = new Card[5];
-            for (List<Card> combination : combinations) {
-                // Get the deck's cards that will be used
-                for (int j = 0; j < i; j++) {
-                    handTest[j] = deck.get(j);
-                }
-
-                // Check each hand combination
-                for (int j = i; j < deck.size(); j++) {
-                    handTest[j] = combination.get(j - i);
-                }
-
-                Arrays.sort(handTest);
-
-                if (isValid(handTest)) {
-                    return true;
-                }
-            }
+    public static void main(String[] args) {
+        for (HandType handType : HandType.values()) {
+            System.out.println(handType + ": " + handType.getDescription());
         }
-        return false;
-    }
-
-    /**
-     * Generates all combinations in a list of cards.
-     *
-     * @param originalList List.
-     * @return All combinations.
-     */
-    public List<List<Card>>[] getCombinations(List<Card> originalList) {
-        @SuppressWarnings("unchecked")
-        List<List<Card>>[] allCombinations = new List[originalList.size()];
-        for (int inx = 0; inx < allCombinations.length; inx++) {
-            allCombinations[inx] = new ArrayList<List<Card>>();
-        }
-
-        int size = originalList.size();
-        int threshold = (int) Math.pow(2, size) - 1;
-
-        for (int i = 1; i <= threshold; ++i) {
-            int count = size - 1;
-            int iCopy = i;
-            int nBits = 0;
-            LinkedList<Card> individualCombinationList = new LinkedList<Card>();
-
-            while (count >= 0) {
-                if ((iCopy & 1) != 0) {
-                    individualCombinationList.addFirst(originalList.get(count));
-                    nBits++;
-                }
-                iCopy = iCopy >>> 1;
-                --count;
-            }
-            allCombinations[nBits - 1].add(individualCombinationList);
-        }
-        return allCombinations;
     }
 }

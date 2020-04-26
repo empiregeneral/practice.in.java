@@ -2,7 +2,7 @@ package cn.pintia.zjo.practice.test.problem1111;
 
 import cn.pintia.zjo.practice.problem1111.Card;
 
-public abstract class TestUtil {
+public abstract class PokerCardsUtil {
     /** Sample cards */
     protected Card _2C, _3C, _4C, _5C, _6C, _7C, _8C, _9C, _TC, _JC, _QC, _KC,
             _AC;
@@ -16,7 +16,7 @@ public abstract class TestUtil {
     /**
      * Constructor.
      */
-    protected TestUtil() {
+    protected PokerCardsUtil() {
         _2C = new Card(Card.Rank.TWO, Card.Suit.C);
         _3C = new Card(Card.Rank.THREE, Card.Suit.C);
         _4C = new Card(Card.Rank.FOUR, Card.Suit.C);

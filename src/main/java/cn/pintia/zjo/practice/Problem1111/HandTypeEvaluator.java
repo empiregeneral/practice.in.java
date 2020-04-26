@@ -155,6 +155,9 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasTwoPairs(Card[] hand) {
+        if (hasFullHouse(hand) || hasFourOfAKind(hand)) {
+            return false;
+        }
         if (hand.length >= 4) {
             int indx = -1;
             for (int i = 0; i < hand.length - 1; i++) {
@@ -180,6 +183,10 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasOnePair(Card[] hand) {
+        if (hasFullHouse(hand) || hasFourOfAKind(hand)) {
+            return false;
+        }
+
         if (hand.length >= 2) {
             for (int i = 0; i < hand.length - 1; i++) {
                 if (hand[i].getRank() == hand[i + 1].getRank()) {
@@ -197,6 +204,16 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasHighestCard(Card[] hand) {
+        if (hasOnePair(hand)
+                || hasTwoPairs(hand)
+                || hasThreeOfAKind(hand)
+                || hasStraight(hand)
+                || hasFlush(hand)
+                || hasFullHouse(hand)
+                || hasFourOfAKind(hand)
+                || hasStraightFlush(hand)) {
+            return false;
+        }
         return true;
     }
 
