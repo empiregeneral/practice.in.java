@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.Problem1111;
+package cn.pintia.zjo.practice.problem1111;
 
 /**
  * It's a Utility class to verifies all the hand types.
@@ -79,13 +79,13 @@ public class HandTypeEvaluator {
                 if (hand[i].getSuit() == Card.Suit.C) {
                     c++;
                 }
-                else if (hand[i].getSuit() == Card.Suit.H) {
+                if (hand[i].getSuit() == Card.Suit.H) {
                     h++;
                 }
-                else if (hand[i].getSuit() == Card.Suit.S) {
+                if (hand[i].getSuit() == Card.Suit.S) {
                     s++;
                 }
-                else {
+                if (hand[i].getSuit() == Card.Suit.D) {
                     d++;
                 }
                 if (c == 5 || h == 5 || s == 5 || d == 5) {

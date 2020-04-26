@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.Problem1111;
+package cn.pintia.zjo.practice.problem1111;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;
@@ -163,13 +163,21 @@ public class Card implements Comparable<Card> {
     }
 
     public static void main(String[] args) {
-        String hands = "AH 3D 5S KC KD";
+        String hands = "AH 2H 3H TH 9H";
+        final int handOfCards = 5;
         Scanner input = new Scanner(new ByteArrayInputStream(hands.getBytes()));
-        List<Card> cards = new LinkedList<>();
-        while(input.hasNext()) {
-            cards.add(Card.valueOf(input.next()));
+        Card[] handCards = new Card[handOfCards];
+        for (int i = 0; i < handOfCards; i++) {
+            handCards[i] = Card.valueOf(input.next());
         }
-        Collections.sort(cards);
-        System.out.println(cards.toString());
+        Arrays.sort(handCards);
+        for (Card card : handCards) {
+            System.out.print(card.toString() + " ");
+        }
+        System.out.println();
+
+        for (HandType type : HandType.values()) {
+            System.out.println(type.isValid(handCards));
+        }
     }
 }
