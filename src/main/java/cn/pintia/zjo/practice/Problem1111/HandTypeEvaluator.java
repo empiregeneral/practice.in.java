@@ -79,13 +79,13 @@ public class HandTypeEvaluator {
                 if (hand[i].getSuit() == Card.Suit.C) {
                     c++;
                 }
-                if (hand[i].getSuit() == Card.Suit.H) {
+                else if (hand[i].getSuit() == Card.Suit.H) {
                     h++;
                 }
-                if (hand[i].getSuit() == Card.Suit.S) {
+                else if (hand[i].getSuit() == Card.Suit.S) {
                     s++;
                 }
-                if (hand[i].getSuit() == Card.Suit.D) {
+                else {
                     d++;
                 }
                 if (c == 5 || h == 5 || s == 5 || d == 5) {
@@ -139,7 +139,8 @@ public class HandTypeEvaluator {
         if (hand.length >= 3) {
             for (int i = 0; i < hand.length - 2; i++) {
                 if (hand[i].getRank() == hand[i + 1].getRank()
-                        && hand[i + 1].getRank() == hand[i + 2].getRank()) {
+                        && hand[i + 1].getRank() == hand[i + 2].getRank()
+                        && hand[i].getRank() == hand[i+2].getRank()) {
                     return true;
                 }
             }
@@ -155,9 +156,6 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasTwoPairs(Card[] hand) {
-        if (hasFullHouse(hand) || hasFourOfAKind(hand)) {
-            return false;
-        }
         if (hand.length >= 4) {
             int indx = -1;
             for (int i = 0; i < hand.length - 1; i++) {
@@ -183,10 +181,6 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasOnePair(Card[] hand) {
-        if (hasFullHouse(hand) || hasFourOfAKind(hand)) {
-            return false;
-        }
-
         if (hand.length >= 2) {
             for (int i = 0; i < hand.length - 1; i++) {
                 if (hand[i].getRank() == hand[i + 1].getRank()) {
@@ -204,16 +198,6 @@ public class HandTypeEvaluator {
      * @return {@code true} if contains, {@code false} otherwise.
      */
     public static boolean hasHighestCard(Card[] hand) {
-        if (hasOnePair(hand)
-                || hasTwoPairs(hand)
-                || hasThreeOfAKind(hand)
-                || hasStraight(hand)
-                || hasFlush(hand)
-                || hasFullHouse(hand)
-                || hasFourOfAKind(hand)
-                || hasStraightFlush(hand)) {
-            return false;
-        }
         return true;
     }
 

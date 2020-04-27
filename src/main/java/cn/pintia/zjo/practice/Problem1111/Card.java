@@ -1,8 +1,5 @@
 package cn.pintia.zjo.practice.problem1111;
 
-import java.io.ByteArrayInputStream;
-import java.util.*;
-
 public class Card implements Comparable<Card> {
 
     /** Value of the card's face */
@@ -160,24 +157,5 @@ public class Card implements Comparable<Card> {
     @Override
     public int compareTo(Card card) {
         return this.getRank().compareTo(card.getRank());
-    }
-
-    public static void main(String[] args) {
-        String hands = "AH 2H 3H TH 9H";
-        final int handOfCards = 5;
-        Scanner input = new Scanner(new ByteArrayInputStream(hands.getBytes()));
-        Card[] handCards = new Card[handOfCards];
-        for (int i = 0; i < handOfCards; i++) {
-            handCards[i] = Card.valueOf(input.next());
-        }
-        Arrays.sort(handCards);
-        for (Card card : handCards) {
-            System.out.print(card.toString() + " ");
-        }
-        System.out.println();
-
-        for (HandType type : HandType.values()) {
-            System.out.println(type.isValid(handCards));
-        }
     }
 }

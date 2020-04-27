@@ -35,9 +35,11 @@ public class Formatted implements FormattedListInString, Readable {
         if (this.paddedScale > SCREEN_WIDTH) {
             COLUMNS = 1;
         } else {
-            COLUMNS = SCREEN_WIDTH / this.paddedScale; // 怎么推算的？
+            // 怎么推算的？
+            COLUMNS = SCREEN_WIDTH / this.paddedScale;
         }
-        ROWS = ((n - 1) / COLUMNS ) + 1; // 怎么推算的？
+        // 怎么推算的？
+        ROWS = ((n - 1) / COLUMNS ) + 1;
     }
 
     private int findLongestStrLength(List<String> inputList) {
