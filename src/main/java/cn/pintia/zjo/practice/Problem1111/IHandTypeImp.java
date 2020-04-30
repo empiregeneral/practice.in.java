@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.problem1111;
+package cn.pintia.zjo.practice.Problem1111;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;

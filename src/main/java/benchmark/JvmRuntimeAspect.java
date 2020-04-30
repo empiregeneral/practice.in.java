@@ -1,6 +1,5 @@
 package benchmark;
 
-import cn.hutool.aop.aspects.Aspect;
 import cn.hutool.aop.aspects.SimpleAspect;
 import cn.hutool.core.lang.Console;
 
