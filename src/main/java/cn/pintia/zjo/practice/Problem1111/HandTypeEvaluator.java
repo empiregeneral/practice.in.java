@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.Problem1111;
+package cn.pintia.zjo.practice.problem1111;
 
 /**
  * It's a Utility class to verifies all the hand types.
