@@ -62,9 +62,29 @@ public class ShowHandTest {
 
     @Test
     @Parameters(method = "threeOfAKindProvider")
-    public void test(String blackHands, String whiteHands, Judgement result) {
-        Assert.assertEquals(ShowHandJudgement.STRAIGHT.judgement(toCard(blackHands), toCard(whiteHands)), result);
+    public void testThreeOfAKind(String blackHands, String whiteHands, Judgement result) {
+        Assert.assertEquals(ShowHandJudgement.THREE_OF_A_KIND.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
+
+    @Test
+    @Parameters(method = "twoPairsProvider")
+    public void testTwoPairs(String blackHands, String whiteHands, Judgement result) {
+        Assert.assertEquals(ShowHandJudgement.TWO_PAIRS.judgement(toCard(blackHands), toCard(whiteHands)), result);
+    }
+
+    @Test
+    @Parameters(method = "pairProvider")
+    public void testPair(String blackHands, String whiteHands, Judgement result) {
+        Assert.assertEquals(ShowHandJudgement.PAIR.judgement(toCard(blackHands), toCard(whiteHands)), result);
+    }
+
+    @Test
+    @Parameters(method = "highCardProvider")
+    public void testHighCard(String blackHands, String whiteHands, Judgement result) {
+        Assert.assertEquals(ShowHandJudgement.HIGH_CARD.judgement(toCard(blackHands), toCard(whiteHands)), result);
+
+    }
+
 
 
     private  Object[] straightFlushProvider() {
@@ -107,33 +127,34 @@ public class ShowHandTest {
 
     private Object[] threeOfAKindProvider() {
         return $(
-                $(),
-                $(),
-                $()
+                $("AS AD AH 3C 2H", "KS KH KD QH JC", Judgement.BlackWin),
+                $("2C 2S 2H AS KS", "3S 3D 3H KD QC", Judgement.WhiteWin)
         );
     }
 
     private Object[] twoPairsProvider() {
         return $(
-                $(),
-                $(),
-                $()
+                $("AS AD JC 2S 2D", "KS KC QC 3D 3H", Judgement.BlackWin),
+                $("AS AC KC QC QD", "AD AH KD QH QS", Judgement.Tie),
+                $("AS AD JH 2S 2D", "AD AH 3S 3D TH", Judgement.WhiteWin),
+                $("AS AD KS KD QS", "AC AH KC KH JS", Judgement.BlackWin),
+                $("KS KD JS JD TC", "KC KH JC JH QC", Judgement.WhiteWin)
         );
     }
 
     private Object[] pairProvider() {
         return $(
-                $(),
-                $(),
-                $()
+                $("TS TD 2S 3C 6S", "TH TC 2H 3H 5S", Judgement.BlackWin),
+                $("TS TD 2S 3C 6S", "TH TC 2H 3D 6D", Judgement.Tie),
+                $("TS TH AC KC QD", "JS JH TD 2C 3D", Judgement.WhiteWin)
         );
     }
 
     private Object[] highCardProvider() {
         return $(
-                $(),
-                $(),
-                $()
+                $("AS KH JC 3S TS", "AC KD JD TD 2C", Judgement.BlackWin),
+                $("TD 2S 3H 7S 8D", "TC 2D 3C 7H 8C", Judgement.Tie),
+                $("9C 8D 7C 2H 3C", "TH 2C 3H 4S 5D", Judgement.WhiteWin)
         );
     }
 }

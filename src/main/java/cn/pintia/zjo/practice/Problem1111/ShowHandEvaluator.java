@@ -2,6 +2,7 @@ package cn.pintia.zjo.practice.problem1111;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ShowHandEvaluator {
 
@@ -138,11 +139,38 @@ public class ShowHandEvaluator {
     }
 
     public static Judgement twoPair(Card[] blackHand, Card[] whiteHand) {
+
         return null;
     }
 
     public static Judgement pair(Card[] blackHand, Card[] whiteHand) {
-        return null;
+        Card bCard = findRepeatRankCard(blackHand);
+        Card[] bRemainderCards = remainderCards(blackHand, bCard);
+        Card wCard = findRepeatRankCard(whiteHand);
+        Card[] wRemainderCards = remainderCards(whiteHand, bCard);
+        Judgement result = Judgement.Tie;
+
+        if (bCard.compareTo(wCard) > 0) {
+            result = Judgement.BlackWin;
+        } else if (bCard.compareTo(wCard) == 0) {
+            for (int i = bRemainderCards.length - 1; i >= 0; i--) {
+                Card bTmpCard = bRemainderCards[i];
+                Card wTmpCard = wRemainderCards[i];
+                if (bTmpCard.compareTo(wTmpCard) == 0) {
+                    result = Judgement.Tie;
+                } else if (bTmpCard.compareTo(wTmpCard) > 0){
+                    result = Judgement.BlackWin;
+                    break;
+                } else {
+                    result = Judgement.WhiteWin;
+                    break;
+                }
+            }
+        } else {
+            result = Judgement.WhiteWin;
+        }
+
+        return result;
     }
 
     /**
@@ -187,6 +215,16 @@ public class ShowHandEvaluator {
             }
         }
         return cards[index];
+    }
+
+    private static Card[] remainderCards(Card[] cards, Card repeatedCard) {
+        Set<Card> set = new TreeSet<>();
+        for (int i = 0; i < cards.length; i++) {
+            set.add(cards[i]);
+        }
+        set.remove(repeatedCard);
+        int size = set.size();
+        return set.toArray(new Card[size]);
     }
 
 }
