@@ -303,12 +303,10 @@ public class ShowHandEvaluator {
                 } else if (bPairsOfCards[i].compareTo(wPairsOfCards[i]) == 0) {
                     if (bRemainderCard.compareTo(wRemainderCard) > 0) {
                         result = 1;
-
                     } else if (bRemainderCard.compareTo(wRemainderCard) == 0) {
                         result = 0;
                     } else {
                         result = -1;
-
                     }
                 } else {
                     result = -1;

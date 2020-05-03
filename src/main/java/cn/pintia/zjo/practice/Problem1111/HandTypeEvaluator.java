@@ -1,27 +1,11 @@
 package cn.pintia.zjo.practice.problem1111;
 
-/**
- * It's a Utility class to verifies all the hand types.
- */
 public class HandTypeEvaluator {
-    /**
-     * Verifies if a given hand of any size contanis a Straight Flush. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
+
     public static boolean hasStraightFlush(Card[] hand) {
         return hasStraight(hand) && hasFlush(hand);
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Four of a Kind. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasFourOfAKind(Card[] hand) {
         if (hand.length >= 4) {
             for (int i = 0; i <= hand.length - 4; i++) {
@@ -35,13 +19,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Full House. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasFullHouse(Card[] hand) {
         if (hand.length >= 5) {
             Card.Rank tValue = null, pValue = null;
@@ -66,12 +43,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Flush.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasFlush(Card[] hand) {
         if (hand.length >= 5) {
             int c = 0, h = 0, s = 0, d = 0;
@@ -97,13 +68,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Straight. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasStraight(Card[] hand) {
         if (hand.length >= 5) {
             int seqCards = 1;
@@ -128,13 +92,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Three of a Kind. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasThreeOfAKind(Card[] hand) {
         if (hand.length >= 3) {
             for (int i = 0; i < hand.length - 2; i++) {
@@ -148,13 +105,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains Two Pairs. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasTwoPairs(Card[] hand) {
         if (hand.length >= 4) {
             int indx = -1;
@@ -173,13 +123,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Pair. <br>
-     * Assertive: hand must be sorted.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasOnePair(Card[] hand) {
         if (hand.length >= 2) {
             for (int i = 0; i < hand.length - 1; i++) {
@@ -191,12 +134,6 @@ public class HandTypeEvaluator {
         return false;
     }
 
-    /**
-     * Verifies if a given hand of any size contains a Highest Card.
-     *
-     * @param hand Hand.
-     * @return {@code true} if contains, {@code false} otherwise.
-     */
     public static boolean hasHighestCard(Card[] hand) {
         return true;
     }
