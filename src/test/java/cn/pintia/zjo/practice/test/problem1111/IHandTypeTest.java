@@ -26,6 +26,7 @@ public class IHandTypeTest {
                 $("3C KD 2S QC AH", HandType.HIGH_CARD),
                 $("2C KD 2S QC AH", HandType.PAIR),
                 $("KS KD 2S 2D 3H", HandType.TWO_PAIRS),
+                $("JS JD KS KD QS", HandType.TWO_PAIRS),
                 $("AS AH AC KS JD", HandType.THREE_OF_A_KIND),
                 $("2C 3D 4S 5H 6H", HandType.STRAIGHT),
                 $("AH 3H 2H KH JH", HandType.FLUSH),

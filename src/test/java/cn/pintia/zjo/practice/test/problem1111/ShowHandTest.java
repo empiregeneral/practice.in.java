@@ -98,7 +98,7 @@ public class ShowHandTest {
     private Object[] fourOfAKindProvider() {
         return $(
                 $("9D 9S 9C 9H TH", "8C 2D 2S 2C 2H", Judgement.BlackWin),
-                $("AC AS AH AD KH", "KD QC QH QC QD", Judgement.WhiteWin)
+                $("3C 3S 3H 3D KH", "KD QC QH QC QD", Judgement.WhiteWin)
         );
     }
 

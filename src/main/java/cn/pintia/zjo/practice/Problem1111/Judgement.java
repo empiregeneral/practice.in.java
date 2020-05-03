@@ -5,9 +5,9 @@ package cn.pintia.zjo.practice.problem1111;
  */
 
 public enum Judgement {
-    BlackWin("Black Win."),
+    BlackWin("Black wins."),
     Tie("Tie."),
-    WhiteWin("White Win."),
+    WhiteWin("White wins."),
     ;
     private String description;
 

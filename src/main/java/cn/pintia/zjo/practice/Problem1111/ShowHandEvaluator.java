@@ -1,8 +1,6 @@
 package cn.pintia.zjo.practice.problem1111;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class ShowHandEvaluator {
 
@@ -27,7 +25,7 @@ public class ShowHandEvaluator {
         Card blackCard = findRepeatRankCard(blackHand);
         Card whiteCard = findRepeatRankCard(whiteHand);
 
-        if (blackCard.compareTo(whiteCard) >=0) {
+        if (blackCard.compareTo(whiteCard) > 0) {
             return Judgement.BlackWin;
         } else {
             return Judgement.WhiteWin;
@@ -139,8 +137,18 @@ public class ShowHandEvaluator {
     }
 
     public static Judgement twoPair(Card[] blackHand, Card[] whiteHand) {
+        TwoPairs bTwoPairs = new TwoPairs(blackHand);
+        TwoPairs wTwoPairs = new TwoPairs(whiteHand);
 
-        return null;
+        Comparator<TwoPairs> comparator = new TwoPairsComparator();
+        int result = comparator.compare(bTwoPairs, wTwoPairs);
+        if (result > 0) {
+            return Judgement.BlackWin;
+        } else if (result == 0) {
+            return Judgement.Tie;
+        } else {
+            return Judgement.WhiteWin;
+        }
     }
 
     public static Judgement pair(Card[] blackHand, Card[] whiteHand) {
@@ -227,4 +235,87 @@ public class ShowHandEvaluator {
         return set.toArray(new Card[size]);
     }
 
+    private static class TwoPairs {
+        private Card[] originCards;
+        private Card[] pairsOfCards;
+        private Card remainderCard;
+
+        public TwoPairs(Card[] cards) {
+            this.originCards = cards;
+            boolean[] flags = new boolean[]{false, false, false, false, false};
+            int indx = -1;
+            for (int i = 0 ; i < originCards.length - 1; i++) {
+                if ((originCards[i].compareTo(originCards[i+1]) == 0)) {
+                    indx = i;
+                    flags[i] = true;
+                    flags[i+1] = true;
+                    break;
+                }
+            }
+
+            for (int i = indx + 2; i < originCards.length - 1; i++) {
+                if (originCards[i].compareTo(originCards[i+1]) == 0) {
+                    flags[i] = true;
+                    flags[i+1] = true;
+                }
+            }
+
+            for (int i = 0 ; i < flags.length; i++) {
+                if (!flags[i]) {
+                    remainderCard = originCards[i];
+                }
+            }
+
+            Set<Card> cardSet = new TreeSet<>();
+            for (int i = 0; i < originCards.length; i++) {
+                cardSet.add(originCards[i]);
+            }
+            cardSet.remove(remainderCard);
+            pairsOfCards = cardSet.toArray(new Card[(originCards.length / 2) - 1]);
+        }
+
+        public Card[] getPairsOfCards() {
+            return pairsOfCards;
+        }
+
+        public Card getRemainderCard() {
+            return remainderCard;
+        }
+
+    }
+
+    private static class TwoPairsComparator implements Comparator<TwoPairs> {
+
+        @Override
+        public int compare(TwoPairs o1, TwoPairs o2) {
+            Card[] bPairsOfCards = o1.getPairsOfCards();
+            Card bRemainderCard = o1.getRemainderCard();
+
+            Card[] wPairsOfCards = o2.getPairsOfCards();
+            Card wRemainderCard = o2.getRemainderCard();
+
+            int result = 0;
+
+            for (int i = bPairsOfCards.length - 1; i >=0 ; i--) {
+                if (bPairsOfCards[i].compareTo(wPairsOfCards[i]) > 0) {
+                    result = 1;
+                    break;
+                } else if (bPairsOfCards[i].compareTo(wPairsOfCards[i]) == 0) {
+                    if (bRemainderCard.compareTo(wRemainderCard) > 0) {
+                        result = 1;
+
+                    } else if (bRemainderCard.compareTo(wRemainderCard) == 0) {
+                        result = 0;
+                    } else {
+                        result = -1;
+
+                    }
+                } else {
+                    result = -1;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }
