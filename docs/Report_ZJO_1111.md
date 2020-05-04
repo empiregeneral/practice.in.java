@@ -25,7 +25,9 @@
 
 很多网上的答案就是根据牌面计分来计算最终的大小，看过源代码后感觉面条似的代码让人瞧着呕吐，根本无法读。这也是国内很多程序员的通病，写出的代码没有几个人能够看得懂……
 
-这里阅读了https://github.com/piotrpl/ThePsychicPokerPlayer.git的源代码，看到起使用Java语言编写Card类和HandType枚举类深有启发。
+这里阅读了 [The Psychic Poker Player]( https://github.com/piotrpl/ThePsychicPokerPlayer.git)
+
+的源代码，Java语言编写Card类对表现扑克牌属性深有启发。
 
 Card类包含了两个枚举，enum Rank和enum Suite分别代表了牌面和花色，每一张牌就代表了Card类实例，设计的简洁明了。
 
