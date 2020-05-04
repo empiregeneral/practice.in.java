@@ -9,7 +9,7 @@
 
 <img src="https://a1s.unicdn.net/polopoly_fs/1.696321.1585232084!/image/1470891313.jpg" alt="Poker hand rankings and downloadable cheat sheet" style="zoom:80%;" />
 
-相同等级间排序规则，正如两个人都拿了同样类型的一手牌那样，其规则和题目中描述的一样，英文大致翻译和解释。
+相同等级间排序规则，正如两个人都拿了同样类型的一手牌那样，其规则和题目中描述的一样，英文后有规则的翻译和解释。
 
 - High Card. Hands which do not fit any higher category are ranked by the value of their highest card. If the highest cards have the same value, the hands are ranked by the next highest, and so on. （高牌依次比较的每张牌面的大小，如果都相等就打和。）
 - Pair. 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the cards forming the pair. If these values are the same, the hands are ranked by the values of the cards not forming the pair, in decreasing order. （对子首先比较的是对子的大小，如果对子大小相等，比较的是剩余牌，每张牌面的大小，如果都相等就打和。）
@@ -52,11 +52,11 @@ public enum HandType implements IHandType{
 
 
 
-想通了以上几步同等级的排序规则可以用enum ShowHandType策略枚举来体现。
+想通了以上几步后同等级的排序规则可以用**ShowHandType策略枚举**来实现。
 
 在判定输出过程中，可以用简单工厂方法模式来选择ShowHandType中的判定方法。
 
-在此类繁复的模拟程序设计过程中，通过组织相关的测试，可以较好的理清楚设计的思路。
+在此类繁复的模拟程序设计过程中，通过组织相关的测试，可以理清楚每个判断规则的设计的思路。
 
 比如判定HandType的测试用例的设计：
 
@@ -109,7 +109,11 @@ public enum HandType implements IHandType{
 
 1. 这是一道非常好的模拟题，通过面向对象、面向接口的编程可以写出非常清晰的基础类的设计，枚举的实现，以及理解如果使用面向接口编程设计原则（理氏替换原则）。
 2. 测试用例需要考虑的非常全面，一共设计了36条测试用例，基本覆盖牌面的所有判定规则了。
-3. 能够深入理解和实践设计模式为简单工厂模式和策略模式。
-4. 代码还是略显冗余有1000行之多！？
+3. 设计模式方面，简单工厂模式和策略模式特别是枚举策略反复多次的使用。
+4. 代码还是略显冗余有1000行之多！？程序是用来读的，相信这些代码比“面条”代码易读的多。
+
+题后思考：
+1. 否设计一个发牌程序，这样组织测试代码的数据就容易一些？
+2. 可否再精简一下。
 
 ## Hit Problems
