@@ -1,6 +1,12 @@
 package cn.pintia.zjo.practice.problem1111;
 
-public enum HandType implements IHandType{
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
+
+public enum HandType implements IHandType {
 
     /**
      * 牌面最大的牌
@@ -157,7 +163,18 @@ public enum HandType implements IHandType{
      *
      * @param hand Set of cards.
      * @return {@code true} if the hand type is present in the hand, {@code false}
-     *         otherwise.
+     * otherwise.
      */
     protected abstract boolean isValid(Card[] hand);
+
+    private static final Map<String, HandType> stringToEnum = Stream.of(values()).collect(toMap(Object::toString, e -> e));
+
+    public static Optional<HandType> fromString(String handType) {
+        return Optional.ofNullable(stringToEnum.get(handType));
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(HandType.fromString("HIGH_CARD"));
+    }
 }
