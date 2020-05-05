@@ -16,6 +16,7 @@ public class ShowHandInDeck implements Readable{
     private HandType handType4White;
     private HandType type;
     private int count = 1;
+    private final int cardsInhand = 5;
 
     public ShowHandInDeck(String blackHands, String whiteHands) {
         this.blackHands = blackHands;
@@ -32,7 +33,7 @@ public class ShowHandInDeck implements Readable{
             cardList.add(Card.valueOf(scanner.next()));
         }
         Collections.sort(cardList);
-        return cardList.toArray(new Card[5]);
+        return cardList.toArray(new Card[cardsInhand]);
     }
 
     @Override
