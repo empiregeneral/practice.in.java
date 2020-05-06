@@ -2,6 +2,9 @@ package cn.pintia.zjo.practice.test.problem1111;
 
 import cn.pintia.zjo.practice.problem1111.Card;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class PokerCardsUtil {
     /** Sample cards */
     protected Card _2C, _3C, _4C, _5C, _6C, _7C, _8C, _9C, _TC, _JC, _QC, _KC,

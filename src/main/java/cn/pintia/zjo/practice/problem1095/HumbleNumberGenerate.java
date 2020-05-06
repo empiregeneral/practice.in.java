@@ -5,6 +5,10 @@ public class HumbleNumberGenerate implements Generate {
     private int p3;
     private int p5;
     private int p7;
+    private final int step2=2;
+    private final int step3=3;
+    private final int step5=5;
+    private final int step7=7;
     private int[] humbleNumbers;
     private int capacity;
     private int index = 0;
@@ -23,26 +27,26 @@ public class HumbleNumberGenerate implements Generate {
         p7 = 0;
     }
 
+    public void dp() {
+        humbleNumbers[++index] = Math.min(Math.min(humbleNumbers[p2] * step2, humbleNumbers[p3] * step3), Math.min(humbleNumbers[p5] * step5, humbleNumbers[p7] * step7));
+        if (humbleNumbers[index] == humbleNumbers[p2] * step2) {
+            p2++;
+        }
+        if (humbleNumbers[index] == humbleNumbers[p3] * step3) {
+            p3++;
+        }
+        if (humbleNumbers[index] == humbleNumbers[p5] * step5) {
+            p5++;
+        }
+        if (humbleNumbers[index] == humbleNumbers[p7] * step7) {
+            p7++;
+        }
+    }
+
     @Override
     public int next() {
         dp();
         return humbleNumbers[index];
-    }
-
-    public void dp() {
-        humbleNumbers[++index] = Math.min(Math.min(humbleNumbers[p2] * 2, humbleNumbers[p3] * 3), Math.min(humbleNumbers[p5] * 5, humbleNumbers[p7] * 7));
-        if (humbleNumbers[index] == humbleNumbers[p2] * 2) {
-            p2++;
-        }
-        if (humbleNumbers[index] == humbleNumbers[p3] * 3) {
-            p3++;
-        }
-        if (humbleNumbers[index] == humbleNumbers[p5] * 5) {
-            p5++;
-        }
-        if (humbleNumbers[index] == humbleNumbers[p7] * 7) {
-            p7++;
-        }
     }
 
     @Override
