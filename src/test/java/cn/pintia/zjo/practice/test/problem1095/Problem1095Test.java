@@ -14,8 +14,6 @@ import java.util.Scanner;
 @RunWith(JUnitParamsRunner.class)
 public class Problem1095Test {
 
-
-
     @Test
     @FileParameters(value = "src/test/resources/data_zjo_1095.csv", mapper = NumberMapper.class)
     public void testPrintHumbleNumber(int num, String expect) {
