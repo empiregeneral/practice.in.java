@@ -19,12 +19,12 @@ public class BabylonHeight {
         int[] heightArr = new int[boxes.length];
 
         heightArr[0] = boxes[0].getHeight();
-        for (int i = 1; i < boxes.length; i++) {
+        for (int i = 0; i < boxes.length; i++) {
             int height = 0;
-            for (int j = 0; j < i; j++) {
-                if ((boxes[j].getLength() > boxes[i].getLength()) &&
-                        (boxes[j].getWidth() > boxes[j].getWidth()) &&
-                        (heightArr[j] > height)) {
+            for (int j = i - 1; j >= 0; j--) {
+                if ((boxes[i].getLength() < boxes[j].getLength()) &&
+                        (boxes[i].getWidth() < boxes[j].getWidth()) &&
+                        height < heightArr[j]) {
                     height = heightArr[j];
                 }
             }
