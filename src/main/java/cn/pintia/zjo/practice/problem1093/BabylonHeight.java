@@ -38,10 +38,4 @@ public class BabylonHeight {
 
         return result;
     }
-
-    public static void main(String[] args) {
-        OrientedBox orientedBox = new OrientedBox(10, 20, 30);
-        List<Box> boxesList = orientedBox.getBoxesList();
-        System.out.println(BabylonHeight.height(boxesList));
-    }
 }

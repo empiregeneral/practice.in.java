@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
+/**
+ * 获取6个不同排列的Box
+ * @author Administrator
+ */
 public class OrientedBox {
     private int x;
     private int y;
@@ -23,11 +28,5 @@ public class OrientedBox {
 
     public List<Box> getBoxesList() {
         return boxesList;
-    }
-
-    public static void main(String[] args) {
-        OrientedBox orientedBox = new OrientedBox(10, 20, 30);
-        List<Box> boxesList = orientedBox.getBoxesList();
-        System.out.println(boxesList.toString());
     }
 }
