@@ -1,6 +1,9 @@
 package cn.pintia.zjo.practice.problem1093;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * @author lei.zhu
@@ -31,11 +34,7 @@ public class BabylonHeight {
             heightArr[i] = height + boxes[i].getHeight();
         }
 
-        int result = heightArr[0];
-        for (int i = 1; i < heightArr.length; i++) {
-            result = Math.max(result, heightArr[i]);
-        }
-
-        return result;
+        OptionalInt maxInArr = Arrays.stream(heightArr).max();
+        return maxInArr.getAsInt();
     }
 }

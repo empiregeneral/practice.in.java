@@ -3,10 +3,7 @@ package cn.pintia.zjo.practice.problem1324;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
   * @Author lei.zhu
@@ -42,16 +39,26 @@ public class Formatted implements FormattedListInString, Readable {
         ROWS = ((n - 1) / COLUMNS ) + 1;
     }
 
+//    private int findLongestStrLength(List<String> inputList) {
+//        int maxlen = inputList.get(0).length();
+//        Iterator<String> iterator = inputList.listIterator();
+//        while(iterator.hasNext()) {
+//            int len =  iterator.next().length();
+//            if (len > maxlen) {
+//                maxlen = len ;
+//            }
+//        }
+//        return maxlen;
+//    }
+
     private int findLongestStrLength(List<String> inputList) {
-        int maxlen = inputList.get(0).length();
-        Iterator<String> iterator = inputList.listIterator();
-        while(iterator.hasNext()) {
-            int len =  iterator.next().length();
-            if (len > maxlen) {
-                maxlen = len ;
+        Optional<Integer> maxLenInStrList = inputList.stream().map(w -> w.length()).max(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
             }
-        }
-        return maxlen;
+        });
+        return maxLenInStrList.get();
     }
 
     private void formatedStrList(List<String> list, int paddedScale) {
