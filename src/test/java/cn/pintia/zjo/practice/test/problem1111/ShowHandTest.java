@@ -3,6 +3,10 @@ package cn.pintia.zjo.practice.test.problem1111;
 import cn.pintia.zjo.practice.problem1111.Card;
 import cn.pintia.zjo.practice.problem1111.Judgement;
 import cn.pintia.zjo.practice.problem1111.ShowHandJudgement;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Stories;
+import io.qameta.allure.Story;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -18,6 +22,8 @@ import java.util.Scanner;
 import static junitparams.JUnitParamsRunner.$;
 
 @RunWith(JUnitParamsRunner.class)
+@Epic("模拟题")
+@Feature("相同类型的牌面大小测试")
 public class ShowHandTest {
 
     private Card[] toCard(String hand) {
@@ -32,54 +38,63 @@ public class ShowHandTest {
 
     @Test
     @Parameters(method = "straightFlushProvider" )
+    @Story("同等类型同花顺的牌面测试")
     public void testStraightFlush(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.STRAIGHT_FLUSH.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "fourOfAKindProvider" )
+    @Story("4条类型的牌面大小测试")
     public void testFourOfAKind(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.FOUR_Of_A_KIND.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "fullHouseProvider" )
+    @Story("葫芦类型的牌面大小测试")
     public void testFullHouse(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.FULL_HOUSE.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "flushProvider" )
+    @Story("同花类型的牌面大小测试")
     public void testFlush(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.FLUSH.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "straightProvider" )
+    @Story("顺子类型的牌面大小测试")
     public void testStraight(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.STRAIGHT.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "threeOfAKindProvider")
+    @Story("三条类型的牌面大小测试")
     public void testThreeOfAKind(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.THREE_OF_A_KIND.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "twoPairsProvider")
+    @Story("两对类型的牌面大小测试")
     public void testTwoPairs(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.TWO_PAIRS.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "pairProvider")
+    @Story("对子类型的牌面大小测试")
     public void testPair(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.PAIR.judgement(toCard(blackHands), toCard(whiteHands)), result);
     }
 
     @Test
     @Parameters(method = "highCardProvider")
+    @Story("高牌类型的牌面大小测试")
     public void testHighCard(String blackHands, String whiteHands, Judgement result) {
         Assert.assertEquals(ShowHandJudgement.HIGH_CARD.judgement(toCard(blackHands), toCard(whiteHands)), result);
 
