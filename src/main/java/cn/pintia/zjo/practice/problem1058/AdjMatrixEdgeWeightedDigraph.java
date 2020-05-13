@@ -3,6 +3,9 @@ package cn.pintia.zjo.practice.problem1058;
 
 import java.util.*;
 
+/**
+ * @author lei.zhu
+ */
 public class AdjMatrixEdgeWeightedDigraph implements CalArbitrageRatesInDigraph{
     private static final String NEWLINE = System.getProperty("line.separator");
 
