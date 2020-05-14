@@ -3,6 +3,8 @@ package cn.pintia.zjo.practice.test.problem1111;
 import cn.pintia.zjo.practice.problem1111.HandType;
 import cn.pintia.zjo.practice.problem1111.IHandType;
 import cn.pintia.zjo.practice.problem1111.IHandTypeImp;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -12,6 +14,8 @@ import org.junit.runner.RunWith;
 import static junitparams.JUnitParamsRunner.$;
 
 @RunWith(JUnitParamsRunner.class)
+@Epic("模拟题")
+@Feature("牌面类型测试")
 public class IHandTypeTest {
 
     @Test

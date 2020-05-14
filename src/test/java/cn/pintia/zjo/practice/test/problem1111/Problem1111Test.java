@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.test.problem1111;
 
 import cn.pintia.zjo.practice.problem1111.ShowHandInDeck;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -10,6 +12,8 @@ import org.junit.runner.RunWith;
 import java.util.Scanner;
 
 @RunWith(JUnitParamsRunner.class)
+@Epic("模拟题")
+@Feature("牌面类型比较测试和牌面大小的比较测试")
 public class Problem1111Test {
 
     @Test
