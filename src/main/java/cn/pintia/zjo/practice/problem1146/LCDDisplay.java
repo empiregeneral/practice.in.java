@@ -1,1 +1,0 @@
-package cn.pintia.zjo.practice.problem1146;public interface LCDDisplay {    /**     * @param scale     * @param digit     */    void printLCD(int scale, char digit);}
