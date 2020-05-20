@@ -122,13 +122,12 @@
                         </goals>
                         <configuration>
                             <composeFile>${project.basedir}/docker-compose.yml</composeFile>
-                            <removeVolumes>true</removeVolumes>
+                            <removeVolumes>false</removeVolumes>
+                            <removeImages>true</removeImages>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
     </build>
 
