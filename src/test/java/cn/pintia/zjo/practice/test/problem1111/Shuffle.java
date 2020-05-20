@@ -8,7 +8,7 @@ public class Shuffle {
     public static <T> void randomize(T[] arr, int n) {
         Random random = new Random();
         for (int i = 0; i < n; i++) {
-            int j = i + random.nextInt(52-i);
+            int j = i + random.nextInt(n-i);
             T temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;

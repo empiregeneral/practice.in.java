@@ -2,6 +2,7 @@ package cn.pintia.zjo.practice.test.problem1092;
 
 import cn.pintia.zjo.practice.problem1092.Queue;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -11,7 +12,8 @@ import org.junit.runner.RunWith;
 import java.util.Iterator;
 
 @RunWith(JUnitParamsRunner.class)
-@Epic("图论题1092求有向图的负环，测试自建数据结构Queue")
+@Epic("图论题")
+@Feature("队列的测试")
 public class QueueTest {
     private Queue<Comparable> queue = new Queue<>();
 

@@ -2,8 +2,7 @@ package cn.pintia.zjo.practice.problem2136;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author lei.zhu
@@ -41,14 +40,15 @@ public class FindLongestOrderSequenceImp implements Readable, FindLongestOrderSe
     @Override
     public int getResult() {
         find();
-        int maxLen = 0;
-        for (Integer e: items) {
-            if (e > maxLen) {
-                maxLen = e;
+        Integer[] arr = items.toArray(new Integer[items.size()]);
+        Optional<Integer> optional = Arrays.stream(arr).max(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.signum(o1 - o2);
             }
-        }
+        });
 
-        return maxLen;
+        return optional.get();
     }
 
     @Override

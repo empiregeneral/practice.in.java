@@ -2,6 +2,7 @@ package cn.pintia.zjo.practice.test.problem1205;
 
 import cn.pintia.zjo.practice.problem1205.MartianAddition;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -20,7 +21,8 @@ import java.util.Scanner;
   * @return void
  **/
 @RunWith(JUnitParamsRunner.class)
-@Epic("字符串处理")
+@Epic("模拟题")
+@Feature("模拟实现二十进制加法，实际上是字符串的处理")
 public class Problem1205Test {
 
     @Parameters({

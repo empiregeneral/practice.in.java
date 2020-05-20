@@ -2,8 +2,6 @@ package cn.pintia.zjo.practice.problem1093;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;
-import java.util.regex.Pattern;
-
 
 /**
  * 获取6个不同排列的Box
@@ -15,7 +13,6 @@ public class OrientedBox {
     private int z;
     private List<Box> boxesList;
     private static int infinity = Integer.MAX_VALUE;
-//    private static String pattern = "[1-9]\\d* ";
 
     public OrientedBox(int x, int y, int z) {
         Box one = new Box(x, y, z);
@@ -36,10 +33,6 @@ public class OrientedBox {
         if (txt == null || txt.isEmpty()) {
             throw new IllegalArgumentException("Invalid argument");
         }
-
-//        if (!txt.matches(pattern)) {
-//            throw new IllegalArgumentException("Argument must be positive integer");
-//        }
 
         int x = infinity;
         int y = infinity;

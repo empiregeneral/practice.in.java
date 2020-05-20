@@ -26,7 +26,6 @@ public class LeastCommonMultiple {
         this.lcm = result.getAsInt();
     }
 
-
     public int getLcm() {
         return lcm;
     }

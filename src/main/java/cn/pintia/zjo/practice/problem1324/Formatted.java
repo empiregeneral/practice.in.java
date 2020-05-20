@@ -39,18 +39,6 @@ public class Formatted implements FormattedListInString, Readable {
         ROWS = ((n - 1) / COLUMNS ) + 1;
     }
 
-//    private int findLongestStrLength(List<String> inputList) {
-//        int maxlen = inputList.get(0).length();
-//        Iterator<String> iterator = inputList.listIterator();
-//        while(iterator.hasNext()) {
-//            int len =  iterator.next().length();
-//            if (len > maxlen) {
-//                maxlen = len ;
-//            }
-//        }
-//        return maxlen;
-//    }
-
     private int findLongestStrLength(List<String> inputList) {
         Optional<Integer> maxLenInStrList = inputList.stream().map(w -> w.length()).max(new Comparator<Integer>() {
             @Override

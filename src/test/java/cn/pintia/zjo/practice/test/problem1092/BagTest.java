@@ -3,6 +3,7 @@ package cn.pintia.zjo.practice.test.problem1092;
 import cn.pintia.zjo.practice.problem1058.DirectedEdge;
 import cn.pintia.zjo.practice.problem1092.Bag;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -11,7 +12,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Iterator;
 
-@Epic("图论题1092，测试新的数据结构Bag")
+@Epic("图论题")
+@Feature("测试背包数组")
 @RunWith(JUnitParamsRunner.class)
 public class BagTest<T> {
     private Bag<T> bag = new Bag<T>();

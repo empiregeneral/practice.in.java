@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Scanner;
 
-@Epic("简单题")
-@Feature("字符串处理")
+@Epic("基础题")
+@Feature("单纯的反转字符串")
 @RunWith(JUnitParamsRunner.class)
 public class Problem1295Test {
 
