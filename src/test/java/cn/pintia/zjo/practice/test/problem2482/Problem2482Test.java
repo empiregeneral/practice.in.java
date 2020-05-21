@@ -17,7 +17,11 @@ import java.util.Scanner;
 public class Problem2482Test {
 
     @Test
-    @Parameters({"00000000000000000000000000000000,0.0.0.0", "00000011100000001111111111111111,3.128.255.255", "11001011100001001110010110000000,203.132.229.128", "01010000000100000000000000000001,80.16.0.1"})
+    @Parameters({"00000000000000000000000000000000,0.0.0.0",
+                 "00000011100000001111111111111111,3.128.255.255",
+                 "11001011100001001110010110000000,203.132.229.128",
+                 "01010000000100000000000000000001,80.16.0.1",
+                 "00001000000010000000100000001000,8.8.8.8"})
     public void testTransformBinaryToDecimal(String bits, String expect) {
         Scanner scanner = new Scanner(new TransformBinaryToDecimal(bits));
         while(scanner.hasNextLine()) {

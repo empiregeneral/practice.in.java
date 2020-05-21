@@ -10,9 +10,11 @@ public class TransformBinaryToDecimal implements Readable {
     private int count = 1;
     private String binaryIP;
     private final String regex = "(?<=[01])(?=([01]{8})+(?![01]))";
+    private final String delimiter = ".";
+    private final String delimiterRegex = "\\.";
 
     public TransformBinaryToDecimal(String input) {
-        binaryIP = input.replaceAll(regex, ".");
+        binaryIP = input.replaceAll(regex, delimiter);
     }
 
     @Override
@@ -20,8 +22,8 @@ public class TransformBinaryToDecimal implements Readable {
         if (--count < 0) {
             return -1;
         }
-        List<String> myList =  Arrays.stream(binaryIP.split("\\.")).map(BinaryToDecimal::transform).collect(Collectors.toList());
-        cb.append(String.join(".", myList));
+        String output =  Arrays.stream(binaryIP.split(delimiterRegex)).map(BinaryToDecimal::transform).collect(Collectors.joining(delimiter));
+        cb.append(output);
         return 10;
     }
 }
