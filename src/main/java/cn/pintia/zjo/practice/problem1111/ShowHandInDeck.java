@@ -26,15 +26,7 @@ public class ShowHandInDeck implements Readable{
 
     }
 
-    private Card[] toCards(String playerhands) {
-        List<Card> cardList = new ArrayList<>();
-        Scanner scanner = new Scanner(new ByteArrayInputStream(playerhands.getBytes()));
-        while(scanner.hasNext()) {
-            cardList.add(Card.valueOf(scanner.next()));
-        }
-        Collections.sort(cardList);
-        return cardList.toArray(new Card[cardsInhand]);
-    }
+
 
     @Override
     public int read(CharBuffer cb) throws IOException {
@@ -53,5 +45,15 @@ public class ShowHandInDeck implements Readable{
         }
 
         return 10;
+    }
+
+    private Card[] toCards(String players) {
+        List<Card> cardList = new ArrayList<>();
+        Scanner scanner = new Scanner(new ByteArrayInputStream(players.getBytes()));
+        while(scanner.hasNext()) {
+            cardList.add(Card.valueOf(scanner.next()));
+        }
+        Collections.sort(cardList);
+        return cardList.toArray(new Card[cardsInhand]);
     }
 }
