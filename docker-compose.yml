@@ -10,4 +10,4 @@ services:
       - "5050:5050"
     user: root
     volumes:
-      - /empiregeneral.github/practice.in.java/allure-results:/app/allure-results
+      - /Code/practice.in.java/allure-results:/app/allure-results
