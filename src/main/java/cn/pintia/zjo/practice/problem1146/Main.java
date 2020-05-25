@@ -2,7 +2,6 @@ package cn.pintia.zjo.practice.problem1146;
 
 import java.util.*;
 import java.lang.*;
-import java.io.*;
 
 // The main method must be in a class named "Main".
 class Main {
