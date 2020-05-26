@@ -9,11 +9,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+//        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+        String msg = "http://www.baidu.com";
+        ProcessChain chain = new ProcessChain().addChain(new ProtocolProcessImp());
+        Readable readable = chain.process(msg, pattern);
+        Scanner scanner = new Scanner(readable);
+        while(scanner.hasNext()) {
+            System.out.println(scanner.nextLine());
+        }
 
-        System.out.println(scanner.hasNext(pattern));
-//        while(scanner.hasNext(P)) {
-//            System.out.println(scanner.next());
-//        }
     }
 }
