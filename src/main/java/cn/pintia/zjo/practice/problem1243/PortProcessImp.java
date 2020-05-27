@@ -2,13 +2,12 @@ package cn.pintia.zjo.practice.problem1243;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PortProcessImp implements Process, Readable{
     private int count = 1;
-    private Pattern pattern = Pattern.compile("://[^/?:]+:([0-9]{1,5})?(/?|(/[^/]+))");
+    private Pattern pattern = Pattern.compile("://[^/?:]+:([0-9]{1,5})?");
     private String msg;
 
     public PortProcessImp(String msg) {
@@ -40,13 +39,5 @@ public class PortProcessImp implements Process, Readable{
             cb.append("Port     = <default>");
         }
         return 10;
-    }
-
-    public static void main(String[] args) {
-        Readable readable = new PortProcessImp("http://www.baidu.com");
-        Scanner scanner = new Scanner(readable);
-        while(scanner.hasNext()) {
-            System.out.println(scanner.nextLine());
-        }
     }
 }

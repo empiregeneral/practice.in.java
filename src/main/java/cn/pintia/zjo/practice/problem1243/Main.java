@@ -3,7 +3,6 @@ package cn.pintia.zjo.practice.problem1243;
 import java.io.BufferedInputStream;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -12,13 +11,14 @@ public class Main {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
         while(scanner.hasNext()) {
             int n = scanner.nextInt();
-            for (int i = 0; i < n; i++) {
+            for (int i = 1; i <= n; i++) {
                 String msg = scanner.next();
                 ProcessChain chain = new ProcessChain().addChain(new ProtocolProcessImp()).
                         addChain(new HostProcessImp()).
                         addChain(new PortProcessImp()).
                         addChain(new PathProcessImp());
                 chain.process(msg);
+                System.out.println("URL #" +i);
                 List<Readable> readables = chain.getOutputList();
                 for (Readable readable : readables) {
                     Scanner output = new Scanner(readable);
@@ -26,7 +26,9 @@ public class Main {
                         System.out.println(output.nextLine());
                     }
                 }
-                System.out.println();
+                if (i!=n) {
+                    System.out.println();
+                }
             }
         }
     }

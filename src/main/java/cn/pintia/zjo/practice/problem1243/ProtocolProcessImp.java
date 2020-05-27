@@ -2,7 +2,6 @@ package cn.pintia.zjo.practice.problem1243;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +22,6 @@ public class ProtocolProcessImp implements Process, Readable{
     @Override
     public Readable doProcess(String msg) {
         this.msg = msg;
-        this.pattern = pattern;
         return this;
     }
 
