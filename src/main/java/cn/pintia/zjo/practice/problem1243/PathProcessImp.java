@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class PathProcessImp implements Process, Readable {
     private int count = 1;
-    private Pattern pattern = Pattern.compile("://[^/?:]+:([0-9]{1,5})?(?:\\/([^?#/]+))?(?:\\?([^/]*))?(?:/(.*))?$");
+    private Pattern pattern = Pattern.compile("(?<=:[0-9]{1,5}|[A-Za-z])(?>=[\\/])?(([a-zA-Z0-9\\/-_%])*)?$");
     private String msg;
 
     public PathProcessImp(String msg) {
@@ -33,7 +33,7 @@ public class PathProcessImp implements Process, Readable {
         }
         Matcher matcher = pattern.matcher(msg);
         if (matcher.find()) {
-            String result = matcher.group(2);
+            String result = matcher.group(1);
             cb.append("Path     = " + result);
         } else {
             cb.append("Path     = <default>");
@@ -42,7 +42,7 @@ public class PathProcessImp implements Process, Readable {
     }
 
     public static void main(String[] args) {
-        Readable readable = new PathProcessImp("http://www.informatik.uni-ulm.de/acm");
+        Readable readable = new PathProcessImp("ftp://acm.baylor.edu:1234/pub/staff/mr-p");
         Scanner scanner = new Scanner(readable);
         while(scanner.hasNext()) {
             System.out.println(scanner.nextLine());
