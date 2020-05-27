@@ -8,16 +8,21 @@ import java.util.regex.Pattern;
 
 public class PathProcessImp implements Process, Readable {
     private int count = 1;
-    private Pattern pattern = Pattern.compile("://[^/?:]+:([0-9]{1,5})?((/?|(/[^/]+))*$)");
+    private Pattern pattern = Pattern.compile("://[^/?:]+:([0-9]{1,5})?(?:\\/([^?#/]+))?(?:\\?([^/]*))?(?:/(.*))?$");
     private String msg;
 
     public PathProcessImp(String msg) {
         this.msg = msg;
     }
 
+    public PathProcessImp() {
+
+    }
+
 
     @Override
-    public Readable doProcess(String msg, Pattern pattern) {
+    public Readable doProcess(String msg) {
+        this.msg = msg;
         return this;
     }
 
@@ -27,9 +32,9 @@ public class PathProcessImp implements Process, Readable {
             return -1;
         }
         Matcher matcher = pattern.matcher(msg);
-        if (matcher.find() && matcher.groupCount() <= 1) {
+        if (matcher.find()) {
             String result = matcher.group(2);
-            cb.append("Path     = " + result.substring(1));
+            cb.append("Path     = " + result);
         } else {
             cb.append("Path     = <default>");
         }
@@ -37,7 +42,7 @@ public class PathProcessImp implements Process, Readable {
     }
 
     public static void main(String[] args) {
-        Readable readable = new PathProcessImp("ftp://acm.baylor.edu:1234");
+        Readable readable = new PathProcessImp("http://www.informatik.uni-ulm.de/acm");
         Scanner scanner = new Scanner(readable);
         while(scanner.hasNext()) {
             System.out.println(scanner.nextLine());

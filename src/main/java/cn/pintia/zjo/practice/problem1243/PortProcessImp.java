@@ -15,9 +15,14 @@ public class PortProcessImp implements Process, Readable{
         this.msg = msg;
     }
 
+    public PortProcessImp() {
+
+    }
+
 
     @Override
-    public Readable doProcess(String msg, Pattern pattern) {
+    public Readable doProcess(String msg) {
+        this.msg = msg;
         return this;
     }
 

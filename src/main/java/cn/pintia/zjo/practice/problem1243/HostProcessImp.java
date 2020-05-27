@@ -15,10 +15,13 @@ public class HostProcessImp implements Process, Readable{
         this.msg = msg;
     }
 
+    public HostProcessImp() {
+
+    }
+
     @Override
-    public Readable doProcess(String msg, Pattern pattern) {
+    public Readable doProcess(String msg) {
         this.msg = msg;
-        this.pattern = pattern;
         return this;
     }
 

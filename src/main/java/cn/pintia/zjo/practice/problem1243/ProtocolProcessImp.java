@@ -21,7 +21,7 @@ public class ProtocolProcessImp implements Process, Readable{
 
 
     @Override
-    public Readable doProcess(String msg, Pattern pattern) {
+    public Readable doProcess(String msg) {
         this.msg = msg;
         this.pattern = pattern;
         return this;
@@ -39,15 +39,5 @@ public class ProtocolProcessImp implements Process, Readable{
             cb.append("Protocol = " + result.substring(0, result.length() - 1));
         }
         return 10;
-    }
-
-    public static void main(String[] args) {
-        Process process = new ProtocolProcessImp();
-        Readable readable = process.doProcess("http://www.baidu.com", Pattern.compile("^(?:([A-Za-z]+):)"));
-
-        Scanner scanner = new Scanner(readable);
-        while(scanner.hasNext()) {
-            System.out.println(scanner.nextLine());
-        }
     }
 }
