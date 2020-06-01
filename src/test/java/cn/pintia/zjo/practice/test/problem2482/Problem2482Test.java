@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 @Epic("基础题")
@@ -27,5 +28,6 @@ public class Problem2482Test {
         while(scanner.hasNextLine()) {
             Assert.assertEquals(scanner.nextLine(), expect);
         }
+        BigInteger bigInteger = new BigInteger("");
     }
 }

@@ -3,7 +3,6 @@ package cn.pintia.zjo.practice.problem2482;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class TransformBinaryToDecimal implements Readable {

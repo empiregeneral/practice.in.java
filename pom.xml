@@ -92,7 +92,7 @@
                 <artifactId>docker-compose-maven-plugin</artifactId>
                 <version>4.0.0</version>
                 <executions>
-                    <!-- <execution>
+                    <execution>
                         <id>pull</id>
                         <phase>verify</phase>
                         <goals>
@@ -102,7 +102,7 @@
                             <composeFile>${project.basedir}/docker-compose.yml</composeFile>
                             <ignorePullFailures>true</ignorePullFailures>
                         </configuration>
-                    </execution> -->
+                    </execution>
                     <execution>
                         <id>up</id>
                         <phase>verify</phase>
