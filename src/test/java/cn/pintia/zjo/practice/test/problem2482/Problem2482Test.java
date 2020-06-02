@@ -28,6 +28,5 @@ public class Problem2482Test {
         while(scanner.hasNextLine()) {
             Assert.assertEquals(scanner.nextLine(), expect);
         }
-        BigInteger bigInteger = new BigInteger("");
     }
 }
