@@ -1,29 +1,17 @@
 package cn.pintia.zjo.practice.problem1111;
 
-import java.io.ByteArrayInputStream;
 import java.util.*;
 
 public class IHandTypeImp implements IHandType{
-    private final int numOfCards = 5;
     private Card[] cards;
 
     public IHandTypeImp(String playerhands) {
-        cards = toCards(playerhands);
+        cards = CardUtils.toCards(playerhands);
     }
 
     public IHandTypeImp(Card[] cards) {
         Arrays.sort(cards);
         this.cards = cards;
-    }
-
-    private Card[] toCards(String playerhands) {
-        List<Card> cardList = new ArrayList<>();
-        Scanner scanner = new Scanner(new ByteArrayInputStream(playerhands.getBytes()));
-        while(scanner.hasNext()) {
-            cardList.add(Card.valueOf(scanner.next()));
-        }
-        Collections.sort(cardList);
-        return cardList.toArray(new Card[numOfCards]);
     }
 
     @Override
