@@ -1,15 +1,13 @@
 # ZJO 1111 Solved Report
 
 ## Subject
-模拟香港电影中梭哈的游戏，由黑方和白方的两手牌决定最终的胜者或者平手。
+模拟香港电影中梭哈的游戏，由黑方和白方的两手牌决定双方最终的胜负关系，胜负关系为胜、平、负。
 有52张扑克牌，每张牌有4种花色：梅花(club)、方块(diamond)、红桃(heart)和黑桃(spade)。
-牌面大小为2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A顺序排列，不考虑花色顺序只考虑牌面顺序。
+牌面根据2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A顺序排列，不考虑花色顺序。
 
-等级之间的排序规则如下图所示，注意皇家同花顺就是同花顺，题目中不做区分。
+黑白双方的牌面，先比较等级，等级按照如下规则排列，注意皇家同花顺就是同花顺，不做区分。
 
-
-
-相同等级间排序规则，正如两个人都拿了同样类型的一手牌那样，其规则和题目中描述的一样，英文后有规则的翻译和解释。
+如果双方的牌面具有相同等级，判定的规则按照题目中描述的一样，英文过后有详细的翻译解释。
 
 - High Card. Hands which do not fit any higher category are ranked by the value of their highest card. If the highest cards have the same value, the hands are ranked by the next highest, and so on. （高牌依次比较的每张牌面的大小，如果都相等就打和。）
 - Pair. 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the cards forming the pair. If these values are the same, the hands are ranked by the values of the cards not forming the pair, in decreasing order. （对子首先比较的是对子的大小，如果对子大小相等，比较的是剩余牌，每张牌面的大小，如果都相等就打和。）
@@ -25,11 +23,9 @@
 
 很多网上的答案就是根据牌面计分来计算最终的大小，看过源代码后感觉面条似的代码让人瞧着呕吐，根本无法读。这也是国内很多程序员的通病，写出的代码没有几个人能够看得懂……
 
-这里阅读了 [The Psychic Poker Player]( https://github.com/piotrpl/ThePsychicPokerPlayer.git)
+这里阅读了 [The Psychic Poker Player]( https://github.com/piotrpl/ThePsychicPokerPlayer.git)的源代码， Card这个基础类是用枚举来表示牌面和花色。
 
-的源代码，Java语言编写Card类对表现扑克牌属性深有启发。
-
-Card类包含了两个枚举，enum Rank和enum Suite分别代表了牌面和花色，每一张牌就代表了Card类实例，设计的简洁明了。
+其中的两个枚举，enum Rank和enum Suite分别代表了牌面和花色，每一张牌就代表了Card类实例，此类设计的非常清晰。
 
 enum HandType是**策略枚举**的集中体现，根据等级之间的规则来判定一副牌是属于哪个等级。
 
@@ -106,11 +102,12 @@ public enum HandType implements IHandType{
 
 1. 这是一道非常好的模拟题，只要遵循GOF的设计原则和清晰的基础类的设计，就可以设计出可读性很高的牌面判定规则的逻辑设计。
 2. 设计判定牌面判定规则中，我遵循的是测试先行策略，通过测试用例的组织合适，来影响牌面判定规则的逻辑设计，总计了36条测试用例，覆盖所有牌面的判定规则，所以最后提交代码一次AC。
-3. 设计模式方面，**简单工厂模式**和**策略模式**特别是策略枚举重复使用2次，感受是优秀设计模式减少了很多冗余的代码的编写。
-4. 代码还是略显冗余有1000行之多！？程序是用来读的，相信这些代码比“面条”代码易读的多。
+3. 设计模式方面，**简单工厂模式**和**策略模式**特别是策略枚举重复使用2次，给我的感受是优秀设计模式减少了很多冗余的代码的编写。
+4. 代码还是略显冗余有1000行之多！？程序是用来读的，但是看来这些代码比“面条”代码易读的多。
 
 题后思考：
 1. 否设计一个发牌程序，这样组织测试代码的数据就容易一些？
 2. 可否再精简一下。
+3. 能否设计一个Spring-boot的Web端程序，包括发牌，判断等接口
 
 ## Hit Problems
