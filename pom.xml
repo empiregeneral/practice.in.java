@@ -160,7 +160,7 @@
                     </execution>
                     <execution>
                         <id>down</id>
-                        <phase>install</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>down</goal>
                         </goals>
