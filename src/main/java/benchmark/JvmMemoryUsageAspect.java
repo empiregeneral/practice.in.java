@@ -6,7 +6,7 @@ import cn.hutool.core.lang.Console;
 import java.lang.reflect.Method;
 
 
-public class JvmRuntimeAspect extends SimpleAspect {
+public class JvmMemoryUsageAspect extends SimpleAspect {
     private Runtime runtime = Runtime.getRuntime();
     private Long concurrentMemoryBefore = 0L;
     private Long concurrentMemoryAfter = 0L;
