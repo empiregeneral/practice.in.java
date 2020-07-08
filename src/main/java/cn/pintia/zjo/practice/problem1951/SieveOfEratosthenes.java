@@ -44,4 +44,10 @@ public class SieveOfEratosthenes {
 
         }
     }
+
+    public static void main(String[] args) {
+        int n = 10000;
+        int[] primes = SieveOfEratosthenes.listOfPrimes(n);
+        printArr(primes);
+    }
 }

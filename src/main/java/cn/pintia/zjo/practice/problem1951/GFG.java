@@ -2,15 +2,17 @@ package cn.pintia.zjo.practice.problem1951;
 
 // Java program to implement Goldbach's conjecture
 
-import java.io.BufferedInputStream;
+import java.io.*;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.*;
 
-class GFG {
+public class GFG {
 
     private static final int MAX = 1000000;
 
     // Array to store all prime less
-// than and equal to 10^7
+    // than and equal to 10^7
     private static ArrayList<Integer> primes = new ArrayList<Integer>();
 
     // Utility function for Sieve of Sundaram
@@ -71,13 +73,15 @@ class GFG {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // Finding all prime numbers before limit
         sieveSundaram();
+//        BufferedInputStream in = new BufferedInputStream(new FileInputStream(args[0]));
+//        System.setIn(in);
+        byte[] bufferByte = readFileByNio(args[0]);
+        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
 
-        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
-
-        while(scanner.hasNext()) {
+        while(scanner.hasNextInt()) {
             int n = scanner.nextInt();
             if ( n == 0 ) {
                 break;
@@ -85,6 +89,34 @@ class GFG {
             // Express number as a sum of two primes
             findPrimes(n);
         }
+        scanner.close();
+    }
+
+    private static byte[] readFileByNio(String path) {
+        long fileLength = 0;
+        final int BUFFER_SIZE = 0x50000;// 0.5M的缓冲
+        File file = new File(path);
+        fileLength = file.length();
+        byte[] dst = new byte[BUFFER_SIZE];
+        try {
+            MappedByteBuffer inputBuffer = new RandomAccessFile(file, "r").getChannel().map(FileChannel.MapMode.READ_ONLY, 0, fileLength);// 读取大文件
+
+            for (int offset = 0; offset < fileLength; offset+=BUFFER_SIZE) {
+                if (fileLength - offset >= BUFFER_SIZE) {
+                    for (int i = 0; i < BUFFER_SIZE; i++) {
+                        dst[i] = inputBuffer.get(offset + i);
+                    }
+                } else {
+                    for (int i = 0; i < fileLength - offset; i++) {
+                        dst[i] = inputBuffer.get(offset + i);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dst;
     }
 }
 
