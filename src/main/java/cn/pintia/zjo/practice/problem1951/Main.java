@@ -1,7 +1,5 @@
 package cn.pintia.zjo.practice.problem1951;
 
-import org.openjdk.jmh.annotations.Benchmark;
-
 import java.io.BufferedInputStream;
 
 import java.io.File;

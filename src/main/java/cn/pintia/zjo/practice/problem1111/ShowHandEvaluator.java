@@ -5,7 +5,7 @@ import java.util.*;
 public class ShowHandEvaluator {
 
     /**
-     * 两个排序的数组比较最后一张牌的大小
+     * @descrition 两个人一手牌经过HandType判定后，在同是一个HandType场景之下，判断牌面大小。
      * @param blackHand
      * @param whiteHand
      * @return

@@ -1,5 +1,6 @@
 package cn.pintia.zjo.practice.problem1111;
 
+
 public class HandTypeEvaluator {
 
     public static boolean hasStraightFlush(Card[] hand) {
