@@ -20,7 +20,7 @@ public class FindGoldbachEquationImp implements GoldbachConjecture, Readable{
             throw new Exception("The input number must greater equal by 6 and even number.");
         }
         this.evenNumGreaterThanSix = number;
-        this.primeArr = SieveOfEratosthenes.listOfPrimes(evenNumGreaterThanSix);
+        this.primeArr = Eratosthenes.sieve(evenNumGreaterThanSix);
         primePairs = FindPrimePairs(this.evenNumGreaterThanSix);
     }
 

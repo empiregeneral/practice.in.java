@@ -78,8 +78,7 @@ public class GFG {
         sieveSundaram();
 //        BufferedInputStream in = new BufferedInputStream(new FileInputStream(args[0]));
 //        System.setIn(in);
-        byte[] bufferByte = readFileByNio(args[0]);
-        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
+        Scanner scanner = new Scanner(readFileByNio(args[0])).useDelimiter("\r\n");
 
         while(scanner.hasNextInt()) {
             int n = scanner.nextInt();
@@ -92,10 +91,11 @@ public class GFG {
         scanner.close();
     }
 
-    private static byte[] readFileByNio(String path) {
+
+    private static InputStream readFileByNio(String pathname) {
         long fileLength = 0;
         final int BUFFER_SIZE = 0x50000;// 0.5M的缓冲
-        File file = new File(path);
+        File file = new File(pathname);
         fileLength = file.length();
         byte[] dst = new byte[BUFFER_SIZE];
         try {
@@ -116,7 +116,7 @@ public class GFG {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return dst;
+        return new ByteArrayInputStream(dst);
     }
 }
 
