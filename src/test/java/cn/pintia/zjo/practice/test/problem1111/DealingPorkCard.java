@@ -45,7 +45,5 @@ public class DealingPorkCard extends PokerCardGenerate implements Iterable<Card>
             }
             blackOrWhite++;
         }
-        System.out.println(blackHands.toString());
-        System.out.println(whiteHands.toString());
     }
 }
