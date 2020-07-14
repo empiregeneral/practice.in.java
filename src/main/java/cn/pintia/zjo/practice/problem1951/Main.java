@@ -33,7 +33,7 @@ public class Main {
 
     private static byte[] readFileByNio(String path) {
         long fileLength = 0;
-        final int BUFFER_SIZE = 0x50000;// 0.5M的缓冲
+        final int BUFFER_SIZE = 0x10000;// 0.5M的缓冲
         File file = new File(path);
         fileLength = file.length();
         byte[] dst = new byte[BUFFER_SIZE];

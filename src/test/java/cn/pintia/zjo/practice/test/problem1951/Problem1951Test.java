@@ -1,11 +1,10 @@
 package cn.pintia.zjo.practice.test.problem1951;
 
 
-import benchmark.TimeIntervalAspect;
-import cn.hutool.aop.ProxyUtil;
 import cn.pintia.zjo.practice.problem1951.FindGoldbachEquationImp;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
@@ -19,10 +18,11 @@ import java.util.Scanner;
 public class Problem1951Test {
 
     @Test
-    @Parameters({"6,6 = 3 + 3", "900000,900000 = 19 + 899981", "1000000,1000000 = 17 + 999983"})
+    @Parameters({"8,8 = 3 + 5", "20,20 = 3 + 17", "42,42 = 5 + 37"})
+    // @FileParameters(value = "src/test/resources/data_zjo_1951.csv", mapper = StringMapper.class)
     public void testEquationSolution(int num, String equation) throws Exception {
 
-        Readable readable = ProxyUtil.proxy(new FindGoldbachEquationImp(num), TimeIntervalAspect.class);
+        Readable readable = new FindGoldbachEquationImp(num);
         Scanner output = new Scanner(readable);
         while(output.hasNextLine()) {
             Assert.assertEquals(output.nextLine(), equation);

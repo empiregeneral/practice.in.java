@@ -94,7 +94,7 @@ public class GFG {
 
     private static InputStream readFileByNio(String pathname) {
         long fileLength = 0;
-        final int BUFFER_SIZE = 0x50000;// 0.5M的缓冲
+        final int BUFFER_SIZE = 0x10000;// 0.5M的缓冲
         File file = new File(pathname);
         fileLength = file.length();
         byte[] dst = new byte[BUFFER_SIZE];
