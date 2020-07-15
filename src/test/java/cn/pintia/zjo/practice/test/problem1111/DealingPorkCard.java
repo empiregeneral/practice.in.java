@@ -55,7 +55,7 @@ public class DealingPorkCard extends PokerCardGenerate implements Iterable<Card>
                 blackOrWhite++;
             }
             Readable readable = new ShowHandInDeck(blackHands.toString().trim(), whiteHands.toString().trim());
-            FileAppender fileAppender = new FileAppender(new File("E:\\coding\\src\\test\\resources\\date_zjo_1111.csv"), 10, true);
+            FileAppender fileAppender = new FileAppender(new File("src/test/resources/data_zjo_1111.csv"), 10, true);
             Scanner output = new Scanner(readable);
             while(output.hasNextLine()) {
                 fileAppender.append(blackHands.toString().trim() + " " + whiteHands.toString().trim() + "," + output.nextLine());

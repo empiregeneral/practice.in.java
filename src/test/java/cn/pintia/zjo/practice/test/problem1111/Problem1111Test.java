@@ -7,6 +7,7 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,12 +18,16 @@ import java.util.Scanner;
 @Feature("牌面类型比较测试和牌面大小的比较测试")
 public class Problem1111Test {
 
+    @Before
+    public void setup() {
+        DealingPorkCard.main(new String[]{});
+    }
+
     @Test
-//    @Parameters({"5C 5D 2C 2D AS,2S 2H 3C 3D AD,Black wins.",
-//                 "AH KH QH JH 3C,2S 2H 2C 3H TS,White wins.",
-//                 "AH KH JH QH TH,AS KS JS TS QS,Tie.",
-//                  "AS KS AH AD KD,JS KS QS 9S TS,White wins."})
-    @FileParameters(value = "src/test/resources/data_zjo_1111.csv", mapper = StringMapper.class)
+    @Parameters({"5C 5D 2C 2D AS,2S 2H 3C 3D AD,Black wins.",
+                 "AH KH QH JH 3C,2S 2H 2C 3H TS,White wins.",
+                 "AH KH JH QH TH,AS KS JS TS QS,Tie.",
+                  "AS KS AH AD KD,JS KS QS 9S TS,White wins."})
     public void testJudgement(String blackHands, String whiteHands, String result) {
         Readable readable = new ShowHandInDeck(blackHands, whiteHands);
         Scanner output = new Scanner(readable);
@@ -30,4 +35,17 @@ public class Problem1111Test {
             Assert.assertEquals(output.nextLine(), result);
         }
     }
+
+
+    @Test
+    @FileParameters(value = "src/test/resources/data_zjo_1111.csv", mapper = StringMapper.class)
+    public void testJudgementFromFile(String cardsInDeck, String result) {
+        Readable readable = new ShowHandInDeck(cardsInDeck);
+        Scanner output = new Scanner(readable);
+        while(output.hasNextLine()) {
+            Assert.assertEquals(output.nextLine(), result);
+        }
+    }
+
+
 }

@@ -28,7 +28,6 @@ public class StringMapper implements DataMapper {
             while((line = br.readLine()) != null) {
                 if (++lineNo > lineToSkip) {
                     String[] parts = line.split(",");
-
                     params.add(new Object[]{parts[0], parts[1]});
                 }
             }
