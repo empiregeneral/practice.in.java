@@ -72,7 +72,7 @@
     </dependencies>
 
     <build>
-        <resources>
+<!--        <resources>-->
 <!--            <resource>-->
 <!--                &lt;!&ndash; 设置主目录 &ndash;&gt;-->
 <!--                <directory>src/main/</directory>-->
@@ -85,18 +85,18 @@
 <!--                <targetPath>${project.build.outputDirectory}</targetPath>-->
 <!--                <filtering>true</filtering>-->
 <!--            </resource>-->
-            <resource>
-                <directory>src/test/</directory>
-                <includes>
-                    <include>**/*.txt</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.csv</include>
-                </includes>
-                <targetPath>${project.build.testOutputDirectory}</targetPath>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+<!--            <resource>-->
+<!--                <directory>src/test/</directory>-->
+<!--                <includes>-->
+<!--                    <include>**/*.txt</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                    <include>**/*.css</include>-->
+<!--                    <include>**/*.csv</include>-->
+<!--                </includes>-->
+<!--                <targetPath>${project.build.testOutputDirectory}</targetPath>-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
 
         <plugins>
             <plugin>

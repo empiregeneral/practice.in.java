@@ -7,7 +7,6 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,11 +16,6 @@ import java.util.Scanner;
 @Epic("模拟题")
 @Feature("牌面类型比较测试和牌面大小的比较测试")
 public class Problem1111Test {
-
-    @Before
-    public void setup() {
-        DealingPorkCard.main(new String[]{});
-    }
 
     @Test
     @Parameters({"5C 5D 2C 2D AS,2S 2H 3C 3D AD,Black wins.",
