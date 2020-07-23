@@ -6,7 +6,6 @@ import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import java.util.Scanner;
 
 @RunWith(JUnitParamsRunner.class)
@@ -15,6 +14,7 @@ public class Problem1949Test {
     @Test
     @Parameters(method = "testData")
     public void testErrorCorrect(int[][] matrix, String result){
+
         Scanner output = new Scanner(new ErrorCorrection(matrix));
         while(output.hasNextLine()) {
             Assert.assertEquals(output.nextLine(), result);

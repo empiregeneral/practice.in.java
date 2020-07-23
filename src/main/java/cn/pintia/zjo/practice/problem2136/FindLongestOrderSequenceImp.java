@@ -1,8 +1,11 @@
 package cn.pintia.zjo.practice.problem2136;
 
+import edu.princeton.cs.algs4.In;
+
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * @Author lei.zhu
@@ -13,42 +16,61 @@ import java.util.*;
  **/
 public class FindLongestOrderSequenceImp implements Readable, FindLongestOrderSequence {
 
-    private List<Integer> inputList;
-    private int size;
-    private List<Integer> items;
+    private int[] inputArr;
+    private int[] dp;
     private int count = 1;
+    private boolean ascendingOrder;
 
     public FindLongestOrderSequenceImp(List<Integer> myList) {
-        this.inputList = myList;
-        this.size = myList.size();
-        items = new ArrayList<Integer>();
+        this(myList, true);
     }
 
-    private void find() {
-        for (int i = 0; i < this.size; i++) {
-            int m = 0;
-            for (int j = 0; j < i; j++) {
-                if ((inputList.get(j) < inputList.get(i)) && m < items.get(j)) {
-                    m = items.get(j);
-                }
-            }
-            items.add(m+1);
+    public FindLongestOrderSequenceImp(List<Integer> myList, boolean isAscendOrder) {
+        inputArr = myList.stream().mapToInt(e -> e.intValue()).toArray();
+        dp = new int[myList.size()];
+        this.ascendingOrder = isAscendOrder;
+        if (ascendingOrder) {
+            initArr(dp, 1);
+        } else {
+            initArr(dp, 0);
         }
     }
 
+    private void initArr(int[] arr, int val) {
+        Objects.nonNull(arr);
+        Arrays.fill(arr, val);
+    }
+
+    private void startDp(boolean isAscendOrder) {
+        int size = inputArr.length;
+        if (isAscendOrder) {
+            for (int i = 1; i < size; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (inputArr[j] < inputArr[i]) {
+                        if (dp[i] < dp[j] + 1) {
+                            dp[i] = dp[j] + 1;
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int i = 1; i < size; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (inputArr[j] > inputArr[i]) {
+                        if (dp[i] < dp[j] + 1) {
+                            dp[i] = dp[j] + 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public int getResult() {
-        find();
-        Integer[] arr = items.toArray(new Integer[items.size()]);
-        Optional<Integer> optional = Arrays.stream(arr).max(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return Integer.signum(o1 - o2);
-            }
-        });
-
-        return optional.get();
+        startDp(ascendingOrder);
+        OptionalInt optionalInt = Arrays.stream(dp).reduce(Integer::max);
+        return optionalInt.getAsInt();
     }
 
     @Override
