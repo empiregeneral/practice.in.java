@@ -1,11 +1,17 @@
 package cn.pintia.zjo.practice.problem1962;
 
+import cn.pintia.zjo.practice.problem2136.FindLongestOrderSequence;
+
 import java.math.BigInteger;
 
 public class FibGenerate implements Generate<BigInteger> {
     private int n;
     private int index = 0;
     private BigInteger[] fibs;
+
+    public FibGenerate() {
+        this(512);
+    }
 
     public FibGenerate(int n) {
         this.n = n;
