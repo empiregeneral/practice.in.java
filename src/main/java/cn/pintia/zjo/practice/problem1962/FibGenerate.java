@@ -1,7 +1,5 @@
 package cn.pintia.zjo.practice.problem1962;
 
-import cn.pintia.zjo.practice.problem2136.FindLongestOrderSequence;
-
 import java.math.BigInteger;
 
 public class FibGenerate implements Generate<BigInteger> {

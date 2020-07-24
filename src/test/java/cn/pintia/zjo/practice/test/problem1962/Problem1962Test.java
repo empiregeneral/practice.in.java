@@ -1,6 +1,7 @@
 package cn.pintia.zjo.practice.test.problem1962;
 
 import cn.pintia.zjo.practice.problem1962.CountFibsInRangeImp;
+import cn.pintia.zjo.practice.problem1962.FibonacciStrategy;
 import cn.pintia.zjo.practice.problem1962.Machine;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 @RunWith(JUnitParamsRunner.class)
 public class Problem1962Test {
 
-    private BigInteger[] fibs = Machine.createFibTable(512);
+    private BigInteger[] fibs = FibonacciStrategy.TWO_STRATEGY.getFibTable(512);
 
     @Test
     @Parameters({"10,100,5", "1234567890,9876543210,4", "314159265358979323846,3141592653589793238462643383279502884197169399375105820974944,192"})

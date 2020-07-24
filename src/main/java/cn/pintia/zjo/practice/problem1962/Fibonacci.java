@@ -2,7 +2,9 @@ package cn.pintia.zjo.practice.problem1962;
 
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Fibonacci extends FibGenerate implements Iterable<BigInteger> {
     private int n;
@@ -24,8 +26,7 @@ public class Fibonacci extends FibGenerate implements Iterable<BigInteger> {
 
             @Override
             public BigInteger next() {
-                ++index;
-                return fibs[index];
+                return fibs[index++];
             }
 
             @Override
@@ -35,9 +36,14 @@ public class Fibonacci extends FibGenerate implements Iterable<BigInteger> {
         };
     }
 
-    public static void main(String[] args) {
-        for(BigInteger item : new Fibonacci(10)) {
-            System.out.println(item.toString());
-        }
+    public static List<BigInteger> getListFromIterator(Iterator<BigInteger> iterator) {
+        List<BigInteger> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        return list;
+    }
+
+    public static BigInteger[] getArrFromIterator(Iterator<BigInteger> iterator) {
+        List<BigInteger> list = getListFromIterator(iterator);
+        return list.toArray(new BigInteger[list.size()]);
     }
 }

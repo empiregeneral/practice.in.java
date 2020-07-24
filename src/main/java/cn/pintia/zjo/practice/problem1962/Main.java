@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         final int scaleInFibs = 512;
-        BigInteger[] fibs = Machine.createFibTable(scaleInFibs);
+        BigInteger[] fibs = FibonacciStrategy.TWO_STRATEGY.getFibTable(scaleInFibs);
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
         while(scanner.hasNext()) {
             BigInteger lower = new BigInteger(scanner.next());
