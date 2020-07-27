@@ -18,10 +18,13 @@ public class Main {
             ++no;
         }
         Collections.sort(myList);
-
-        for (Fatmouse fatmouse : myList) {
+        for(Fatmouse fatmouse : myList) {
             System.out.println(fatmouse.toString());
         }
 
+        Scanner output = new Scanner(new RefuteFatmouseArgument(myList));
+        while(output.hasNextLine()) {
+            System.out.println(output.nextLine());
+        }
     }
 }

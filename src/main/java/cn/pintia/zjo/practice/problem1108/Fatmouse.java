@@ -1,6 +1,7 @@
 package cn.pintia.zjo.practice.problem1108;
 
 public class Fatmouse implements Comparable<Fatmouse> {
+
     private int no;
     private int weight;
     private int speed;
@@ -9,6 +10,17 @@ public class Fatmouse implements Comparable<Fatmouse> {
         this.no = no;
         this.weight = weight;
         this.speed = speed;
+    }
+
+
+    public int getSpeed() {
+        return speed;
+    }
+    public int getNo() {
+        return no;
+    }
+    public int getWeight() {
+        return weight;
     }
 
     @Override

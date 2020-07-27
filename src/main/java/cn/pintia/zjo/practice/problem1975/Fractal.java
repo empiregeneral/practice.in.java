@@ -25,7 +25,8 @@ public class Fractal {
                 break;
             }
             int xlen = 1 << n;
-            int ylen = 2 * xlen;
+            int ylen =  1 << (n+1);
+            System.out.println(ylen);
             char[][] out = new char[xlen][ylen];
             for (int i = 0; i < xlen; i++) {
                 for (int j = 0; j < ylen; j++) {

@@ -1,5 +1,7 @@
 package cn.pintia.zjo.practice.problem2136;
 
+import cn.pintia.zjo.practice.problem1108.Fatmouse;
+
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Main {
             for (int i = 0; i < capacity; i++) {
                 inputList.add(input.nextInt());
             }
+
             Readable readable = new FindLongestOrderSequenceImp(inputList);
             Scanner output = new Scanner(readable);
 
