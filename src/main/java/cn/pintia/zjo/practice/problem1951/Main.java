@@ -8,11 +8,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-//        System.setIn(new FileInputStream(args[0]));
 //        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
-        byte[] bufferByte = readFileByNio(args[0]);
-        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
-
+//        byte[] bufferByte = readFileByNio(args[0]);
+//        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
+        Scanner scanner = new Scanner(new DataInputStream(new BufferedInputStream(System.in)));
         while(scanner.hasNextInt()) {
             int n = scanner.nextInt();
             if (n == 0 ) {
@@ -51,7 +50,6 @@ public class Main {
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

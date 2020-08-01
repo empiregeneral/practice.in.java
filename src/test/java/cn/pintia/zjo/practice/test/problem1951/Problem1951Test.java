@@ -18,8 +18,8 @@ import java.util.Scanner;
 public class Problem1951Test {
 
     @Test
-    @Parameters({"8,8 = 3 + 5", "20,20 = 3 + 17", "42,42 = 5 + 37"})
-    // @FileParameters(value = "src/test/resources/data_zjo_1951.csv", mapper = StringMapper.class)
+    //@Parameters({"8,8 = 3 + 5", "20,20 = 3 + 17", "42,42 = 5 + 37"})
+     @FileParameters(value = "src/test/resources/data_zjo_1951.csv", mapper = StringMapper.class)
     public void testEquationSolution(int num, String equation) throws Exception {
 
         Readable readable = new FindGoldbachEquationImp(num);

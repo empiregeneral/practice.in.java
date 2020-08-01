@@ -25,19 +25,19 @@ public class Fractal {
                 break;
             }
             int xlen = 1 << n;
-            int ylen =  1 << (n+1);
+            int ylen = 2 * xlen;
             System.out.println(ylen);
             char[][] out = new char[xlen][ylen];
             for (int i = 0; i < xlen; i++) {
                 for (int j = 0; j < ylen; j++) {
-                    out[i][j] = ' ';
+                    out[i][j] = '*';
                 }
             }
 
             recurse(n, out, xlen - 1, 0);
             for (int i = 0; i < xlen; i++) {
                 for (int j = ylen - 1; j >= 0; j--) {
-                    if (out[i][j] != ' ') {
+                    if (out[i][j] != '*') {
                         System.out.println(new String(out[i], 0, j + 1));
                         break;
                     }
