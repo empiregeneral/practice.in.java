@@ -4,13 +4,19 @@ import java.io.*;
 
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    private static final int upperLimitPrimes = 1000000;
+
+    private static int[] primes = new int[upperLimitPrimes];
     public static void main(String[] args) throws FileNotFoundException {
 //        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
 //        byte[] bufferByte = readFileByNio(args[0]);
 //        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
+        primes = SieveOfEratosthenes.listOfPrimes(upperLimitPrimes);
+
         Scanner scanner = new Scanner(new DataInputStream(new BufferedInputStream(System.in)));
         while(scanner.hasNextInt()) {
             int n = scanner.nextInt();
@@ -18,8 +24,17 @@ public class Main {
                 break;
             }
 
+            int[] tmpArr = {0};
+
+            for (int index = 0; index < primes.length; index++) {
+                if (primes[index] > n) {
+                    tmpArr = Arrays.copyOfRange(primes, 0, index);
+                    break;
+                }
+            }
+
             try {
-                Readable readable = new FindGoldbachEquationImp(n);
+                Readable readable = new FindGoldbachEquationImp(tmpArr, n);
                 Scanner output = new Scanner(readable);
                 while(output.hasNextLine()) {
                     System.out.println(output.nextLine());

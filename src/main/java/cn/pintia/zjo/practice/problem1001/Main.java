@@ -1,6 +1,8 @@
 package cn.pintia.zjo.practice.problem1001;
 
 import java.io.*;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
 /**
@@ -23,4 +25,5 @@ public class Main {
         }
         out.flush();
     }
+
 }

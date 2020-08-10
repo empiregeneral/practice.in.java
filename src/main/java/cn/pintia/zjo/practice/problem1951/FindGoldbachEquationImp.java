@@ -15,13 +15,21 @@ public class FindGoldbachEquationImp implements GoldbachConjecture, Readable{
     private int[] primeArr;
     private List<PrimePair> primePairs;
 
+    public FindGoldbachEquationImp(int[] primeArr, int number) throws Exception {
+        this.primeArr = primeArr;
+        if ((number <= lessNum) && (number % baseEvenNum != 0)) {
+            throw new Exception("The input number must greater equal by 6 and even number.");
+        }
+        this.evenNumGreaterThanSix = number;
+        primePairs = this.FindPrimePairs(evenNumGreaterThanSix);
+    }
+
     public FindGoldbachEquationImp(int number) throws Exception {
         if ((number <= lessNum) && (number % baseEvenNum != 0)) {
             throw new Exception("The input number must greater equal by 6 and even number.");
         }
         this.evenNumGreaterThanSix = number;
         this.primeArr = Eratosthenes.sieve(evenNumGreaterThanSix);
-        primePairs = FindPrimePairs(this.evenNumGreaterThanSix);
     }
 
     @Override
@@ -31,7 +39,7 @@ public class FindGoldbachEquationImp implements GoldbachConjecture, Readable{
         }
 
         Collections.sort(primePairs);
-        primePairs = this.FindPrimePairs(evenNumGreaterThanSix);
+        // primePairs = this.FindPrimePairs(evenNumGreaterThanSix);
         cb.append(primePairs.get(0).toString());
 
         return 10;
