@@ -1,70 +1,21 @@
 package cn.pintia.zjo.practice.problem1146;
 
-import java.util.*;
-import java.lang.*;
+import java.io.BufferedInputStream;
+import java.util.Scanner;
 
-// The main method must be in a class named "Main".
-class Main {
-
-    public static String s = "";
-    public static int n = 0;
-
+public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        String sup[] =    {"-", " ", "-", "-", " ", "-", "-", "-", "-", "-"};
-        String izqSup[] = {"|", " ", " ", " ", "|", "|", "|", " ", "|", "|"};
-        String derSup[] = {"|", "|", "|", "|", "|", " ", " ", "|", "|", "|"};
-        String mid[] =    {" ", " ", "-", "-", "-", "-", "-", " ", "-", "-"};
-        String izqInf[] = {"|", " ", "|", " ", " ", " ", "|", " ", "|", " "};
-        String derInf[] = {"|", "|", " ", "|", "|", "|", "|", "|", "|", "|"};
-        String inf[] =    {"-", " ", "-", "-", " ", "-", "-", " ", "-", "-"};
-
-        n = sc.nextInt();
-        while(n != 0){
-            s = sc.next();
-
-            horizontal(sup);
-            vertical(derSup, izqSup);
-            horizontal(mid);
-            vertical(derInf, izqInf);
-            horizontal(inf);
-
-            System.out.println("");
-            n = sc.nextInt();
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        while (input.hasNext()) {
+            int scale = input.nextInt();
+            int num = input.nextInt();
+            if (scale == 0) {
+                break;
+            }
         }
     }
 
-    public static void horizontal(String[] cad){
-        int si = 0;
-        String resp = "";
-        for(int i = 0; i < s.length(); i++){
-            si = Character.getNumericValue(s.charAt(i));
-            resp += " ";
-            resp += String.format("%0"+n+"d",0).replace("0", cad[si]);
-            resp += " ";
-            if(i < (s.length() - 1)) {
-                resp += " ";
-            }
-        }
-        System.out.println(resp);
-    }
-
-    public static void vertical(String[] derCad, String[] izqCad){
-        int si = 0;
-        String resp = "";
-        for(int i = 0; i < s.length(); i++){
-            si = Character.getNumericValue(s.charAt(i));
-            resp += izqCad[si];
-            resp += String.format("%"+n+"s", " ");
-            resp += derCad[si];
-            if(i < (s.length() - 1)) {
-                resp += " ";
-            }
-        }
-
-        for(int i = 0; i < n; i++){
-            System.out.println(resp);
-        }
+    private static char[] digitToCharArr(int num) {
+        return Integer.toString(num, 10).toCharArray();
     }
 }
