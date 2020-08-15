@@ -8,14 +8,14 @@ public class Main {
         Scanner input = new Scanner(new BufferedInputStream(System.in));
         while (input.hasNext()) {
             int scale = input.nextInt();
-            int num = input.nextInt();
+            String digits = input.next();
             if (scale == 0) {
                 break;
             }
+            Scanner out = new Scanner(new LcDisplay(scale, digits.toCharArray()));
+            while(out.hasNextLine()) {
+                System.out.println(out.nextLine());
+            }
         }
-    }
-
-    private static char[] digitToCharArr(int num) {
-        return Integer.toString(num, 10).toCharArray();
     }
 }
