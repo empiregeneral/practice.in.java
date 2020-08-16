@@ -135,14 +135,13 @@ public class LcDisplay implements Readable {
         }
     }
 
-
     public static void Display(int scale, char[] digits) {
         LcDisplay lcDisplay = new LcDisplay(scale, digits);
         lcDisplay.draw();
         char[][] out = lcDisplay.out;
         for (int r = 0; r < out.length; r++) {
             String line = String.valueOf(out[r]);
-            System.out.println(line);
+            System.out.println(line.replaceFirst("\\s$", ""));
         }
         System.out.println();
     }
