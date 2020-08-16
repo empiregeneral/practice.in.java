@@ -2,10 +2,6 @@ package cn.pintia.zjo.practice.problem1146;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.Arrays;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LcDisplay implements Readable {
     public static boolean[][] lcd = {
@@ -35,7 +31,7 @@ public class LcDisplay implements Readable {
     private int scale;
     private int offset;
     private char[] digits;
-    private char[][] out;
+    public char[][] out;
     private int row;
     private int col;
 
@@ -45,7 +41,7 @@ public class LcDisplay implements Readable {
         int len = digits.length;
         this.row = this.scale * 2 + 3;
         this.col = this.scale + 2;
-        out = new char[this.row + 1][len * (this.col + 1)];
+        out = new char[this.row][len * (this.col + 1)];
         offset = this.col + 1;
         initCharArr(out);
     }
@@ -140,6 +136,17 @@ public class LcDisplay implements Readable {
     }
 
 
+    public static void Display(int scale, char[] digits) {
+        LcDisplay lcDisplay = new LcDisplay(scale, digits);
+        lcDisplay.draw();
+        char[][] out = lcDisplay.out;
+        for (int r = 0; r < out.length; r++) {
+            String line = String.valueOf(out[r]);
+            System.out.println(line);
+        }
+        System.out.println();
+    }
+
     @Override
     public int read(CharBuffer cb) throws IOException {
         if (--count < 0) {
@@ -149,12 +156,10 @@ public class LcDisplay implements Readable {
         draw();
 
         for (int r = 0; r < out.length; r++) {
-            StringBuilder result = new StringBuilder(Stream.of(out[r]).map(c -> c.toString()).collect(Collectors.joining()));
-            cb.append(result.toString());
+            cb.append(String.valueOf(out[r]));
             cb.append("\n");
         }
 
         return 10;
     }
-
 }

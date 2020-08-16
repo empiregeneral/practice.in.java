@@ -12,10 +12,7 @@ public class Main {
             if (scale == 0) {
                 break;
             }
-            Scanner out = new Scanner(new LcDisplay(scale, digits.toCharArray()));
-            while(out.hasNextLine()) {
-                System.out.println(out.nextLine());
-            }
+           LcDisplay.Display(scale, digits.toCharArray());
         }
     }
 }
