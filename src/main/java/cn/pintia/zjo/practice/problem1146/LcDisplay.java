@@ -24,7 +24,7 @@ public class LcDisplay implements Readable {
             /* 8 */
             {true, true, true, true, true, true, true},
             /* 9 */
-            {true, true, true, false, false, true, true}
+            {true, true, true, true, false, true, true}
     };
 
     private int count = 1;
