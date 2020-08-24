@@ -33,12 +33,13 @@ public class DrawSierpinskiFractal implements Readable {
         if (--count < 0) {
             return -1;
         }
+
         DrawSierpinskiFractal.draw(n, out, xlen - 1, 0);
         for (int i = 0; i < out.length; i++) {
             for (int j = out[0].length - 1; j >=0; j--) {
                 if (out[i][j] != ' ') {
                     CharSequence cq = String.valueOf(out[i], 0, j+1);
-                    System.out.println(cq.length());
+                    // System.out.println(cq.length());
                     cb.append( cq + "\n");
                     break;
                 }
@@ -61,7 +62,7 @@ public class DrawSierpinskiFractal implements Readable {
     }
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 2;
         Scanner output = new Scanner(new DrawSierpinskiFractal(n));
         while(output.hasNextLine()) {
             System.out.println(output.nextLine());
