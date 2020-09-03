@@ -175,6 +175,6 @@ public enum HandType implements IHandType {
 
     public static void main(String[] args) {
 
-        System.out.println(HandType.fromString("HIGH_CARD"));
+        System.out.println(HandType.fromString("HIGH_CARD").get());
     }
 }

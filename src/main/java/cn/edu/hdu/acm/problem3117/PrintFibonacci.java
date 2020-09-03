@@ -24,10 +24,9 @@ public class PrintFibonacci implements Readable {
             return -1;
         }
 
-        if (n < threshold) {
-            cb.append(""+GoldenRatioForFib.solution(n));
+        if (n < threshold) {   
+            cb.append(""+GoldenRatioForFib.fib(n));
         } else {
-            new MatrixPower(n);
             CharSequence Header = "" + calFibNumberHead(n);
             CharSequence body = "...";
             CharSequence tail = MatrixPower.tailForFibNum(n);
@@ -35,7 +34,6 @@ public class PrintFibonacci implements Readable {
             sb.append(Header).append(body).append(tail);
             cb.append(sb.toString());
         }
-
 
         return 10;
     }
