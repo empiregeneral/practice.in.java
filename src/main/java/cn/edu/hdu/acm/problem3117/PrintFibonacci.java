@@ -25,7 +25,7 @@ public class PrintFibonacci implements Readable {
         }
 
         if (n < threshold) {   
-            cb.append(""+GoldenRatioForFib.fib(n));
+            cb.append(""+FibonacciTheory.GOLD_RATIO.solution(n));
         } else {
             CharSequence Header = "" + calFibNumberHead(n);
             CharSequence body = "...";
