@@ -17,7 +17,7 @@ public class BinaryExponentiation implements Readable{
         this.mod = mod;
     }
 
-    private int calculation() {
+    public int calculation() {
         int result = 1;
 
         while(power > 0) {
@@ -43,6 +43,11 @@ public class BinaryExponentiation implements Readable{
         cb.append("" + calculation());
 
         return 10;
+    }
+
+    public static int getResult(int base, int power, int mod) {
+        BinaryExponentiation binaryExponentiation = new BinaryExponentiation(base, power, mod);
+        return binaryExponentiation.calculation();
     }
 
     public static void main(String[] args) {

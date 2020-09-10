@@ -88,4 +88,9 @@ public class ModuleInverse implements Readable {
 
         return 10;
     }
+
+    public static int modInverse(int a, int m) {
+        ModuleInverse moduleInverse = new ModuleInverse(a, m);
+        return moduleInverse.getModuleInverse();
+    }
 }
