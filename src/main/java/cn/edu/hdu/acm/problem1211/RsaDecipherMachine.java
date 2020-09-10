@@ -6,7 +6,17 @@ import cn.pintia.zjo.practice.problem3609.ModuleInverse;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class RSA {
+/**
+ * @Description
+ * e为公钥，d为私钥
+ * 1. 输入p q e和加密编码串
+ * 2. 计算d，算法为 d * e mod((p-1)*(q-1)) = 1 mod ((p-1) *(q-1)) 且 gcd(e, (p-1) * (q-1)) = 1
+ * 2.1. 通过扩展欧几里得算法求取d = ModuleInverse(e, (p-1)*(q-1))
+ * 3. PlainText(m) = c^d mod (p * q)
+ * 3.1 d一般很大，使用快速幂可以轻易求出
+ * @author Administrator
+ */
+public class RsaDecipherMachine {
     private int p;
     private int q;
     private int fn;
@@ -18,7 +28,7 @@ public class RSA {
 
     private Integer[] decipherCodes;
 
-    public RSA(Integer[] cipherCodes, int p, int q, int e) {
+    public RsaDecipherMachine(Integer[] cipherCodes, int p, int q, int e) {
         this.p = p;
         this.q = q;
         this.e = e;
@@ -28,6 +38,7 @@ public class RSA {
         this.d = ModuleInverse.modInverse(e, fn);
         this.decipherCodes = decipher(this.cipherCodes);
     }
+
 
     private Integer[] decipher(Integer[] cipherCodes) {
         Stream<Integer> stream = Arrays.stream(cipherCodes).map(item -> {
@@ -40,12 +51,6 @@ public class RSA {
 
     public Integer[] getDecipherCodes() {
         return decipherCodes;
-    }
-
-    public static void main(String[] args) {
-        Integer[] cipherCodes = new Integer[]{7716, 7746, 7497, 126, 8486, 4708, 7746, 623, 7298, 7357, 3239};
-        RSA rsa = new RSA(cipherCodes, 101, 103, 7);
-        System.out.println(Arrays.deepToString(rsa.getDecipherCodes()));
     }
 
 }

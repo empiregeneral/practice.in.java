@@ -9,12 +9,12 @@ import java.util.Scanner;
 public class TransformToPlainText implements Readable {
 
     private int count = 1;
-    private RSA rsa;
+    private RsaDecipherMachine decipherMachine;
     private Integer[] decipherCodes;
 
     public TransformToPlainText(Integer[] cipherCode, int p, int q, int e){
-        rsa = new RSA(cipherCode, p, q, e);
-        decipherCodes = rsa.getDecipherCodes();
+        decipherMachine = new RsaDecipherMachine(cipherCode, p, q, e);
+        decipherCodes = decipherMachine.getDecipherCodes();
     }
 
     /**

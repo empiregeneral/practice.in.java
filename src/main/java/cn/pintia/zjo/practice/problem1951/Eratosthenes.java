@@ -43,5 +43,7 @@ public class Eratosthenes {
     public static void main(String[] args) {
         int[] primes = Eratosthenes.sieve(1000000);
         System.out.println(primes.length);
+        System.out.println(primes[78496]);
+        System.out.println(primes[78497]);
     }
 }
