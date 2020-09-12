@@ -40,6 +40,11 @@ public class RsaDecipherMachine {
     }
 
 
+    /**
+     * @Description: 密文通过私钥来解密
+     * @param cipherCodes
+     * @return
+     */
     private Integer[] decipher(Integer[] cipherCodes) {
         Stream<Integer> stream = Arrays.stream(cipherCodes).map(item -> {
             Integer ret = BinaryExponentiation.getResult(item, this.d, this.n);

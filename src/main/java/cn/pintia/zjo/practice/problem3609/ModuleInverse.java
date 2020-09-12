@@ -93,4 +93,8 @@ public class ModuleInverse implements Readable {
         ModuleInverse moduleInverse = new ModuleInverse(a, m);
         return moduleInverse.getModuleInverse();
     }
+
+    public static void main(String[] args) {
+        System.out.println(ModuleInverse.modInverse(7, 10200));
+    }
 }
