@@ -1,20 +1,21 @@
 package cn.edu.hdu.acm.problem1211;
 
 import java.io.BufferedInputStream;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(new BufferedInputStream(System.in));
         while(input.hasNext()) {
-            int p = input.nextInt();
-            int q = input.nextInt();
+            BigInteger p = intToBigInteger(input.nextInt());
+            BigInteger q = intToBigInteger(input.nextInt());
             /* public Key */
-            int e = input.nextInt();
+            BigInteger e = intToBigInteger(input.nextInt());
             int n = input.nextInt();
-            Integer[] cipherCodes = new Integer[n];
+            BigInteger[] cipherCodes = new BigInteger[n];
             for (int i = 0; i < n; i++) {
-                cipherCodes[i] = input.nextInt();
+                cipherCodes[i] = intToBigInteger(input.nextInt());
             }
             Readable readable = new TransformToPlainText(cipherCodes, p, q, e);
             Scanner output = new Scanner(readable);
@@ -22,6 +23,9 @@ public class Main {
                 System.out.println(output.next());
             }
         }
+    }
 
+    private static BigInteger intToBigInteger(int item) {
+        return new BigInteger(new Integer(item).toString());
     }
 }

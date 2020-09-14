@@ -1,18 +1,22 @@
 package cn.edu.hdu.acm.problem1211;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.CharBuffer;
 import java.nio.ReadOnlyBufferException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class TransformToPlainText implements Readable {
 
     private int count = 1;
     private RsaDecipherMachine decipherMachine;
-    private Integer[] decipherCodes;
+    private BigInteger[] decipherCodes;
 
-    public TransformToPlainText(Integer[] cipherCode, int p, int q, int e){
+    public TransformToPlainText(BigInteger[] cipherCode, BigInteger p, BigInteger q, BigInteger e){
         decipherMachine = new RsaDecipherMachine(cipherCode, p, q, e);
         decipherCodes = decipherMachine.getDecipherCodes();
     }
@@ -49,10 +53,29 @@ public class TransformToPlainText implements Readable {
     }
 
     public static void main(String[] args) {
-        Readable readable = new TransformToPlainText(new Integer[]{7716, 7746, 7497, 126, 8486, 4708, 7746, 623, 7298, 7357, 3239}, 103, 101, 7);
-        Scanner output = new Scanner(readable);
-        while(output.hasNext()) {
-            System.out.println(output.next());
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        List<BigInteger> cipherCodes = new ArrayList<>();
+        while(input.hasNext()) {
+            cipherCodes.add(toBigInteger(input.next()));
         }
+
+        BigInteger[] bigIntegers = cipherCodes.toArray(new BigInteger[cipherCodes.size()]);
+
+        Readable readable = new TransformToPlainText(bigIntegers,
+                                                     new BigInteger("1241386753"),
+                                                     new BigInteger("1477535881"),
+                                                     new BigInteger("1486062115457948969"));
+        Scanner output = new Scanner(readable);
+        while(output.hasNextLine()) {
+            System.out.println(output.nextLine());
+        }
+    }
+
+    private static BigInteger toBigInteger(int item) {
+        return new BigInteger(new Integer(item).toString());
+    }
+
+    private static BigInteger toBigInteger(String item) {
+        return new BigInteger(item);
     }
 }

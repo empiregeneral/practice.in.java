@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public class TransformToCipherCodes {
 
-    private Integer[] cipherCodes;
+    private BigInteger[] cipherCodes;
     private Integer[] plainCodes;
     private char[] chars;
     private String plainText;
@@ -41,15 +41,17 @@ public class TransformToCipherCodes {
         return plainCodes;
     }
 
-    public Integer[] getCipherCodes() {
+    public BigInteger[] getCipherCodes() {
         return cipherCodes;
     }
 
     public static void main(String[] args) {
-        String plainText = "I-LOVE-ACM.";
-        TransformToCipherCodes transform = new TransformToCipherCodes(plainText, new BigInteger("103"), new BigInteger("101"), new BigInteger("8743"));
-        Integer[] cipherCodes = transform.getCipherCodes();
+        String plainText = "BHJ-ACQUIRING-A-BRIEFCASE-COMPANY.";
+        TransformToCipherCodes transform = new TransformToCipherCodes(plainText,
+                                                                      new BigInteger("1241386753"),
+                                                                      new BigInteger("1477535881"),
+                                                                      new BigInteger("868013849"));
+        BigInteger[] cipherCodes = transform.getCipherCodes();
         System.out.println(Arrays.deepToString(cipherCodes));
     }
-
 }

@@ -1,10 +1,18 @@
 package cn.edu.hdu.acm.problem1211;
 
-import cn.edu.hdu.acm.problem2035.BinaryExponentiation;
-
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.stream.Stream;
+
+/**
+ * @Description
+ *  e为公钥，d为私钥
+ *  1. 输入p q d和明文字符串 PlainText(m)
+ *  2. 计算e, 算法为 d * e mod ((p-1) * (q-1)) = 1 mod((p-1) * (q-1))
+ *  2.1 通过扩展欧几里得算法求 e: e = ModuleInverse(d, (p-1) * (q-1))
+ *  3. E(c) = plaintext(c) ^ e mod (p * q)
+ *  3.1 用快速幂算法求解E(c)
+ *  */
 
 public class RsaCipherMachine {
     private BigInteger p;
@@ -14,7 +22,7 @@ public class RsaCipherMachine {
     private Integer[] plainCodes;
 
 
-    private Integer[] cipherCodes;
+    private BigInteger[] cipherCodes;
     private BigInteger d;
     private BigInteger e;
 
@@ -29,22 +37,15 @@ public class RsaCipherMachine {
         cipherCodes = cipher(this.plainCodes);
     }
 
-    private Integer[] cipher(Integer[] plainCodes) {
-        Stream<Integer> stream = Arrays.stream(plainCodes).map(item -> {
-           BigInteger integer = new BigInteger(String.valueOf(item)).modPow(e, n);
-           return Integer.parseInt(integer.toString());
+    private BigInteger[] cipher(Integer[] plainCodes) {
+        Stream<BigInteger> stream = Arrays.stream(plainCodes).map(item -> {
+           BigInteger bigInteger = new BigInteger(String.valueOf(item)).modPow(e, n);
+           return bigInteger;
         });
-        return stream.toArray(Integer[]::new);
+        return stream.toArray(BigInteger[]::new);
     }
 
-
-    public Integer[] getCipherCodes() {
+    public BigInteger[] getCipherCodes() {
         return cipherCodes;
     }
-
-
-
-
-
-
 }

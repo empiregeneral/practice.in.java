@@ -3,6 +3,7 @@ package cn.edu.hdu.acm.problem1211;
 import cn.edu.hdu.acm.problem2035.BinaryExponentiation;
 import cn.pintia.zjo.practice.problem3609.ModuleInverse;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -17,25 +18,25 @@ import java.util.stream.Stream;
  * @author Administrator
  */
 public class RsaDecipherMachine {
-    private int p;
-    private int q;
-    private int fn;
-    private int n;
-    private int e;
-    private int d;
+    private BigInteger p;
+    private BigInteger q;
+    private BigInteger fn;
+    private BigInteger n;
+    private BigInteger e;
+    private BigInteger d;
 
-    private Integer[] cipherCodes;
+    private BigInteger[] cipherCodes;
 
-    private Integer[] decipherCodes;
+    private BigInteger[] decipherCodes;
 
-    public RsaDecipherMachine(Integer[] cipherCodes, int p, int q, int e) {
+    public RsaDecipherMachine(BigInteger[] cipherCodes, BigInteger p, BigInteger q, BigInteger e) {
         this.p = p;
         this.q = q;
         this.e = e;
-        this.n = p * q;
-        this.fn = (p - 1) * (q - 1);
+        this.n = p.multiply(q);
+        this.fn = (p.subtract(new BigInteger("1"))).multiply(q.subtract(new BigInteger("1")));
         this.cipherCodes = cipherCodes;
-        this.d = ModuleInverse.modInverse(e, fn);
+        this.d = e.modInverse(fn);
         this.decipherCodes = decipher(this.cipherCodes);
     }
 
@@ -45,16 +46,16 @@ public class RsaDecipherMachine {
      * @param cipherCodes
      * @return
      */
-    private Integer[] decipher(Integer[] cipherCodes) {
-        Stream<Integer> stream = Arrays.stream(cipherCodes).map(item -> {
-            Integer ret = BinaryExponentiation.getResult(item, this.d, this.n);
-            return ret;
+    private BigInteger[] decipher(BigInteger[] cipherCodes) {
+        Stream<BigInteger> stream = Arrays.stream(cipherCodes).map(item -> {
+            BigInteger integer = item.modPow(d, n);
+            return integer;
         });
 
-        return stream.toArray(Integer[]::new);
+        return stream.toArray(BigInteger[]::new);
     }
 
-    public Integer[] getDecipherCodes() {
+    public BigInteger[] getDecipherCodes() {
         return decipherCodes;
     }
 
