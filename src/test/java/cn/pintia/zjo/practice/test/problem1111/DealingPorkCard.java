@@ -1,12 +1,10 @@
 package cn.pintia.zjo.practice.test.problem1111;
 
 import cn.hutool.core.io.file.FileAppender;
-import cn.hutool.core.util.CharsetUtil;
 import cn.pintia.zjo.practice.problem1111.Card;
 import cn.pintia.zjo.practice.problem1111.ShowHandInDeck;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Scanner;
 

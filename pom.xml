@@ -159,7 +159,7 @@
                 <executions>
                     <execution>
                         <id>pull</id>
-                        <phase>verify</phase>
+                        <phase>site</phase>
                         <goals>
                             <goal>pull</goal>
                         </goals>

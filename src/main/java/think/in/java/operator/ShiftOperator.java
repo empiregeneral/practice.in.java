@@ -1,0 +1,1 @@
+package think.in.java.operator;public class ShiftOperator {    public static void main(String[] args) {        int i = 192;        System.out.println(Integer.toString(i, 2));        i >>>= 1;        System.out.println(i);//        System.out.println(Integer.toString(i >>= 5, 10));    }}
