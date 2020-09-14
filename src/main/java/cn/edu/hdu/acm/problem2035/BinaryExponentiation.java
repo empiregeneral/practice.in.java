@@ -2,6 +2,7 @@ package cn.edu.hdu.acm.problem2035;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
+import java.util.Scanner;
 
 public class BinaryExponentiation implements Readable{
     private int base;
@@ -16,7 +17,7 @@ public class BinaryExponentiation implements Readable{
         this.mod = mod;
     }
 
-    private int calculation() {
+    public int calculation() {
         int result = 1;
 
         while(power > 0) {
@@ -42,5 +43,18 @@ public class BinaryExponentiation implements Readable{
         cb.append("" + calculation());
 
         return 10;
+    }
+
+    public static int getResult(int base, int power, int mod) {
+        BinaryExponentiation binaryExponentiation = new BinaryExponentiation(base, power, mod);
+        return binaryExponentiation.calculation();
+    }
+
+    public static void main(String[] args) {
+        Readable readable = new BinaryExponentiation(7716, 8743, 10403);
+        Scanner output = new Scanner(readable);
+        while(output.hasNextLine()) {
+            System.out.println(output.nextLine());
+        }
     }
 }

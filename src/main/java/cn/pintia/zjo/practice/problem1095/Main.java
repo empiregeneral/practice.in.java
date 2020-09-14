@@ -15,8 +15,8 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            Readable readable = new DecorateHumbleNumber(n, humbleTable);
-            Scanner output = new Scanner(readable);
+            Printable printable = new DecorateHumbleNumber(n, humbleTable);
+            Scanner output = new Scanner(printable.print());
             while(output.hasNextLine()) {
                 System.out.println(output.nextLine());
             }
