@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * 1. 输入p q e和加密编码串
  * 2. 计算d，算法为 d * e mod((p-1)*(q-1)) = 1 mod ((p-1) *(q-1)) 且 gcd(e, (p-1) * (q-1)) = 1
  * 2.1. 通过扩展欧几里得算法求取d = ModuleInverse(e, (p-1)*(q-1))
- * 3. PlainText(m) = c^d mod (p * q)
+ * 3. 密文通过私钥来解密：PlainText(m) = c^d mod (p * q)
  * 3.1 d一般很大，使用快速幂可以轻易求出
  * @author Administrator
  */
