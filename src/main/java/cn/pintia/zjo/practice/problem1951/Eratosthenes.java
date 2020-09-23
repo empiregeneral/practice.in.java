@@ -1,6 +1,5 @@
 package cn.pintia.zjo.practice.problem1951;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Random;
@@ -45,8 +44,10 @@ public class Eratosthenes {
     public static void main(String[] args) {
         int[] primes = Eratosthenes.sieve(2020091413);
         System.out.println("How many primes: " + primes.length);
-        System.out.println("p: " +primes[new Random().nextInt(primes.length)]);
-        System.out.println("q: " +primes[new Random().nextInt(primes.length)]);
+//        System.out.println("p: " +primes[new Random().nextInt(primes.length)]);
+//        System.out.println("q: " +primes[new Random().nextInt(primes.length)]);
+        System.out.println("p: " +primes[115]);
+        System.out.println("q: " +primes[209]);
         int d = primes[new Random().nextInt(primes.length)];
         System.out.print("d: " + d);
     }

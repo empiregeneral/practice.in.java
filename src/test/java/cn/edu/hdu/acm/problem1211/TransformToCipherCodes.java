@@ -46,7 +46,7 @@ public class TransformToCipherCodes {
     }
 
     public static void main(String[] args) {
-        String plainText = "BHJ-ACQUIRING-A-BRIEFCASE-COMPANY.";
+        String plainText = "BHJ-ACQUIRED-A-BRIEFCASE-COMPANY.";
         TransformToCipherCodes transform = new TransformToCipherCodes(plainText,
                                                                       new BigInteger("1241386753"),
                                                                       new BigInteger("1477535881"),

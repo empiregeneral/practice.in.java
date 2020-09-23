@@ -7,7 +7,9 @@ import java.util.Arrays;
  * @Description 通过矩阵幂运算求出
  */
 public class MatrixPower {
+    // 4位数 mod 10000
     private final int mod = 10000;
+
     private int N;
     private Matrix m;
     private Matrix result;

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 /**
  * @Description
+ * 加密用的是输入私钥
  *  e为公钥，d为私钥
  *  1. 输入p q d和明文字符串 PlainText(m)
  *  2. 计算e, 算法为 d * e mod ((p-1) * (q-1)) = 1 mod((p-1) * (q-1))
