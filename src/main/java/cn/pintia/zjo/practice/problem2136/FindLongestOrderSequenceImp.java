@@ -1,11 +1,9 @@
 package cn.pintia.zjo.practice.problem2136;
 
-import edu.princeton.cs.algs4.In;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * @Author lei.zhu

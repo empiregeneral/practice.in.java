@@ -1,6 +1,5 @@
 package cn.pintia.zjo.practice.problem1109;
 
-
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
