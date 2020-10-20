@@ -143,6 +143,9 @@
                             <value>${basedir}/allure-results</value>
                         </property>
                     </systemProperties>
+                    <excludes>
+                        <exclude>**/Problem1951Test.java</exclude>
+                    </excludes>
                 </configuration>
                 <dependencies>
                     <dependency>

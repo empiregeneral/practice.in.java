@@ -16,7 +16,9 @@ public class Problem1962Test {
 
     @Test
     @Parameters({"10,100,5", "1234567890,9876543210,4", "314159265358979323846,3141592653589793238462643383279502884197169399375105820974944,192"})
-    public void testCountFibInRange(BigInteger a, BigInteger b, String expect) {
+    public void testCountFibInRange(String lower, String upper, int expect) {
+        BigInteger a = new BigInteger(lower);
+        BigInteger b = new BigInteger(upper);
         Assert.assertEquals(Main.countFibsInRange(fibs, a, b), expect);
     }
 }
