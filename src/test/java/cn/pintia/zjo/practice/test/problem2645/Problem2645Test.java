@@ -15,7 +15,7 @@ import java.util.*;
 @RunWith(JUnitParamsRunner.class)
 public class Problem2645Test {
     @Test
-    @Parameters({"194.85.160.177 194.85.160.183 194.85.160.178,255.255.255.248"})
+    @Parameters({"194.85.160.177 194.85.160.183 194.85.160.178,255.255.255.248", "194.85.160.130 194.85.160.133,255.255.255.248"})
     public void testCalcNetmask(String  ipAddresses, String netMask) {
         System.out.println(Arrays.toString(toStringList(ipAddresses).toArray()));
 
