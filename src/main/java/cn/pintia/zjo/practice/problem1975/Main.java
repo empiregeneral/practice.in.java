@@ -13,6 +13,10 @@ public class Main {
             if (n==0) {
                 break;
             }
+            Scanner output = new Scanner(new DrawSierpinskiFractal(n));
+            while(output.hasNextLine()) {
+                System.out.println(output.nextLine());
+            }
         }
     }
 }

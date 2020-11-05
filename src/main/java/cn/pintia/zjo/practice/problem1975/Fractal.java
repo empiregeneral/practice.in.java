@@ -29,7 +29,7 @@ public class Fractal {
             char[][] out = new char[xlen][ylen];
             for (int i = 0; i < xlen; i++) {
                 for (int j = 0; j < ylen; j++) {
-                    out[i][j] = '*';
+                    out[i][j] = ' ';
                 }
             }
 
