@@ -154,10 +154,17 @@ public class LcDisplay implements Readable {
 
         draw();
 
-        for (int r = 0; r < out.length; r++) {
-            cb.append(String.valueOf(out[r]));
-            cb.append("\n");
+        if (scale < 5) {
+            for (int r = 0; r < out.length; r++) {
+                cb.append(String.valueOf(out[r]));
+                cb.append("\n");
+            }
+        } else {
+            for (int r = 0; r < out.length; r++) {
+                System.out.println(String.valueOf(out[r]));
+            }
         }
+
 
         return 10;
     }

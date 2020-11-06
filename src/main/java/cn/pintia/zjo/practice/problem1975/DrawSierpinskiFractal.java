@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.Scanner;
 
+/**
+ * @Description
+ * @author canmozhang
+ */
 public class DrawSierpinskiFractal implements Readable {
     private int count = 1;
     private int n;
