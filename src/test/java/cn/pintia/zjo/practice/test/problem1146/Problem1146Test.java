@@ -14,7 +14,8 @@ public class Problem1146Test {
     @Test
     @Parameters({"3,1234567890", "2,08080808", "9,88888"})
     public void testDisplay(int scale, String inputDigit) {
-        // LcDisplay.Display(scale, inputDigit.toCharArray());
+        LcDisplay.Display(scale, inputDigit.toCharArray());
+        System.out.println("-------------------------------------");
         Scanner scanner = new Scanner(new LcDisplay(scale, inputDigit.toCharArray()));
         while(scanner.hasNextLine()) {
             System.out.println(scanner.nextLine());
