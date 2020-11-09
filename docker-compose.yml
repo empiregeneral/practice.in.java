@@ -9,8 +9,8 @@ services:
       - "5050:5050"
     user: root
     volumes:
-      - /E/coding/allure-results:/app/allure-results
-      - /E/coding/allure-reports:/app/default-reports
+      - ./allure-results:/app/allure-results
+      - ./allure-reports:/app/default-reports
 
   allure-ui:
     image: "frankescobar/allure-docker-service-ui"
