@@ -105,11 +105,35 @@
             </plugin>
 
             <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>cn.edu.hdu.acm.problem1063.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>install</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
                 <configuration>
-                    <testFailureIgnore>false</testFailureIgnore>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.4/aspectjweaver-1.9.4.jar"
                     </argLine>
@@ -129,8 +153,9 @@
                     <excludes>
                         <exclude>**/Problem1951Test.java</exclude>
                     </excludes>
+
                     <systemPropertyVariables>
-                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                        <jacoco-agent.destfile>**/jacoco.exec</jacoco-agent.destfile>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
@@ -140,12 +165,47 @@
                         <version>1.9.4</version>
                     </dependency>
                 </dependencies>
+<!--                <configuration>
+                    <excludes>
+                        <exclude>**/Problem1951Test.java</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>**/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>-->
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.2-SNAPSHOT</version>
+                <executions>
+                    <!-- 使用插件需要执行的任务 -->
+                    <execution>
+                        <!-- 任务id -->
+                        <id>attach-source</id>
+                        <!-- 任务中插件的目标，可以指定多个 -->
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                        <!-- 绑定的阶段 -->
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
+<!--                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
             </plugin>
 
             <plugin>
@@ -161,7 +221,7 @@
                     </execution>
                     <execution>
                         <id>default-report</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>

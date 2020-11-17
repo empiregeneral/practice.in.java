@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
