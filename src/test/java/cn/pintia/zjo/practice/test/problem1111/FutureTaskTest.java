@@ -67,7 +67,7 @@ class JudgeTask implements Callable<Map<Integer, String>>, Comparator<Integer> {
             no = this.no;
             map.put(no, result);
         }
-        return null;
+        return map;
     }
 
     @Override
