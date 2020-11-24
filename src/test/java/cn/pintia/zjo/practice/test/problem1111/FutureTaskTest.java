@@ -42,7 +42,7 @@ public class FutureTaskTest {
     }
 }
 
-class JudgeTask implements Callable<Map<Integer, String>>, Comparator<Integer> {
+class JudgeTask implements Callable<Map<Integer, String>>, Comparator<JudgeTask> {
     private String hands;
     private Integer no;
 
@@ -71,8 +71,8 @@ class JudgeTask implements Callable<Map<Integer, String>>, Comparator<Integer> {
     }
 
     @Override
-    public int compare(Integer o1, Integer o2) {
-        return (o1 - o2);
+    public int compare(JudgeTask o1, JudgeTask o2) {
+        return (o1.no - o2.no);
     }
 }
 
