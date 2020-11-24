@@ -21,6 +21,12 @@ public class ShowHandEvaluator {
         }
     }
 
+    /**
+     * @Description 四条的判定法则，比较4条牌面的最大值，一般一副牌一直唯一一个四条，如果都是4条就比较最大的一张牌
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
     public static Judgement fourOfAKind(Card[] blackHand, Card[] whiteHand) {
         Card blackCard = findRepeatRankCard(blackHand);
         Card whiteCard = findRepeatRankCard(whiteHand);

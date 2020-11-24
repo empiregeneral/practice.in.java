@@ -113,7 +113,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>cn.edu.hdu.acm.problem1063.Main</mainClass>
+                            <mainClass>cn.pintia.zjo.practice.problem1111.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -197,7 +197,7 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
-<!--                <executions>
+                <executions>
                     <execution>
                         <id>report</id>
                         <phase>install</phase>
@@ -205,7 +205,7 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                </executions>-->
+                </executions>
             </plugin>
 
             <plugin>
