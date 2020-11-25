@@ -2,47 +2,60 @@ package cn.pintia.zjo.practice.test.problem1111;
 
 import cn.pintia.zjo.practice.problem1111.ShowHandInDeck;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.*;
 
 public class FutureTaskTest {
     public static void main(String[] args) {
-        CountLines countLines = new CountLines(System.in);
-        int nThreads = countLines.getLineNo();
-        List<String> content = countLines.getLineContent();
-        System.out.println(nThreads);
+        int nThreads = Runtime.getRuntime().availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(nThreads);
 
+        int lines = 0;
+        List<String> contents = new LinkedList<>();
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        while(input.hasNextLine()) {
+            String content = input.nextLine();
+            contents.add(content);
+            ++lines;
+        }
         try {
-            List<Future<Map<Integer, String>>> futureList = new ArrayList<>(nThreads);
-            for (int i = 0; i < nThreads; i++) {
-                Callable<Map<Integer, String>> task = new JudgeTask(Integer.valueOf(i+1), content.get(i));
+            List<Future<TaskResult>> futureList = new ArrayList<>(lines);
+            for (int i = 0; i < lines; i++) {
+                Callable<TaskResult> task = new JudgeTask(Integer.valueOf(i+1), contents.get(i));
                 futureList.add(executor.submit(task));
             }
 
+            List<TaskResult> resultList = new ArrayList<TaskResult>();
             while(futureList.size() > 0) {
-                Iterator<Future<Map<Integer, String>>> iterator = futureList.iterator();
+                Iterator<Future<TaskResult>> iterator = futureList.iterator();
                 while(iterator.hasNext()) {
-                    Future<Map<Integer, String>> futureTask = iterator.next();
-                    if (futureTask.isDone() && !futureTask.isCancelled()) {
-                        System.out.println(futureTask.get());
+                    Future<TaskResult> future = iterator.next();
+                    if (future.isDone() && !future.isCancelled()) {
+                        resultList.add(future.get());
                         iterator.remove();
                     } else {
                         Thread.sleep(1);
                     }
                 }
             }
+
+            Collections.sort(resultList);
+
+            Iterator<TaskResult> iterator = resultList.iterator();
+            while(iterator.hasNext()) {
+                System.out.println(iterator.next().getResult());
+            }
         } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
             executor.shutdown();
         }
     }
 }
 
-class JudgeTask implements Callable<Map<Integer, String>>, Comparator<JudgeTask> {
+class JudgeTask implements Callable<TaskResult> {
     private String hands;
     private Integer no;
 
@@ -56,23 +69,17 @@ class JudgeTask implements Callable<Map<Integer, String>>, Comparator<JudgeTask>
     }
 
     @Override
-    public Map<Integer, String> call() throws Exception {
-        Map<Integer, String> map = new HashMap<>();
+    public TaskResult call() throws Exception {
         String result = "";
-        Integer no = 0;
+        Integer lineNo = 0;
         Readable readable = new ShowHandInDeck(this.hands);
         Scanner output = new Scanner(readable);
         while (output.hasNextLine()) {
             result = output.nextLine();
-            no = this.no;
-            map.put(no, result);
+            lineNo = this.no;
+            return new TaskResult(lineNo, result);
         }
-        return map;
-    }
-
-    @Override
-    public int compare(JudgeTask o1, JudgeTask o2) {
-        return (o1.no - o2.no);
+        return null;
     }
 }
 
@@ -96,6 +103,24 @@ class CountLines {
     public List<String> getLineContent() {
         return lineContent;
     }
+}
 
+class TaskResult extends ThreadLocal<TaskResult> implements Comparable<TaskResult> {
 
+    private Integer lineNo;
+    private String result;
+
+    public TaskResult(Integer lineNo, String result) {
+        this.lineNo = lineNo;
+        this.result = result;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    @Override
+    public int compareTo(TaskResult o) {
+        return lineNo - o.lineNo;
+    }
 }

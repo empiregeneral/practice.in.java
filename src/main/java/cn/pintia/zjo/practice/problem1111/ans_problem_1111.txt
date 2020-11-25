@@ -1,0 +1,1093 @@
+import java.io.BufferedInputStream;
+import java.util.Scanner;
+import java.io.ByteArrayInputStream;
+import java.util.*;
+import java.io.IOException;
+import java.nio.CharBuffer;
+
+class Card implements Comparable<Card> {  /** Value of the card's face */
+    protected Rank rank;
+    /** Suit of the card */
+    protected Suit suit;
+
+    /**
+     * Constructor.
+     *
+     * @param rank Rank.
+     * @param suit Suit.
+     */
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank.getToken() + suit.toString();
+    }
+
+    /**
+     * Converts a valid symbol into a Card.
+     *
+     * @param txt
+     * @return Valid card.
+     */
+    public static Card valueOf(String txt) {
+        if (txt == null || txt.isEmpty()) {
+            throw new IllegalArgumentException("Invalid Token: " + txt);
+        }
+
+        txt = txt.trim().toUpperCase();
+
+        if (txt.length() != 2) {
+            throw new IllegalArgumentException("Invalid Token: " + txt);
+        }
+
+        Rank rank = Rank.getRank(txt.charAt(0));
+        Suit suit = Suit.valueOf("" + txt.charAt(1));
+        return new Card(rank, suit);
+    }
+
+
+    /**
+     * Suits list.
+     */
+    public enum Suit {
+        /** Clubs */
+        C,
+        /** Hearts */
+        H,
+        /** Spades */
+        S,
+        /** Diamonds */
+        D
+    };
+
+    /**
+     * Ranks list.
+     */
+    public enum Rank {
+        /**
+         * Two
+         */
+        TWO('2'),
+        /**
+         * Three
+         */
+        THREE('3'),
+        /**
+         * Four
+         */
+        FOUR('4'),
+        /**
+         * Five
+         */
+        FIVE('5'),
+        /**
+         * Six
+         */
+        SIX('6'),
+        /**
+         * Seven
+         */
+        SEVEN('7'),
+        /**
+         * Eight
+         */
+        EIGHT('8'),
+        /**
+         * Nine
+         */
+        NINE('9'),
+        /**
+         * Ten
+         */
+        TEN('T'),
+        /**
+         * Jack
+         */
+        JACK('J'),
+        /**
+         * Queen
+         */
+        QUEEN('Q'),
+        /**
+         * King
+         */
+        KING('K'),
+        /**
+         * Ace
+         */
+        ACE('A');
+
+        /**
+         * Rank's symbol
+         */
+        final private char token;
+
+        /**
+         * @param token
+         */
+        Rank(char token) {
+            this.token = token;
+        }
+
+        /**
+         * @return Rank's Symbol.
+         */
+        public char getToken() {
+            return token;
+        }
+
+        public static Rank getRank(char token) {
+            for (Rank rank : values()) {
+                if (token == rank.getToken()) {
+                    return rank;
+                }
+            }
+            throw new IllegalArgumentException("Invalid Token: " + token);
+        }
+    }
+
+    @Override
+    public int compareTo(Card card) {
+        return this.getRank().compareTo(card.getRank());
+    }
+}
+
+enum HandType implements IHandType{
+
+    /**
+     * 牌面最大的牌
+     */
+    HIGH_CARD("HIGH_CARD", 0) {
+        @Override
+        public HandType getHandType() {
+            return HandType.HIGH_CARD;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasHighestCard(hand);
+        }
+    },
+
+    /**
+     * 对子
+     */
+    PAIR("PAIR",1) {
+        @Override
+        public HandType getHandType() {
+            return HandType.PAIR;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasOnePair(hand);
+        }
+    },
+
+    /**
+     * 2个对子,按照最大的一对对子的大小进行排序，如果相同，比较较小的一对对子，如果还是相同，请比较剩下的牌面
+     */
+    TWO_PAIRS("TWO PAIRS", 2) {
+        @Override
+        public HandType getHandType() {
+            return HandType.TWO_PAIRS;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasTwoPairs(hand);
+        }
+    },
+
+    /**
+     * 三条，3个同样牌，按照3张牌的牌面大小排序
+     */
+    THREE_OF_A_KIND("THREE_OF_A_KIND", 3) {
+        @Override
+        public HandType getHandType() {
+            return HandType.THREE_OF_A_KIND;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasThreeOfAKind(hand);
+        }
+    },
+
+    /**
+     * 顺子,五张依次递增的牌,按照最大牌的大小排序
+     */
+    STRAIGHT("STRAIGHT", 4) {
+        @Override
+        public HandType getHandType() {
+            return HandType.STRAIGHT;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasStraight(hand);
+        }
+    },
+
+    /**
+     * 同花，5个花色一样的牌, 按照最大牌面大小排序。
+     */
+    FLUSH("FLUSH", 5) {
+        @Override
+        public HandType getHandType() {
+            return HandType.FLUSH;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasFlush(hand);
+        }
+    },
+
+    /**
+     * 葫芦，3个同样的牌加上1个对子，按照3张相同的牌面大小排序。
+     */
+    FULL_HOUSE("FULL_HOUSE", 6) {
+        @Override
+        public HandType getHandType() {
+            return HandType.FULL_HOUSE;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasFullHouse(hand);
+        }
+    },
+
+    /**
+     * 四条,4个同样的牌加一个牌，按照4张牌面大小排序。
+     */
+    FOUR_Of_A_KIND("FOUR_OF_A_KINE", 7) {
+        @Override
+        public HandType getHandType() {
+            return HandType.FOUR_Of_A_KIND;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasFourOfAKind(hand);
+        }
+    },
+    /**
+     * 同花顺，按照最大的牌面大小排序。
+     */
+    STRAIGHT_FLUSH("STRAIGHT_FLUSH", 8) {
+        @Override
+        public HandType getHandType() {
+            return HandType.STRAIGHT_FLUSH;
+        }
+
+        @Override
+        protected boolean isValid(Card[] hand) {
+            return HandTypeEvaluator.hasStraightFlush(hand);
+        }
+    };
+
+    private String description;
+    private int scores;
+
+    HandType(String description, int scores) {
+        this.description = description;
+        this.scores = scores;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getScores() {
+        return scores;
+    }
+
+    /**
+     * Verify if a handType is present in a given hand.
+     *
+     * @param hand Set of cards.
+     * @return {@code true} if the hand type is present in the hand, {@code false}
+     *         otherwise.
+     */
+    protected abstract boolean isValid(Card[] hand);
+}
+
+class HandTypeEvaluator {
+    /**
+     * Verifies if a given hand of any size contanis a Straight Flush. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasStraightFlush(Card[] hand) {
+        return hasStraight(hand) && hasFlush(hand);
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Four of a Kind. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasFourOfAKind(Card[] hand) {
+        if (hand.length >= 4) {
+            for (int i = 0; i <= hand.length - 4; i++) {
+                if ((hand[i].compareTo(hand[i + 1]) == 0)
+                        && (hand[i + 1].compareTo(hand[i + 2]) == 0)
+                        && (hand[i + 2].compareTo(hand[i + 3]) == 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Full House. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasFullHouse(Card[] hand) {
+        if (hand.length >= 5) {
+            Card.Rank tValue = null, pValue = null;
+            for (int i = 0; i < hand.length - 2; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()
+                        && hand[i + 1].getRank() == hand[i + 2].getRank()) {
+                    tValue = hand[i].getRank();
+                    break;
+                }
+            }
+            for (int i = 0; i < hand.length - 1; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()
+                        && hand[i].getRank() != tValue) {
+                    pValue = hand[i].getRank();
+                    break;
+                }
+            }
+            if (tValue != null && pValue != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Flush.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasFlush(Card[] hand) {
+        if (hand.length >= 5) {
+            int c = 0, h = 0, s = 0, d = 0;
+            for (int i = 0; i < hand.length; i++) {
+                if (hand[i].getSuit() == Card.Suit.C) {
+                    c++;
+                }
+                else if (hand[i].getSuit() == Card.Suit.H) {
+                    h++;
+                }
+                else if (hand[i].getSuit() == Card.Suit.S) {
+                    s++;
+                }
+                else {
+                    d++;
+                }
+                if (c == 5 || h == 5 || s == 5 || d == 5) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Straight. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasStraight(Card[] hand) {
+        if (hand.length >= 5) {
+            int seqCards = 1;
+            int length = hand.length - 1;
+            if (hand[length].getRank() == Card.Rank.ACE
+                    && hand[length - 4].getRank() == Card.Rank.TWO) {
+                length--;
+                seqCards++;
+            }
+            for (int i = 0; i < length; i++) {
+                if (hand[i + 1].getRank().ordinal() - hand[i].getRank().ordinal() == 1) {
+                    seqCards++;
+                    if (seqCards == 5) {
+                        return true;
+                    }
+                }
+                else {
+                    seqCards = 1;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Three of a Kind. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasThreeOfAKind(Card[] hand) {
+        if (hand.length >= 3) {
+            for (int i = 0; i < hand.length - 2; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()
+                        && hand[i + 1].getRank() == hand[i + 2].getRank()
+                        && hand[i].getRank() == hand[i+2].getRank()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains Two Pairs. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasTwoPairs(Card[] hand) {
+        if (hand.length >= 4) {
+            int indx = -1;
+            for (int i = 0; i < hand.length - 1; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()) {
+                    indx = i;
+                    break;
+                }
+            }
+            for (int i = indx + 2; i < hand.length - 1; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Pair. <br>
+     * Assertive: hand must be sorted.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasOnePair(Card[] hand) {
+        if (hand.length >= 2) {
+            for (int i = 0; i < hand.length - 1; i++) {
+                if (hand[i].getRank() == hand[i + 1].getRank()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if a given hand of any size contains a Highest Card.
+     *
+     * @param hand Hand.
+     * @return {@code true} if contains, {@code false} otherwise.
+     */
+    public static boolean hasHighestCard(Card[] hand) {
+        return true;
+    }
+
+}
+
+interface IHandType {
+    HandType getHandType();
+}
+
+class IHandTypeImp implements IHandType{
+    private final int numOfCards = 5;
+    private Card[] cards;
+
+    public IHandTypeImp(String playerhands) {
+        cards = toCards(playerhands);
+    }
+
+    public IHandTypeImp(Card[] cards) {
+        Arrays.sort(cards);
+        this.cards = cards;
+    }
+
+    private Card[] toCards(String playerhands) {
+        List<Card> cardList = new ArrayList<>();
+        Scanner scanner = new Scanner(new ByteArrayInputStream(playerhands.getBytes()));
+        while(scanner.hasNext()) {
+            cardList.add(Card.valueOf(scanner.next()));
+        }
+        Collections.sort(cardList);
+        return cardList.toArray(new Card[numOfCards]);
+    }
+
+    @Override
+    public HandType getHandType() {
+        int maxScores = 0;
+        HandType type = HandType.HIGH_CARD;
+        for (HandType handType : HandType.values()) {
+            if (handType.isValid(cards)) {
+                if (handType.getScores() > maxScores) {
+                    maxScores = handType.getScores();
+                    type = handType.getHandType();
+                }
+            }
+        }
+        return type;
+    }
+}
+
+enum Judgement {
+    BlackWin("Black wins."),
+    Tie("Tie."),
+    WhiteWin("White wins."),
+    ;
+    private String description;
+
+    Judgement(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+
+class ShowHandEvaluator {
+
+    /**
+     * 两个排序的数组比较最后一张牌的大小
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
+    public static Judgement straightFlush(Card[] blackHand, Card[] whiteHand) {
+        int indexOfCard = 4;
+        if (blackHand[indexOfCard].compareTo(whiteHand[indexOfCard]) >0) {
+            return Judgement.BlackWin;
+        } else if (blackHand[indexOfCard].compareTo(whiteHand[indexOfCard]) == 0) {
+            return Judgement.Tie;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    public static Judgement fourOfAKind(Card[] blackHand, Card[] whiteHand) {
+        Card blackCard = findRepeatRankCard(blackHand);
+        Card whiteCard = findRepeatRankCard(whiteHand);
+
+        if (blackCard.compareTo(whiteCard) > 0) {
+            return Judgement.BlackWin;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    /**
+     * 葫芦的判定规则是3张牌的大小
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
+    public static Judgement fullHouse(Card[] blackHand, Card[] whiteHand) {
+        Card bCard = null;
+        Card wCard = null;
+
+        for (int i = 0; i < blackHand.length - 2; i++) {
+            if (blackHand[i].getRank() == blackHand[i + 1].getRank()
+                    && blackHand[i + 1].getRank() == blackHand[i + 2].getRank()) {
+                bCard = blackHand[i];
+                break;
+            }
+        }
+
+        for (int i = 0; i < blackHand.length - 2; i++) {
+            if (whiteHand[i].getRank() == whiteHand[i + 1].getRank()
+                    && whiteHand[i + 1].getRank() == whiteHand[i + 2].getRank()) {
+                wCard = whiteHand[i];
+                break;
+            }
+        }
+
+        if (bCard.compareTo(wCard) >= 0) {
+            return Judgement.BlackWin;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    /**
+     * 同花的判定规则和高牌的判定规则相同，都依次比较最大的一张牌
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
+    public static Judgement flush(Card[] blackHand, Card[] whiteHand) {
+        Card bCard = null;
+        Card wCard = null;
+
+        Judgement result = Judgement.Tie;
+        for (int len = blackHand.length - 1; len >=0; len--) {
+            bCard = blackHand[len];
+            wCard = whiteHand[len];
+            if (bCard.compareTo(wCard) > 0 ) {
+                result = Judgement.BlackWin;
+                break;
+            } else if (bCard.compareTo(wCard) == 0) {
+                result = Judgement.Tie;
+            } else {
+                result = Judgement.WhiteWin;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 顺子比较的是最大的一张牌，两个排序后的数组肯定是最后一张牌的大小
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
+    public static Judgement straight(Card[] blackHand, Card[] whiteHand) {
+        int indexOfCard = 4;
+        if (blackHand[indexOfCard].compareTo(whiteHand[indexOfCard]) > 0) {
+            return Judgement.BlackWin;
+        } else if (blackHand[indexOfCard].compareTo(whiteHand[indexOfCard]) == 0) {
+            return Judgement.Tie;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    public static Judgement threeOfKind(Card[] blackHand, Card[] whiteHand) {
+        Card bCard = null;
+        Card wCard = null;
+
+        for (int i = 0; i < blackHand.length - 2; i++) {
+            if (blackHand[i].getRank() == blackHand[i + 1].getRank()
+                    && blackHand[i + 1].getRank() == blackHand[i + 2].getRank()) {
+                bCard = blackHand[i];
+                break;
+            }
+        }
+
+        for (int i = 0; i < blackHand.length - 2; i++) {
+            if (whiteHand[i].getRank() == whiteHand[i + 1].getRank()
+                    && whiteHand[i + 1].getRank() == whiteHand[i + 2].getRank()) {
+                wCard = whiteHand[i];
+                break;
+            }
+        }
+
+        if (bCard.compareTo(wCard) >= 0) {
+            return Judgement.BlackWin;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    public static Judgement twoPair(Card[] blackHand, Card[] whiteHand) {
+        TwoPairs bTwoPairs = new TwoPairs(blackHand);
+        TwoPairs wTwoPairs = new TwoPairs(whiteHand);
+
+        Comparator<TwoPairs> comparator = new TwoPairsComparator();
+        int result = comparator.compare(bTwoPairs, wTwoPairs);
+        if (result > 0) {
+            return Judgement.BlackWin;
+        } else if (result == 0) {
+            return Judgement.Tie;
+        } else {
+            return Judgement.WhiteWin;
+        }
+    }
+
+    public static Judgement pair(Card[] blackHand, Card[] whiteHand) {
+        Card bCard = findRepeatRankCard(blackHand);
+        Card[] bRemainderCards = remainderCards(blackHand, bCard);
+        Card wCard = findRepeatRankCard(whiteHand);
+        Card[] wRemainderCards = remainderCards(whiteHand, bCard);
+        Judgement result = Judgement.Tie;
+
+        if (bCard.compareTo(wCard) > 0) {
+            result = Judgement.BlackWin;
+        } else if (bCard.compareTo(wCard) == 0) {
+            for (int i = bRemainderCards.length - 1; i >= 0; i--) {
+                Card bTmpCard = bRemainderCards[i];
+                Card wTmpCard = wRemainderCards[i];
+                if (bTmpCard.compareTo(wTmpCard) == 0) {
+                    result = Judgement.Tie;
+                } else if (bTmpCard.compareTo(wTmpCard) > 0){
+                    result = Judgement.BlackWin;
+                    break;
+                } else {
+                    result = Judgement.WhiteWin;
+                    break;
+                }
+            }
+        } else {
+            result = Judgement.WhiteWin;
+        }
+
+        return result;
+    }
+
+    /**
+     * 两手牌已经排序好了，一次求最大的牌好了
+     * @param blackHand
+     * @param whiteHand
+     * @return
+     */
+    public static Judgement highCard(Card[] blackHand, Card[] whiteHand) {
+        Card bCard = null;
+        Card wCard = null;
+
+        Judgement result = Judgement.Tie;
+        for (int len = blackHand.length - 1; len >=0; len--) {
+            bCard = blackHand[len];
+            wCard = whiteHand[len];
+            if (bCard.compareTo(wCard) > 0 ) {
+                result = Judgement.BlackWin;
+                break;
+            } else if (bCard.compareTo(wCard) == 0) {
+                result = Judgement.Tie;
+            } else {
+                result = Judgement.WhiteWin;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 判断4条中相同的牌
+     * @param cards
+     * @return
+     */
+    private static Card findRepeatRankCard(Card[] cards) {
+        Set<Card.Rank> set = new HashSet<>();
+        int index = 0;
+        for (int i = 0; i < cards.length; ++i) {
+            if (!set.add(cards[i].rank)) {
+                index = i;
+                break;
+            }
+        }
+        return cards[index];
+    }
+
+    private static Card[] remainderCards(Card[] cards, Card repeatedCard) {
+        Set<Card> set = new TreeSet<>();
+        for (int i = 0; i < cards.length; i++) {
+            set.add(cards[i]);
+        }
+        set.remove(repeatedCard);
+        int size = set.size();
+        return set.toArray(new Card[size]);
+    }
+
+    private static class TwoPairs {
+        private Card[] originCards;
+        private Card[] pairsOfCards;
+        private Card remainderCard;
+
+        public TwoPairs(Card[] cards) {
+            this.originCards = cards;
+            boolean[] flags = new boolean[]{false, false, false, false, false};
+            int indx = -1;
+            for (int i = 0 ; i < originCards.length - 1; i++) {
+                if ((originCards[i].compareTo(originCards[i+1]) == 0)) {
+                    indx = i;
+                    flags[i] = true;
+                    flags[i+1] = true;
+                    break;
+                }
+            }
+
+            for (int i = indx + 2; i < originCards.length - 1; i++) {
+                if (originCards[i].compareTo(originCards[i+1]) == 0) {
+                    flags[i] = true;
+                    flags[i+1] = true;
+                }
+            }
+
+            for (int i = 0 ; i < flags.length; i++) {
+                if (!flags[i]) {
+                    remainderCard = originCards[i];
+                }
+            }
+
+            Set<Card> cardSet = new TreeSet<>();
+            for (int i = 0; i < originCards.length; i++) {
+                cardSet.add(originCards[i]);
+            }
+            cardSet.remove(remainderCard);
+            pairsOfCards = cardSet.toArray(new Card[(originCards.length / 2) - 1]);
+        }
+
+        public Card[] getPairsOfCards() {
+            return pairsOfCards;
+        }
+
+        public Card getRemainderCard() {
+            return remainderCard;
+        }
+
+    }
+
+    private static class TwoPairsComparator implements Comparator<TwoPairs> {
+
+        @Override
+        public int compare(TwoPairs o1, TwoPairs o2) {
+            Card[] bPairsOfCards = o1.getPairsOfCards();
+            Card bRemainderCard = o1.getRemainderCard();
+
+            Card[] wPairsOfCards = o2.getPairsOfCards();
+            Card wRemainderCard = o2.getRemainderCard();
+
+            int result = 0;
+
+            for (int i = bPairsOfCards.length - 1; i >=0 ; i--) {
+                if (bPairsOfCards[i].compareTo(wPairsOfCards[i]) > 0) {
+                    result = 1;
+                    break;
+                } else if (bPairsOfCards[i].compareTo(wPairsOfCards[i]) == 0) {
+                    if (bRemainderCard.compareTo(wRemainderCard) > 0) {
+                        result = 1;
+
+                    } else if (bRemainderCard.compareTo(wRemainderCard) == 0) {
+                        result = 0;
+                    } else {
+                        result = -1;
+
+                    }
+                } else {
+                    result = -1;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
+}
+
+class ShowHandFactory {
+    public static Judgement showHandJudgement(Card[] blackHand, Card[] whiteHand, HandType handType) {
+        Judgement result = null;
+        switch (handType) {
+            case STRAIGHT_FLUSH:
+                result = ShowHandJudgement.STRAIGHT_FLUSH.judgement(blackHand, whiteHand);
+                break;
+            case FOUR_Of_A_KIND:
+                result = ShowHandJudgement.FOUR_Of_A_KIND.judgement(blackHand, whiteHand);
+                break;
+            case FULL_HOUSE:
+                result = ShowHandJudgement.FULL_HOUSE.judgement(blackHand, whiteHand);
+                break;
+            case FLUSH:
+                result = ShowHandJudgement.FLUSH.judgement(blackHand, whiteHand);
+                break;
+            case STRAIGHT:
+                result = ShowHandJudgement.STRAIGHT.judgement(blackHand, whiteHand);
+                break;
+            case THREE_OF_A_KIND:
+                result = ShowHandJudgement.THREE_OF_A_KIND.judgement(blackHand, whiteHand);
+                break;
+            case TWO_PAIRS:
+                result = ShowHandJudgement.TWO_PAIRS.judgement(blackHand, whiteHand);
+                break;
+            case PAIR:
+                result = ShowHandJudgement.PAIR.judgement(blackHand, whiteHand);
+                break;
+            case HIGH_CARD:
+                result = ShowHandJudgement.HIGH_CARD.judgement(blackHand, whiteHand);
+                break;
+        }
+
+        return result;
+    }
+}
+
+class ShowHandInDeck implements Readable{
+
+    private String blackHands;
+    private String whiteHands;
+    private HandType handType4Black;
+    private HandType handType4White;
+    private HandType type;
+    private int count = 1;
+
+    public ShowHandInDeck(String blackHands, String whiteHands) {
+        this.blackHands = blackHands;
+        this.whiteHands = whiteHands;
+        handType4Black = new IHandTypeImp(blackHands).getHandType();
+        handType4White = new IHandTypeImp(whiteHands).getHandType();
+
+    }
+
+    private Card[] toCards(String playerhands) {
+        List<Card> cardList = new ArrayList<>();
+        Scanner scanner = new Scanner(new ByteArrayInputStream(playerhands.getBytes()));
+        while(scanner.hasNext()) {
+            cardList.add(Card.valueOf(scanner.next()));
+        }
+        Collections.sort(cardList);
+        return cardList.toArray(new Card[5]);
+    }
+
+    @Override
+    public int read(CharBuffer cb) throws IOException {
+        if (--count < 0) {
+            return -1;
+        }
+
+        if (handType4Black.compareTo(handType4White) == 0 ) {
+            type = handType4Black.getHandType();
+            Judgement judgement = ShowHandFactory.showHandJudgement(toCards(blackHands), toCards(whiteHands), type);
+            cb.append(judgement.getDescription());
+        } else if (handType4Black.compareTo(handType4White) > 0) {
+            cb.append("Black wins.");
+        } else {
+            cb.append("White wins.");
+        }
+
+        return 10;
+    }
+}
+
+enum ShowHandJudgement implements IHandType {
+
+    STRAIGHT_FLUSH(HandType.STRAIGHT_FLUSH) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.straightFlush(blackHand, whiteHand);
+        }
+    },
+
+    FOUR_Of_A_KIND(HandType.FOUR_Of_A_KIND) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.fourOfAKind(blackHand, whiteHand);
+        }
+    },
+
+    FULL_HOUSE(HandType.FULL_HOUSE) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.fullHouse(blackHand, whiteHand);
+        }
+    },
+
+    FLUSH(HandType.FLUSH) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.flush(blackHand, whiteHand);
+        }
+    },
+
+    STRAIGHT(HandType.STRAIGHT) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.straight(blackHand, whiteHand);
+        }
+    },
+
+    THREE_OF_A_KIND(HandType.THREE_OF_A_KIND) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.threeOfKind(blackHand, whiteHand);
+        }
+    },
+
+    TWO_PAIRS(HandType.TWO_PAIRS) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.twoPair(blackHand, whiteHand);
+        }
+    },
+
+    PAIR(HandType.PAIR) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.pair(blackHand, whiteHand);
+        }
+    },
+
+    HIGH_CARD(HandType.HIGH_CARD) {
+        @Override
+        public Judgement judgement(Card[] blackHand, Card[] whiteHand) {
+            return ShowHandEvaluator.highCard(blackHand, whiteHand);
+        }
+    };
+
+    private HandType handType;
+
+    @Override
+    public HandType getHandType() {
+        return handType;
+    }
+
+    ShowHandJudgement(HandType handType) {
+        this.handType = handType;
+    }
+
+    public abstract Judgement judgement(Card[] blackHand, Card[] whiteHand);
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        final int cardsInHand = 5;
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        while(input.hasNextLine()) {
+            StringBuilder blackSb = new StringBuilder("");
+            for (int i = 1; i <= cardsInHand; i++) {
+                blackSb.append(input.next() + " ");
+            }
+            String blackHands = blackSb.toString();
+
+            StringBuilder whiteSb = new StringBuilder("");
+            for (int i = 1; i <= cardsInHand; i++) {
+                whiteSb.append(input.next() + " ");
+            }
+            String whiteHands = whiteSb.toString();
+
+            Readable readable = new ShowHandInDeck(blackHands, whiteHands);
+            Scanner output = new Scanner(readable);
+            while(output.hasNextLine()) {
+                System.out.println(output.nextLine());
+            }
+        }
+    }
+}
