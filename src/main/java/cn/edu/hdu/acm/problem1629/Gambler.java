@@ -17,12 +17,15 @@ public class Gambler {
      * @return
      */
     public HandType playCards(List<Card> handCards, List<Card> deckCards) {
+        // check score for the current hand
         checkForBestHandType(handCards.toArray(new Card[handCards.size()]));
 
+        // take one by one cards from the deck
         Card[] currentHand = new Card[5];
-
         for (int i = 0; i < 5; i++) {
             currentHand[i] = new Card(deckCards.get(i).rank, deckCards.get(i).suit);
+            // use recursion to match cards from the deck and cards from the
+            // hand
             matchWithHandCards(currentHand, handCards, i+1, 0);
         }
 
@@ -42,8 +45,10 @@ public class Gambler {
      *            index from which to start processing
      */
     private void matchWithHandCards(Card[] currentHand, List<Card> handCards, int currentIdx, int startIdx) {
+        // there are already 5 cards to check
         if (currentIdx == 5) {
             checkForBestHandType(currentHand);
+
             return;
         }
 
