@@ -41,7 +41,6 @@ class PrintNumTask implements Runnable {
     public void run() {
         for (int i = 0; i < num; i++) {
             System.out.print(" " + i);
-            Thread.yield();
         }
     }
 }
@@ -57,9 +56,10 @@ class PrintCharTask implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
+        // 挂起线程，等待其他线程执行完了后再执行
+        Thread.yield();
+        for (int i = 0; i < this.count; i++) {
             System.out.print(ch);
-           Thread.yield();
         }
     }
 }

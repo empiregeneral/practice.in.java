@@ -35,7 +35,7 @@ public class Problem1629Test {
         Assert.assertEquals(handType.getDescription(), expect);
     }
 
-    private class DealWithRoundOfCards {
+    class DealWithRoundOfCards {
         private String roundOfCards;
         private List<Card> handCards = new ArrayList<>();
         private List<Card> deckCards = new ArrayList<>();

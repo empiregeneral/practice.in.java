@@ -5,9 +5,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
-        long startMem = runtime.freeMemory();
         Scanner input = new Scanner(new BufferedInputStream(System.in));
         int n = Integer.parseInt(input.next());
         for (int i = 0; i < n; i++) {
@@ -21,12 +18,11 @@ public class Main {
                     System.out.println(sc.nextLine());
                 }
             }
-            if ( i != n-1) { /* Block Input, every block has a blank line.*/
+            /* Block Input, every block has a blank line.*/
+            if ( i != n-1) {
                 System.out.println();
             }
 
         }
-        long orz = startMem - runtime.freeMemory();
-        System.out.println(orz);
     }
 }
