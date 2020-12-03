@@ -38,8 +38,8 @@ public class Main {
 
     public static BigInteger[] createTable(int scale) {
         BigInteger[] bigIntegers = new BigInteger[scale];
-        bigIntegers[0] = new BigInteger("1");
-        bigIntegers[1] = new BigInteger("2");
+        bigIntegers[0] = BigInteger.ONE;
+        bigIntegers[1] = BigInteger.valueOf(2L);
 
         for (int i = 2; i < scale; i++) {
             bigIntegers[i] = bigIntegers[i - 1].add(bigIntegers[i - 2]);
