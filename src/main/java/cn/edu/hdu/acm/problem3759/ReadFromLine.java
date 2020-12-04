@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Read implements IHandScore {
+public class ReadFromLine implements IHandScore {
 
     private String input;
     private int[] ranks = new int[Hand.HAND_SIZE];
     private int[] suits = new int[Hand.HAND_SIZE];
 
 
-    public Read(String readLine) {
+    public ReadFromLine(String readLine) {
         this.input = readLine;
         String[] cards = input.split(" ");
         Set<String> set = new HashSet<>();
@@ -25,7 +25,6 @@ public class Read implements IHandScore {
         }
 
         Arrays.sort(ranks);
-        System.out.println(Arrays.toString(ranks));
     }
 
 

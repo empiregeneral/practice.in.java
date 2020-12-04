@@ -70,7 +70,8 @@ public class Hand {
             @Override
             int map(int hand) {
                 return hand;
-            }},
+            }
+            },
         ONE_PAIR {
             @Override
             int map(int hand) {
@@ -151,6 +152,37 @@ public class Hand {
             }};
 
         abstract int map(int hand);
+    }
+
+    static final Ranking[] RANKINGS = Ranking.values();
+
+    static class HandScore implements Comparable<HandScore> {
+        final int hand;
+        final int map;
+        final Ranking ranking;
+
+        public HandScore(int hand) {
+            this.hand = hand;
+            for (int i = RANKINGS.length; --i > 0;) {
+                Ranking ranking = RANKINGS[i];
+                int map = ranking.map(hand);
+                if (map >= 0) {
+                    this.map = map;
+                    this.ranking = ranking;
+                    return;
+                }
+            }
+            throw new AssertionError("This cannot happen");
+        }
+
+        @Override
+        public int compareTo(HandScore o) {
+            int i = ranking.compareTo(o.ranking);
+            if (i != 0) {
+                return i;
+            }
+            return map - o.map;
+        }
     }
 
 }

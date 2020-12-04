@@ -10,7 +10,7 @@ public class Main {
 
         String line;
         while ((line = reader.readLine()) != null) {
-            IHandScore iHandScore = new Read(line);
+            IHandScore iHandScore = new ReadFromLine(line);
             System.out.println(iHandScore.hand());
 
         }
