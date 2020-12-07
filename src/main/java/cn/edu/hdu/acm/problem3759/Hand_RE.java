@@ -230,26 +230,33 @@ public class Hand_RE {
         }
     }
 
-    final List<Hand> hands = new ArrayList<Hand>();
+    final List<Hand> handScores = new ArrayList<Hand>();
 
-    void generate(int hand, int i, int high, int hc, boolean canflush) {
+    /**
+     *
+     * @param handScore 生成的牌面分数
+     * @param pos  C1 C2 C3 C4 C5
+     * @param rankOfHigh 牌面的最高值 ACE -> indexOf("23456789TJQKA") = 12 依次类推
+     * @param hc 牌面的花色 0 -> C, 1 -> D, 2 -> S, 3 -> H
+     * @param canflush 是否是同花
+     */
+    void generate(int handScore, int pos, int rankOfHigh, int hc, boolean canflush) {
         if (hc > 1) {
             canflush = false;
         }
-        if (i == -1) {
-            generate(hand, -2, high, hc, canflush);
+        if (pos == -1) {
+            generate(handScore, -2, rankOfHigh, hc, canflush);
             if (canflush) {
-                generate(setFlush(hand), -2, high, hc, canflush);
+                generate(setFlush(handScore), -2, rankOfHigh, hc, canflush);
             }
-        } else if (i == -2) {
-            hands.add(new Hand(hand));
+        } else if (pos == -2) {
+            handScores.add(new Hand(handScore));
         } else {
-            for (int card = high; card >= 0; card--){
-                if (card < high || hc < S.length()) {
-                    generate(setCard(hand, i, card), i - 1, card, card < high ? 1 : (hc + 1), canflush);
+            for (int rank = rankOfHigh; rank >= 0; rank--){
+                if (rank < rankOfHigh || hc < S.length()) {
+                    generate(setCard(handScore, pos, rank), pos - 1, rank, rank < rankOfHigh ? 1 : (hc + 1), canflush);
                 }
             }
-
         }
     }
 
@@ -257,10 +264,11 @@ public class Hand_RE {
 
     void solve() {
         generate(0, C1, ACE, 0, true);
-        Collections.sort(hands);
+        Collections.sort(handScores);
+        System.err.println(handScores.size());
         v = 0;
         boolean found = false;
-        for (Hand hand : hands) {
+        for (Hand hand : handScores) {
             v++;
             if (hand.hand == this.hand) {
                 System.err.println(hand.ranking);

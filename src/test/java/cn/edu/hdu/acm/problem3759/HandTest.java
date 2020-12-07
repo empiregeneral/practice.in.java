@@ -12,6 +12,11 @@ import java.util.stream.Stream;
 @RunWith(JUnitParamsRunner.class)
 public class HandTest {
 
+    /**
+     *
+     * @param input card的rank值，一般indexOf("23456789TJQKA")
+     * @param expect
+     */
     @Test
     @Parameters({"2 3 4 5 6,414770", "12 11 8 12 8,838536"})
     public void testSetHand(String input, int expect) {
@@ -99,7 +104,14 @@ public class HandTest {
         IHandScore score = new ReadFromLine(cards);
         int hand = score.hand();
         Assert.assertEquals(Hand.Ranking.THREE_OF_A_KIND.map(hand), mapResult);
+    }
 
+    @Test
+    @Parameters({"AC KC JC QC TC,989323", "AC 2C 3C 4C 5C,9876"})
+    public void testFlushStraightRankMap(String cards, int mapResult) {
+        IHandScore score = new ReadFromLine(cards);
+        int hand = score.hand();
+        System.out.println(hand);
     }
 
 
@@ -108,6 +120,7 @@ public class HandTest {
         Stream<String> stream = Arrays.stream(input.split(" "));
         int[] result = stream.mapToInt(e -> Integer.parseInt(e)).toArray();
         Arrays.sort(result);
+        System.out.println(Arrays.toString(result));
         return result;
     }
 
