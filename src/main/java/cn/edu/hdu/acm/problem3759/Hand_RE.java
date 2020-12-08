@@ -107,7 +107,7 @@ public class Hand_RE {
         if (flush) {
             hand = setFlush(hand);
         }
-        System.err.println(hand);
+        System.err.println("Hand Score: " +hand);
         in.close();
     }
 
@@ -265,7 +265,7 @@ public class Hand_RE {
     void solve() {
         generate(0, C1, ACE, 0, true);
         Collections.sort(handScores);
-        System.err.println(handScores.size());
+        System.err.println("HandScores: " +handScores.size());
         v = 0;
         boolean found = false;
         for (Hand hand : handScores) {

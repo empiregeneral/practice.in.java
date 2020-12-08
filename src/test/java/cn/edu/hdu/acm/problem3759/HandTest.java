@@ -72,6 +72,18 @@ public class HandTest {
         System.err.println(score.ranking);
     }
 
+    @Test
+    @Parameters("834199")
+    public void test(int hand) {
+        Hand.HandScore score = new Hand.HandScore(hand);
+        System.out.println(score.ranking);
+        System.out.println(score.map);
+
+        for (int i = 9; --i >= 0; ) {
+            System.out.println(i);
+        }
+    }
+
 
     @Test
     @Parameters({"2S 3H 9S 8D 5C,484112", "AS KH QS JD 9C,834199"})

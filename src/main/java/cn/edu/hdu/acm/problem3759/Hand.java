@@ -70,8 +70,7 @@ public class Hand {
             @Override
             int map(int hand) {
                 return hand;
-            }
-            },
+            }},
         ONE_PAIR {
             @Override
             int map(int hand) {
@@ -163,7 +162,7 @@ public class Hand {
 
         public HandScore(int hand) {
             this.hand = hand;
-            for (int i = RANKINGS.length; --i > 0;) {
+            for (int i = RANKINGS.length; --i >= 0;) {
                 Ranking ranking = RANKINGS[i];
                 int map = ranking.map(hand);
                 if (map >= 0) {
