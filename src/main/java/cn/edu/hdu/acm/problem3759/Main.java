@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+/**
+ * @Description
+ * @Author lei.zhu
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,5 +23,7 @@ public class Main {
                 System.out.println(output.next());
             }
         }
+
+        reader.close();
     }
 }
