@@ -65,11 +65,11 @@ public class HandTest {
 
 
     @Test
-    @Parameters({"414770,STRAIGHT", "799248,STRAIGHT"})
-    public void testStraightRankMap(int hand) {
+    @Parameters({"414770,STRAIGHT", "1294864,STRAIGHT_FLUSH"})
+    public void testStraightRankMap(int hand, Hand.Ranking expectRanking) {
         Hand.HandScore score = new Hand.HandScore(hand);
         System.out.println(score.map);
-        System.err.println(score.ranking);
+       Assert.assertEquals(score.ranking,expectRanking);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class HandTest {
         System.out.println(score.ranking);
         System.out.println(score.map);
 
-        for (int i = 9; --i >= 0; ) {
+        for (int i = 9; --i >= 0;) {
             System.out.println(i);
         }
     }

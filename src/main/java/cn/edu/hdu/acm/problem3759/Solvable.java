@@ -25,14 +25,6 @@ public class Solvable implements Readable {
      * @param hc 牌面的花色 0 -> C, 1 -> D, 2 -> S, 3 -> H
      * @param canflush 是否是同花
      */
-    /**
-     *
-     * @param handScore 生成的牌面分数
-     * @param pos  C1 C2 C3 C4 C5
-     * @param rankOfHigh 牌面的最高值 ACE -> indexOf("23456789TJQKA") = 12 依次类推
-     * @param hc 牌面的花色 0 -> C, 1 -> D, 2 -> S, 3 -> H
-     * @param canflush 是否是同花
-     */
     void generate(int handScore, int pos, int rankOfHigh, int hc, boolean canflush) {
         if (hc > 1) {
             canflush = false;
