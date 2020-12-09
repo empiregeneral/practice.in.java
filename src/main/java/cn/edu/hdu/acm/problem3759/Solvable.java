@@ -46,9 +46,11 @@ public class Solvable implements Readable {
     }
 
 
-    public void solve() {
+    public int solve() {
         generate(0, Hand.C1, Hand.ACE, 0, true);
         Collections.sort(handScores);
+        System.out.println("Score: " + handScores.get(7453).hand);
+        System.out.println("Score: " + handScores.get(7454).hand);
         boolean found = false;
         for (Hand.HandScore handScore : handScores) {
             this.v++;
@@ -58,8 +60,9 @@ public class Solvable implements Readable {
             }
         }
         assert found;
-        return;
+        return v;
     }
+
 
     @Override
     public int read(CharBuffer cb) throws IOException {
@@ -72,5 +75,11 @@ public class Solvable implements Readable {
         cb.append(""+v);
 
         return 10;
+    }
+
+    public static int solution(int handScore) {
+        int result = new Solvable(handScore).solve();
+        return result;
+
     }
 }

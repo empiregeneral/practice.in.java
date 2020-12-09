@@ -9,11 +9,9 @@ import java.util.regex.Pattern;
 
 public class PokerHand {
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String inputLine;
-
-        while((inputLine = reader.readLine()) != null) {
+        Scanner input = new Scanner(new BufferedInputStream(System.in));
+        while(input.hasNextLine()) {
+            String inputLine = input.nextLine();
             CardsFromLine cards = new CardsFromLine(inputLine);
             IHandScore blackHand = new ReadFromLine(cards.getBlackCards());
             int handBlack = blackHand.hand();
@@ -23,37 +21,17 @@ public class PokerHand {
             while(output.hasNextLine()) {
                 System.out.println(output.nextLine());
             }
-
         }
-
-        reader.close();
     }
 
-    static class Judgement implements Comparator<Hand.HandScore>, Readable {
+    static class Judgement implements Comparator<Integer>, Readable {
         int handBlack;
         int handWhite;
-        Hand.HandScore blackHandScore;
-        Hand.HandScore whiteHandScore;
         int count = 1;
 
         public Judgement(int handBlack, int handWhite) {
             this.handBlack = handBlack;
             this.handWhite = handWhite;
-
-            blackHandScore = new Hand.HandScore(this.handBlack);
-            whiteHandScore = new Hand.HandScore(this.handWhite);
-        }
-
-
-        @Override
-        public int compare(Hand.HandScore o1, Hand.HandScore o2) {
-            if (o1.map - o2.map > 0) {
-                return 1;
-            } else if ( o1.map - o2.map == 0) {
-                return 0;
-            } else {
-                return -1;
-            }
         }
 
         @Override
@@ -62,17 +40,26 @@ public class PokerHand {
                 return -1;
             }
 
-            int result = compare(this.blackHandScore, this.whiteHandScore);
+            System.out.println(Solvable.solution(this.handBlack));
+            System.out.println(Solvable.solution(this.handWhite));
+            // int result = compare(Solvable.solution(this.handBlack), Solvable.solution(this.handWhite));
+            int result = 0;
+
 
             if (result > 0) {
                 cb.append("Black wins.");
             } else if (result == 0) {
                 cb.append("Tie.");
             } else {
-                cb.append("White wins");
+                cb.append("White wins.");
             }
 
             return 10;
+        }
+
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o1 - o2;
         }
     }
 
