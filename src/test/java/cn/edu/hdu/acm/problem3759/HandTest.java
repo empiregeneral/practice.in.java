@@ -73,15 +73,14 @@ public class HandTest {
     }
 
     @Test
-    @Parameters("834199")
+    @Parameters("1323536")
     public void test(int hand) {
         Hand.HandScore score = new Hand.HandScore(hand);
         System.out.println(score.ranking);
         System.out.println(score.map);
+        System.out.println(score.hand);
 
-        for (int i = 9; --i >= 0;) {
-            System.out.println(i);
-        }
+        System.out.println(Hand.ACE_ROLLED_STRAIGHT);
     }
 
 

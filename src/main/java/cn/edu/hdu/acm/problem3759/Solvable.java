@@ -49,8 +49,6 @@ public class Solvable implements Readable {
     public int solve() {
         generate(0, Hand.C1, Hand.ACE, 0, true);
         Collections.sort(handScores);
-        System.out.println("Score: " + handScores.get(7453).hand);
-        System.out.println("Score: " + handScores.get(7454).hand);
         boolean found = false;
         for (Hand.HandScore handScore : handScores) {
             this.v++;

@@ -40,11 +40,7 @@ public class PokerHand {
                 return -1;
             }
 
-            System.out.println(Solvable.solution(this.handBlack));
-            System.out.println(Solvable.solution(this.handWhite));
-            // int result = compare(Solvable.solution(this.handBlack), Solvable.solution(this.handWhite));
-            int result = 0;
-
+            int result = compare(Solvable.solution(this.handBlack), Solvable.solution(this.handWhite));
 
             if (result > 0) {
                 cb.append("Black wins.");

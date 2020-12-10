@@ -70,17 +70,19 @@ public class Hand {
             @Override
             int map(int hand) {
                 return hand;
-            }},
+            }
+        },
         ONE_PAIR {
             @Override
             int map(int hand) {
-                for (int i = HAND_SIZE; --i > 0;) {
+                for (int i = HAND_SIZE; --i > 0; ) {
                     if (getCard(hand, i) == getCard(hand, i - 1)) {
                         return moveCard(moveCard(hand, C1, i), C2, i - 1);
                     }
                 }
                 return -1;
-            }},
+            }
+        },
         TWO_PAIRS {
             @Override
             int map(int hand) {
@@ -88,67 +90,69 @@ public class Hand {
                 if (hand < 0) {
                     return -1;
                 }
-                for (int i = HAND_SIZE - 2; --i > 0;) {
+                for (int i = HAND_SIZE - 2; --i > 0; ) {
                     if (getCard(hand, i) == getCard(hand, i - 1)) {
                         return moveCard(moveCard(hand, C3, i), C4, i - 1);
                     }
                 }
                 return -1;
-            }},
+            }
+        },
         THREE_OF_A_KIND {
             @Override
             int map(int hand) {
-                for (int i = HAND_SIZE; --i > 1;)
-                {
-                    if (getCard(hand, i) == getCard(hand, i - 1) && getCard(hand, i) == getCard(hand, i - 2))
-                    {
+                for (int i = HAND_SIZE; --i > 1; ) {
+                    if (getCard(hand, i) == getCard(hand, i - 1) && getCard(hand, i) == getCard(hand, i - 2)) {
                         return moveCard(moveCard(moveCard(hand, C1, i), C2, i - 1), C3, i - 2);
                     }
                 }
                 return -1;
-            }},
+            }
+        },
         STRAIGHT {
             @Override
             int map(int hand) {
-                if (hand == ACE_ROLLED_STRAIGHT)
-                {
+                if (hand == ACE_ROLLED_STRAIGHT) {
                     return moveCard(hand, C1, C2);
                 }
-                for (int i = HAND_SIZE; --i > 0;)
-                {
-                    if (getCard(hand, i) != getCard(hand, i - 1) + 1)
-                    {
+                for (int i = HAND_SIZE; --i > 0; ) {
+                    if (getCard(hand, i) != getCard(hand, i - 1) + 1) {
                         return -1;
                     }
                 }
                 return hand;
-            }},
+            }
+        },
         FLUSH {
             @Override
             int map(int hand) {
                 return isFlush(hand) ? hand : -1;
-            }},
+            }
+        },
         FULL_HOUSE {
             @Override
             int map(int hand) {
                 hand = THREE_OF_A_KIND.map(hand);
                 return hand < 0 ? -1 : getCard(hand, C4) == getCard(hand, C5) ? hand : -1;
-            }},
+            }
+        },
         FOUR_OR_A_KIND {
             @Override
             int map(int hand) {
-                for (int i = HAND_SIZE; --i > 2;) {
+                for (int i = HAND_SIZE; --i > 2; ) {
                     if (getCard(hand, i) == getCard(hand, i - 1) && getCard(hand, i) == getCard(hand, i - 2) && getCard(hand, i) == getCard(hand, i - 3)) {
                         return moveCard(moveCard(moveCard(moveCard(hand, C1, i), C2, i - 1), C3, i - 2), C4, i - 3);
                     }
                 }
                 return -1;
-            }},
+            }
+        },
         STRAIGHT_FLUSH {
             @Override
             int map(int hand) {
                 return isFlush(hand) ? STRAIGHT.map(clearFlush(hand)) : -1;
-            }};
+            }
+        };
 
         abstract int map(int hand);
     }
@@ -162,7 +166,7 @@ public class Hand {
 
         public HandScore(int hand) {
             this.hand = hand;
-            for (int i = RANKINGS.length; --i >= 0;) {
+            for (int i = RANKINGS.length; --i >= 0; ) {
                 Ranking ranking = RANKINGS[i];
                 int map = ranking.map(hand);
                 if (map >= 0) {
