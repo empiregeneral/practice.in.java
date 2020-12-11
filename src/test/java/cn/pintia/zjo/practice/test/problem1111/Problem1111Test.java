@@ -40,6 +40,4 @@ public class Problem1111Test {
             Assert.assertEquals(output.nextLine(), result);
         }
     }
-
-
 }

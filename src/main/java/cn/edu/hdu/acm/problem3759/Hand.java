@@ -16,6 +16,10 @@ public class Hand {
     static final int THREE = R.indexOf('3');
     static final int FOUR = R.indexOf('4');
     static final int FIVE = R.indexOf('5');
+    static final int KING = R.indexOf('K');
+    static final int QUEUE = R.indexOf('Q');
+    static final int JACK = R.indexOf('J');
+    static final int TEN = R.indexOf('T');
 
     static final int CARD_BITS = 4;
     static final int CARD_MASK = (1 << CARD_BITS) - 1;
@@ -109,6 +113,7 @@ public class Hand {
                 return -1;
             }
         },
+
         STRAIGHT {
             @Override
             int map(int hand) {
@@ -157,12 +162,11 @@ public class Hand {
         abstract int map(int hand);
     }
 
-    static final Ranking[] RANKINGS = Ranking.values();
-
     static class HandScore implements Comparable<HandScore> {
         final int hand;
         final int map;
         final Ranking ranking;
+        final Ranking[] RANKINGS = Ranking.values();
 
         public HandScore(int hand) {
             this.hand = hand;
@@ -185,6 +189,15 @@ public class Hand {
                 return i;
             }
             return map - o.map;
+        }
+
+        @Override
+        public String toString() {
+            return "HandScore{" +
+                    "hand=" + hand +
+                    ", map=" + map +
+                    ", ranking=" + ranking +
+                    '}';
         }
     }
 

@@ -78,6 +78,5 @@ public class Solvable implements Readable {
     public static int solution(int handScore) {
         int result = new Solvable(handScore).solve();
         return result;
-
     }
 }

@@ -45,7 +45,7 @@ public class HandTest {
     }
 
     @Test
-    @Parameters({"414770,2,0"})
+    @Parameters({"414770,2,0", "799248,4,3"})
     public void testMoveCard(int hand, int to, int from) {
         System.out.println(Hand.moveCard(hand, to, from));
     }
@@ -62,6 +62,12 @@ public class HandTest {
         System.out.println(Hand.ACE_ROLLED_STRAIGHT);
     }
 
+    @Test
+    public void testStraightRankMapByAceRolled() {
+        Hand.HandScore score = new Hand.HandScore(Hand.ACE_ROLLED_STRAIGHT);
+        System.out.println(score.map);
+    }
+
 
 
     @Test
@@ -75,14 +81,9 @@ public class HandTest {
     @Test
     @Parameters("1323536")
     public void test(int hand) {
-        Hand.HandScore score = new Hand.HandScore(hand);
-        System.out.println(score.ranking);
-        System.out.println(score.map);
-        System.out.println(score.hand);
 
         System.out.println(Hand.ACE_ROLLED_STRAIGHT);
     }
-
 
     @Test
     @Parameters({"2S 3H 9S 8D 5C,484112", "AS KH QS JD 9C,834199"})
@@ -107,7 +108,6 @@ public class HandTest {
         int hand = score.hand();
         Assert.assertEquals(Hand.Ranking.TWO_PAIRS.map(hand), mapResult);
     }
-
 
     @Test
     @Parameters({"AS AH AD KS QD,838842", "2D 2H 2S 3D 4H,33", "2S 2H 2C 3S 4D,33"})
