@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * Integer Inquiry
+ * @Author lei.zhu
  */
 public class Main {
     public static void main(String[] args) {
