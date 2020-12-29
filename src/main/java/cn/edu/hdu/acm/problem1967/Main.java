@@ -92,7 +92,7 @@ public class Main {
         }
     }
 
-    class Board {
+    private class Board {
         byte[] _boardcontents;
 
         public Board() {
