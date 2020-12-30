@@ -58,14 +58,13 @@ public class BoardTest {
     }
 
     @Test
-    @Parameters({"4","8"})
+    @Parameters({"4","8", "3", "0"})
     public void testRotate(int times) {
         for (int time = 0; time < times; time++) {
             board.Rotate();
         }
         System.out.println(Arrays.toString(board.get_boardcontents()));
     }
-
 
 
     @After
