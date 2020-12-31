@@ -4,17 +4,13 @@ public class Solver {
     static int[] permutationSwaps1 = {0,1,0,0,1,0};
     static int[] permutationSwaps2 = {1,2,2,1,2,2};
 
-    TestCase[] _cases;
+    TestCase[] _cases = new TestCase[]{};
     TestCase _tcase;
 
     public Solver(TestCase[] cases) {
         _cases = cases;
     }
 
-    public Solver(TestCase tcase) {
-        _tcase = tcase;
-        _cases[0] = _tcase;
-    }
 
     void TestRotations(Board src) {
         TestRowSegments(src);

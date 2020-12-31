@@ -1,5 +1,6 @@
 package cn.edu.hdu.acm.problem1967;
 
+import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.After;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RunWith(JUnitParamsRunner.class)
 public class BoardTest {
@@ -66,6 +68,13 @@ public class BoardTest {
         System.out.println(Arrays.toString(board.get_boardcontents()));
     }
 
+    @Test
+    @FileParameters(value = "src/test/resources/data_hdu_1967.csv",mapper = BoardMapper.class)
+    public void testMatches(List<String> lastWeek, List<String> thisWeek) {
+        TestCase _tCase = new TestCase(lastWeek, thisWeek);
+        System.out.println(board.Matches(_tCase._lastWeek, _tCase._givenNumbers));
+
+    }
 
     @After
     public void tearDown() {

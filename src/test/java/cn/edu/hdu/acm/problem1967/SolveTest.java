@@ -1,5 +1,6 @@
 package cn.edu.hdu.acm.problem1967;
 
+import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
@@ -18,15 +19,19 @@ public class SolveTest {
     @Before
     public void init() {
         board = Board.getInstance();
+
     }
 
     @Test
-    @Parameters
-    public void testRows2() {
-
-        for (int i = 0; i < 6; i++) {
-            board.SwapRows(6+permutationSwaps1[i], 6+permutationSwaps2[i]);
-        }
-        System.out.println(Arrays.toString(board.get_boardcontents()));
+    @FileParameters(value = "src/test/resources/data_hdu_1967.csv", mapper = TestCaseMapper.class)
+    public void testRows2(TestCase testCase) {
+        Solver solver = new Solver(new TestCase[]{testCase});
+        solver.CheckSolution(board);
     }
+
+
+
+
+
+
 }
