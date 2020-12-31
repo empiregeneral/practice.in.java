@@ -24,9 +24,19 @@ public class SolveTest {
 
     @Test
     @FileParameters(value = "src/test/resources/data_hdu_1967.csv", mapper = TestCaseMapper.class)
-    public void testRows2(TestCase testCase) {
+    public void testRows0(TestCase testCase) {
         Solver solver = new Solver(new TestCase[]{testCase});
-        solver.CheckSolution(board);
+        solver.TestRows0(board);
+        System.out.println(Arrays.toString(board.get_boardcontents()));
+    }
+
+    @Test
+    @FileParameters(value = "src/test/resources/data_hdu_1967.csv", mapper = TestCaseMapper.class)
+    public void testRows1(TestCase testCase) {
+        Solver solver = new Solver(new TestCase[]{testCase});
+        solver.TestRows1(board);
+        System.out.println(Arrays.toString(board.get_boardcontents()));
+
     }
 
 

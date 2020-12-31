@@ -1,5 +1,7 @@
 package cn.edu.hdu.acm.problem1967;
 
+import java.util.Arrays;
+
 public class Solver {
     static int[] permutationSwaps1 = {0,1,0,0,1,0};
     static int[] permutationSwaps2 = {1,2,2,1,2,2};
@@ -47,6 +49,7 @@ public class Solver {
             TestColumns1(src);
             src.SwapRows(permutationSwaps1[i],permutationSwaps2[i]);
         }
+        System.out.println(Arrays.toString(src.get_boardcontents()));
     }
 
     void TestColumns1(Board src) {
@@ -61,6 +64,7 @@ public class Solver {
             TestColumns2(src);
             src.SwapRows(3+permutationSwaps1[i],3+permutationSwaps2[i]);
         }
+        System.out.println(Arrays.toString(src.get_boardcontents()));
     }
 
     void TestColumns2(Board src) {
