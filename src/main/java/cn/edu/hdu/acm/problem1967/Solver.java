@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class Solver {
     static int[] permutationSwaps1 = {0,1,0,0,1,0};
     static int[] permutationSwaps2 = {1,2,2,1,2,2};
+    int count = 0;
 
-    TestCase[] _cases = new TestCase[]{};
-    TestCase _tcase;
+    TestCase[] _cases;
 
     public Solver(TestCase[] cases) {
         _cases = cases;
@@ -49,7 +49,6 @@ public class Solver {
             TestColumns1(src);
             src.SwapRows(permutationSwaps1[i],permutationSwaps2[i]);
         }
-        System.out.println(Arrays.toString(src.get_boardcontents()));
     }
 
     void TestColumns1(Board src) {
@@ -64,7 +63,7 @@ public class Solver {
             TestColumns2(src);
             src.SwapRows(3+permutationSwaps1[i],3+permutationSwaps2[i]);
         }
-        System.out.println(Arrays.toString(src.get_boardcontents()));
+        //System.out.println(Arrays.toString(src.get_boardcontents()));
     }
 
     void TestColumns2(Board src) {
@@ -79,6 +78,8 @@ public class Solver {
             CheckSolution(src);
             src.SwapRows(6+permutationSwaps1[i],6+permutationSwaps2[i]);
         }
+        count++;
+        //System.out.println(Arrays.toString(src.get_boardcontents()));
     }
 
     void CheckSolution(Board src) {
@@ -92,4 +93,7 @@ public class Solver {
         TestRotations(Board.getInstance());
     }
 
+    public int getCount() {
+        return count;
+    }
 }

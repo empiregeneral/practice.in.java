@@ -31,7 +31,7 @@ public class Suduko {
     {
         int row = -1;
         int col = -1;
-        boolean isEmpty = true;
+        boolean isEnd = true;
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
@@ -43,21 +43,22 @@ public class Suduko {
 
                     // We still have some remaining
                     // missing values in Sudoku
-                    isEmpty = false;
+                    isEnd = false;
                     break;
                 }
             }
-            if (!isEmpty) {
+            if (!isEnd) {
                 break;
             }
         }
 
         // No empty space left
-        if (isEmpty)
+        if (isEnd)
         {
             return true;
         }
 
+        System.out.println("Row: " + row + " Column: " + col);
         // Else for each-row backtrack
         for (int num = 1; num <= n; num++)
         {
@@ -66,7 +67,9 @@ public class Suduko {
                 board[row][col] = (byte)num;
                 if (solveSudoku(board, n))
                 {
-                    // print(board, n);
+                    System.out.println("Row: " + row + " Column: " + col + " Num " + num);
+//                    print(board, n);
+//                    System.out.println();
                     return true;
                 }
                 else
@@ -111,6 +114,7 @@ public class Suduko {
 
         // Corresponding square has
         // unique number (box-clash)
+
         int sqrt = (int)Math.sqrt(board.length);
         int boxRowStart = row - row % sqrt;
         int boxColStart = col - col % sqrt;

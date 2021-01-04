@@ -2,7 +2,6 @@ package cn.edu.hdu.acm.problem1967;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,12 +35,23 @@ public class SolveTest {
         Solver solver = new Solver(new TestCase[]{testCase});
         solver.TestRows1(board);
         System.out.println(Arrays.toString(board.get_boardcontents()));
-
     }
 
+    @Test
+    @FileParameters(value = "src/test/resources/data_hdu_1967.csv", mapper = TestCaseMapper.class)
+    public void testRow0(TestCase testCase) {
+        Solver solver = new Solver(new TestCase[]{testCase});
+        solver.TestRows0(board);
+        System.out.println(solver.getCount());
+        //System.out.println(Arrays.toString(board.get_boardcontents()));
+    }
 
-
-
-
+    @Test
+    @FileParameters(value = "src/test/resources/data_hdu_1967.csv", mapper = TestCaseMapper.class)
+    public void testRowSegments(TestCase testCase) {
+        Solver solver = new Solver(new TestCase[]{testCase});
+        solver.TestRowSegments(board);
+        System.out.println(solver.getCount());
+    }
 
 }
