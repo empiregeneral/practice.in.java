@@ -1,4 +1,4 @@
-package cn.edu.hdu.acm.problem1967;
+package org.poj.problem2676;
 
 public class Cell {
     /**
@@ -15,6 +15,7 @@ public class Cell {
     protected Face value;
 
     public enum Face {
+        ZERO('0'),
         ONE('1'),
         TWO('2'),
         THREE('3'),
@@ -23,9 +24,7 @@ public class Cell {
         SIX('6'),
         SEVEN('7'),
         EIGHT('8'),
-        NINE('9'),
-        ZERO('0');
-
+        NINE('9');
 
         final private char token;
 
@@ -60,6 +59,10 @@ public class Cell {
                 ", _column=" + _column +
                 ", value=" + value.token +
                 '}';
+    }
+
+    public static Cell valueOf(int row, int col, char token) {
+        return new Cell(row, col, token);
     }
 
     public static void main(String[] args) {

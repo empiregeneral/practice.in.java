@@ -1,9 +1,6 @@
 package cn.edu.hdu.acm.problem1967;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
