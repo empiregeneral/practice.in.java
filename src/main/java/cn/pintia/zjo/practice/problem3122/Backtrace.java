@@ -1,4 +1,4 @@
-package org.poj.problem2676;
+package cn.pintia.zjo.practice.problem3122;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -6,29 +6,28 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @author Administrator
- */
 public class Backtrace implements SudokuSolver {
     private int count = 1;
     private Board board;
-    private Byte[][] boardBytes;
+    private Character[][] boardChars;
     private int n;
 
     public Backtrace(Cell[][] cells, int n) {
-        boardBytes = Board.getBoard(cells, n);
+        boardChars = Board.getBoard(cells, n);
         this.n = n;
+
     }
 
-
     @Override
-    public boolean solve(Byte[][] board, int n) {
+    public boolean solve(Character[][] board, int n) {
         int row = -1;
         int col = -1;
+        char startChar = 'A';
+        char endChar = 'P';
         boolean isEnd = true;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 0) {
+                if (board[i][j].equals('-')) {
                     row = i;
                     col = j;
 
@@ -44,26 +43,17 @@ public class Backtrace implements SudokuSolver {
         }
 
         // No empty space left
-        if (isEnd)
-        {
+        if (isEnd) {
             return true;
         }
 
-        // Else for each-row backtrack
-        for (byte num = 1; num <= n; num++)
-        {
-            if (Board.isValid(board, row, col, num))
-            {
-                board[row][col] = num;
-                if (solve(board, n))
-                {
-
+        for (char ch = startChar; ch < endChar; ch++) {
+            if (Board.isValid(board, row, col, ch)) {
+                board[row][col] = ch;
+                if (solve(board, n)) {
                     return true;
-                }
-                else
-                {
-                    // replace it
-                    board[row][col] = 0;
+                } else {
+                    board[row][col] = '-';
                 }
             }
         }
@@ -71,7 +61,7 @@ public class Backtrace implements SudokuSolver {
     }
 
     @Override
-    public void print(Byte[][] board, int n) {
+    public void print(Character[][] board, int n) {
         // We got the answer, just print it
         for (int r = 0; r < n; r++)
         {
@@ -89,23 +79,21 @@ public class Backtrace implements SudokuSolver {
         }
     }
 
-
     @Override
     public int read(CharBuffer cb) throws IOException {
         if (--count < 0) {
             return -1;
         }
-        // System.out.println(solve(this.boardBytes, this.n));
-        // print(this.boardBytes, this.n);
 
-        CharSequence[] result = Stream.of(this.boardBytes).map(arr -> Arrays.stream(arr).
-                map(item ->  item.toString()).
-                collect(Collectors.joining())).toArray(String[]::new);
+        solve(this.boardChars, this.n);
 
-        for (CharSequence charSequence: result) {
-            cb.append(charSequence+"\n");
+        CharSequence[] result = Stream.of(this.boardChars).map(arr -> Arrays.stream(arr).map
+                (item -> item.toString()).collect(Collectors.joining())).toArray(String[]::new);
+
+        for (CharSequence charSequence : result) {
+            cb.append(charSequence + "\n");
         }
 
-        return 10;
+        return 0;
     }
 }
