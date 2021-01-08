@@ -7,15 +7,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(new BufferedInputStream(System.in));
-        while(input.hasNext()) {
-            BigInteger p = intToBigInteger(input.nextInt());
-            BigInteger q = intToBigInteger(input.nextInt());
+        while(input.hasNextBigInteger()) {
+            BigInteger p = input.nextBigInteger();
+            BigInteger q = input.nextBigInteger();
             /* public Key */
-            BigInteger e = intToBigInteger(input.nextInt());
+            BigInteger e = input.nextBigInteger();
             int n = input.nextInt();
             BigInteger[] cipherCodes = new BigInteger[n];
             for (int i = 0; i < n; i++) {
-                cipherCodes[i] = intToBigInteger(input.nextInt());
+                cipherCodes[i] = input.nextBigInteger();
             }
             Readable readable = new TransformToPlainText(cipherCodes, p, q, e);
             Scanner output = new Scanner(readable);
@@ -23,9 +23,5 @@ public class Main {
                 System.out.println(output.next());
             }
         }
-    }
-
-    private static BigInteger intToBigInteger(int item) {
-        return new BigInteger(new Integer(item).toString());
     }
 }

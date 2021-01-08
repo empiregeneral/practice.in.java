@@ -49,7 +49,7 @@ public class TransformToPlainText implements Readable {
         }).toArray(Character[]::new);
 
         for (Character character : chars) {
-            cb.append(character.charValue());
+            cb.append(character);
         }
 
         return 10;
@@ -63,6 +63,7 @@ public class TransformToPlainText implements Readable {
         }
 
         BigInteger[] bigIntegers = cipherCodes.toArray(new BigInteger[cipherCodes.size()]);
+        System.out.println(cipherCodes.size());
 
         Readable readable = new TransformToPlainText(bigIntegers,
                                                      new BigInteger("1241386753"),

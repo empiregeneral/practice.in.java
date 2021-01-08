@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 public class Backtrace implements SudokuSolver {
     private int count = 1;
-    private Board board;
     private Character[][] boardChars;
     private int n;
 
@@ -47,9 +46,10 @@ public class Backtrace implements SudokuSolver {
             return true;
         }
 
-        for (char ch = startChar; ch < endChar; ch++) {
+        for (char ch = startChar; ch <= endChar; ch++) {
             if (Board.isValid(board, row, col, ch)) {
                 board[row][col] = ch;
+                //System.out.println(Arrays.deepToString(board));
                 if (solve(board, n)) {
                     return true;
                 } else {
@@ -94,6 +94,6 @@ public class Backtrace implements SudokuSolver {
             cb.append(charSequence + "\n");
         }
 
-        return 0;
+        return 10;
     }
 }

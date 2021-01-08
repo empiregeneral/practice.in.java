@@ -1,8 +1,5 @@
 package cn.edu.hdu.acm.problem1211;
 
-import cn.edu.hdu.acm.problem2035.BinaryExponentiation;
-import cn.pintia.zjo.practice.problem3609.ModuleInverse;
-
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.stream.Stream;
