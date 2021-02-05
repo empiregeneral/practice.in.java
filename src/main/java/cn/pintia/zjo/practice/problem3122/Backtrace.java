@@ -14,7 +14,6 @@ public class Backtrace implements SudokuSolver {
     public Backtrace(Cell[][] cells, int n) {
         boardChars = Board.getBoard(cells, n);
         this.n = n;
-
     }
 
     @Override

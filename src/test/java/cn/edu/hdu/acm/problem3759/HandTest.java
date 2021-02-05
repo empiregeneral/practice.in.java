@@ -71,11 +71,10 @@ public class HandTest {
 
 
     @Test
-    @Parameters({"414770,STRAIGHT", "1294864,STRAIGHT_FLUSH"})
+    @Parameters({"414770,STRAIGHT", "1294864,FLUSH"})
     public void testStraightRankMap(int hand, Hand.Ranking expectRanking) {
         Hand.HandScore score = new Hand.HandScore(hand);
-        System.out.println(score.map);
-       Assert.assertEquals(score.ranking,expectRanking);
+        Assert.assertEquals(score.ranking,expectRanking);
     }
 
     @Test

@@ -18,6 +18,7 @@ public class Backtrace implements SudokuSolver {
     public Backtrace(Cell[][] cells, int n) {
         boardBytes = Board.getBoard(cells, n);
         this.n = n;
+        solve(this.boardBytes, this.n);
     }
 
 
@@ -26,6 +27,7 @@ public class Backtrace implements SudokuSolver {
         int row = -1;
         int col = -1;
         boolean isEnd = true;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 0) {
@@ -97,6 +99,7 @@ public class Backtrace implements SudokuSolver {
         }
         // System.out.println(solve(this.boardBytes, this.n));
         // print(this.boardBytes, this.n);
+
 
         CharSequence[] result = Stream.of(this.boardBytes).map(arr -> Arrays.stream(arr).
                 map(item ->  item.toString()).
