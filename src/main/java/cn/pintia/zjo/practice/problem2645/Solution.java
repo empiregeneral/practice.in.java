@@ -2,7 +2,6 @@ package cn.pintia.zjo.practice.problem2645;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.List;
 
@@ -14,18 +13,28 @@ import static edu.princeton.cs.algs4.LongestCommonSubstring.lcs;
 public class Solution implements Readable{
     private int count = 1;
     private String longestCommonString;
+    private String maskString;
     private final int maxBitLen = 32;
     private BitSet bitSet;
 
     public Solution(List<String> addressList) {
         longestCommonString = addressList.stream().reduce((s, t) -> lcs(s, t)).get();
-        bitSet = BitSet.valueOf(longestCommonString.getBytes(StandardCharsets.UTF_8));
-
-
+        int maskLen = longestCommonString.length();
+        maskString = appendTailingZeroes(createMask(maskLen), maxBitLen);
     }
 
-    private String appendTailingZeroes(String originStr, int maxBitLen) {
-        int strSize = originStr.length();
+    private String createMask(int maskLen) {
+        StringBuilder sb = new StringBuilder("");
+        char[] chars = new char[maskLen];
+        for (int i = 0; i < chars.length; i++) {
+            chars[i] = '1';
+        }
+
+        return sb.append(chars).toString();
+    }
+
+    private String appendTailingZeroes(String origin, int maxBitLen) {
+        int strSize = origin.length();
         assert strSize < maxBitLen;
         int scale = (maxBitLen - strSize);
 
@@ -34,7 +43,7 @@ public class Solution implements Readable{
         for (int i = 0; i < scale; i++) {
             chars[i] = '0';
         }
-        sb.append(originStr).append(chars);
+        sb.append(origin).append(chars);
         return sb.toString();
     }
 
@@ -45,7 +54,13 @@ public class Solution implements Readable{
         }
 
         cb.append(appendTailingZeroes(longestCommonString, maxBitLen));
+        cb.append("\n");
+        cb.append(maskString);
 
         return 10;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
