@@ -2,10 +2,10 @@ package cn.pintia.zjo.practice.problem2645;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.BitSet;
 import java.util.List;
 
-import static edu.princeton.cs.algs4.LongestCommonSubstring.lcs;
+import static cn.pintia.zjo.practice.problem2645.LongestCommonSubstring.lcs;
+
 
 /**
  * @author Administrator
@@ -15,7 +15,6 @@ public class Solution implements Readable{
     private String longestCommonString;
     private String maskString;
     private final int maxBitLen = 32;
-    private BitSet bitSet;
 
     public Solution(List<String> addressList) {
         longestCommonString = addressList.stream().reduce((s, t) -> lcs(s, t)).get();
@@ -47,20 +46,18 @@ public class Solution implements Readable{
         return sb.toString();
     }
 
+
+
     @Override
     public int read(CharBuffer cb) throws IOException {
         if (--count < 0) {
             return -1;
         }
 
-        cb.append(appendTailingZeroes(longestCommonString, maxBitLen));
+        cb.append(BinaryStrToIpAddress.valueOf(appendTailingZeroes(longestCommonString, maxBitLen)));
         cb.append("\n");
-        cb.append(maskString);
+        cb.append(BinaryStrToIpAddress.valueOf(maskString));
 
         return 10;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

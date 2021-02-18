@@ -1,11 +1,9 @@
 package cn.pintia.zjo.practice.problem2645;
 
 import java.io.BufferedInputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * @author Administrator
@@ -21,7 +19,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 ipAddresses.add(input.next());
             }
-            List<String> addresses = IPAddressToBinary.valueOf(ipAddresses);
+            List<String> addresses = IpAddressToBinaryStr.valueOf(ipAddresses);
             Readable readable = new Solution(addresses);
             Scanner output = new Scanner(readable);
             while(output.hasNext()) {
