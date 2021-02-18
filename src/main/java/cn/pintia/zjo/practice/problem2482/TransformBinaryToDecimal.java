@@ -5,6 +5,9 @@ import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * @author Administrator
+ */
 public class TransformBinaryToDecimal implements Readable {
     private int count = 1;
     private String binaryIP;
