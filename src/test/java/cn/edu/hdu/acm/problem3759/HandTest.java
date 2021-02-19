@@ -109,7 +109,7 @@ public class HandTest {
     }
 
     @Test
-    @Parameters({"AS AH AD KS QD,838842", "2D 2H 2S 3D 4H,33", "2S 2H 2C 3S 4D,33"})
+    @Parameters({"AS AH AD KS QD,838842", "2D 2H 2S 3D 4H,33", "2S 2H 2C 3S 4D,33", "AC 3S AD 4C AS,838689"})
     public void testThreeOfKindRankMap(String cards, int mapResult) {
         IHandScore score = new ReadFromLine(cards);
         int hand = score.hand();

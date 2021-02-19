@@ -1,49 +1,43 @@
 package cn.edu.hdu.acm.problem1967;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.function.IntFunction;
+import java.util.regex.Pattern;
 
 public class TestCase {
-    Byte[] _lastWeek;
-    Byte[] _thisWeek;
+    byte[] _lastWeek;
     int[][] _givenNumbers;
 
     boolean _solved;
 
-    public TestCase(List<String> lastWeek, List<String> thisWeek) {
-        _lastWeek = lastWeek.stream().map(new TransformStringsToBytes()).flatMap(Stream::of).toArray(Byte[]::new);
-        _thisWeek = thisWeek.stream().map(new TransformStringsToBytes()).flatMap(Stream::of).toArray(Byte[]::new);
-        _solved = false;
-        _givenNumbers =new int[10][];
-        generateNumbers();
+    public TestCase(String inputLine) {
+
     }
 
-
-    public TestCase(Byte[] lastWeek, Byte[] thisWeek) {
+    public TestCase(byte[] lastWeek, byte[] thisSudoku) {
         _lastWeek = lastWeek;
-        _thisWeek = thisWeek;
         _givenNumbers = new int[10][];
         _solved = false;
-        generateNumbers();
-    }
 
-    private void generateNumbers() {
-        for (int j = 1; j <= 10; j++) {
+        for (int j=1; j<=10; j++) {
             int n = 0;
             int[] temp = new int[81];
 
-            for (int i = 0; i < 81; i++) {
-                if (_thisWeek[i] == j) {
-                    temp[n] = i;
+            for (int i=0; i<81; i++) {
+                if (thisSudoku[i]==j) {
+                    temp[n]=i;
                     n++;
                 }
             }
 
             _givenNumbers[j-1] = new int[n];
-            for (int i = 0; i < n; i++) {
-                _givenNumbers[j-1][i] = temp[i];
+            for(int i=0; i<n; i++)
+            {
+                _givenNumbers[j-1][i]=temp[i];
             }
         }
     }
@@ -67,19 +61,45 @@ public class TestCase {
         return _solved;
     }
 
-    static class TransformStringsToBytes implements Function<String, Byte[]>{
-        final int lineNo = 9;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<String> lastWeekLines = new ArrayList<>();
+        List<String> thisSudukoLines = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            String inputLine = br.readLine();
+            lastWeekLines.add(inputLine);
+        }
 
-        @Override
-        public Byte[] apply(String s) {
-            String regex = "(?<=[0-9])(?=([0-9])+(?![0-9]))";
-            Byte[] bytes = new Byte[lineNo];
-            Scanner scanner = new Scanner(new ByteArrayInputStream(s.replaceAll(regex, " ").getBytes()));
-            for (int i = 0; scanner.hasNextByte(); i++) {
-                bytes[i] = scanner.nextByte();
+        for (int j = 0; j < 9; j++) {
+            String inputLine = br.readLine();
+            thisSudukoLines.add(inputLine);
+        }
+
+        br.close();
+
+    }
+
+    private static Byte[] transformLine2Bytes(String inputLine) {
+        List<Byte> byteList = new LinkedList<>();
+        String regex = "(?<=[0-9])(?=([0-9])+(?![0-9]))";
+        Scanner scanner = new Scanner(new ByteArrayInputStream(inputLine.replaceAll(regex, " ").getBytes()));
+        for (;scanner.hasNextByte();) {
+            byteList.add(scanner.nextByte());
+        }
+        scanner.close();
+
+        Byte[] tmpBytes = new Byte[byteList.size()];
+        return byteList.toArray(tmpBytes);
+    }
+
+    private static class TransformLinesToBytes {
+        Byte[] bytes = new Byte[81];
+        List<Byte[]> bytesList = new LinkedList<>();
+
+        public TransformLinesToBytes(List<String> inputLines) {
+            for (String inputLine : inputLines) {
+                bytesList.add(transformLine2Bytes(inputLine));
             }
-            scanner.close();
-            return bytes;
         }
     }
 }

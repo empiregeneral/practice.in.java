@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.List;
 
-import static cn.pintia.zjo.practice.problem2645.LongestCommonSubstring.lcs;
-
 
 /**
  * @author Administrator
@@ -17,7 +15,7 @@ public class Solution implements Readable{
     private final int maxBitLen = 32;
 
     public Solution(List<String> addressList) {
-        longestCommonString = addressList.stream().reduce((s, t) -> lcs(s, t)).get();
+        longestCommonString = addressList.stream().reduce((s, t) -> LongestCommonSubstring.lcs(s, t)).get();
         int maskLen = longestCommonString.length();
         maskString = appendTailingZeroes(createMask(maskLen), maxBitLen);
     }

@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    private static Byte[] ReadBoard(BufferedReader input) throws IOException {
-        Byte[] boardcontents = new Byte[81];
+    private static byte[] ReadBoard(BufferedReader input) throws IOException {
+        byte[] boardcontents = new byte[81];
         for(int y=0; y<9; y++) {
             String s = input.readLine();
             for(int x=0; x<9; x++) {
@@ -25,8 +25,8 @@ public class Main {
         TestCase[] cases = new TestCase[N];
 
         for (int i=0; i<N; i++) {
-            Byte[] lastWeek = ReadBoard(stdin);
-            Byte[] thisSudoku = ReadBoard(stdin);
+            byte[] lastWeek = ReadBoard(stdin);
+            byte[] thisSudoku = ReadBoard(stdin);
             if (i<N-1) {
                 stdin.readLine();
             }

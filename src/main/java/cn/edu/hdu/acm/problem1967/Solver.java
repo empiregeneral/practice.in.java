@@ -14,6 +14,10 @@ public class Solver {
     }
 
 
+    public void Solve() {
+        TestRotations(Board.getInstance());
+    }
+
     void TestRotations(Board src) {
         TestRowSegments(src);
         src.Rotate();
@@ -89,9 +93,7 @@ public class Solver {
         }
     }
 
-    public void Solve() {
-        TestRotations(Board.getInstance());
-    }
+
 
     public int getCount() {
         return count;

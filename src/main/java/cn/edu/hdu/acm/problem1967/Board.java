@@ -59,7 +59,7 @@ public class Board {
     }
 
 
-    public boolean Matches(Byte[] lastweek, int[][] candidate) {
+    public boolean Matches(byte[] lastweek, int[][] candidate) {
         int mbSum = 0;
 
         for (int i=0; i<10; i++) {
