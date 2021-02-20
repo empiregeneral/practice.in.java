@@ -1,5 +1,7 @@
 package cn.pintia.zjo.practice.problem2645;
 
+import edu.princeton.cs.algs4.LongestCommonSubstring;
+
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.List;
@@ -8,14 +10,14 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public class Solution implements Readable{
+public class Solution implements Readable {
     private int count = 1;
     private String longestCommonString;
     private String maskString;
     private final int maxBitLen = 32;
 
     public Solution(List<String> addressList) {
-        longestCommonString = addressList.stream().reduce((s, t) -> LongestCommonSubstring.lcs(s, t)).get();
+        longestCommonString = addressList.stream().reduce((s, t) -> Strategy.DynamicPlanning.lcs(s, t)).get();
         int maskLen = longestCommonString.length();
         maskString = appendTailingZeroes(createMask(maskLen), maxBitLen);
     }
@@ -45,7 +47,6 @@ public class Solution implements Readable{
     }
 
 
-
     @Override
     public int read(CharBuffer cb) throws IOException {
         if (--count < 0) {
@@ -59,3 +60,35 @@ public class Solution implements Readable{
         return 10;
     }
 }
+
+enum Strategy {
+
+    DynamicPlanning() {
+        @Override
+        public String lcs(String source, String target) {
+            char[] a = source.toCharArray();
+            char[] b = target.toCharArray();
+            int[][] result = new int[a.length + 1][b.length + 1];
+            int max = 0;
+            for (int i = 0; i < a.length; i++) {
+                for (int j = 0; j < b.length; j++) {
+                    if (a[i] == b[j]) {
+                        result[i + 1][j + 1] = result[i][j] + 1;
+                        max = Math.max(max, result[i + 1][j + 1]);
+                    }
+                }
+            }
+            return max == 0 ? "" :source.substring(0, max);
+        }
+    },
+
+    SuffixArrayX() {
+      @Override
+      public String lcs(String source, String target) {
+          return LongestCommonSubstring.lcs(source, target);
+      }
+    };
+
+
+    protected abstract String lcs(String source, String target);
+    }

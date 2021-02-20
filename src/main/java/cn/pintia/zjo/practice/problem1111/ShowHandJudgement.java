@@ -1,6 +1,10 @@
 package cn.pintia.zjo.practice.problem1111;
 
 
+/**
+ * @author Administrator
+ */
+
 public enum ShowHandJudgement implements IHandType {
 
     STRAIGHT_FLUSH(HandType.STRAIGHT_FLUSH) {
