@@ -17,7 +17,7 @@ public class Solution implements Readable {
     private final int maxBitLen = 32;
 
     public Solution(List<String> addressList) {
-        longestCommonString = addressList.stream().reduce((s, t) -> Strategy.DynamicPlanning.lcs(s, t)).get();
+        longestCommonString = addressList.stream().reduce((s, t) -> Strategy.SuffixArrayX.lcs(s, t)).get();
         int maskLen = longestCommonString.length();
         maskString = appendTailingZeroes(createMask(maskLen), maxBitLen);
     }
