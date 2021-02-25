@@ -1,5 +1,6 @@
 package cn.pintia.zjo.practice.problem1111;
 
+import java.util.EnumSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -177,4 +178,5 @@ public enum HandType implements IHandType {
 
         System.out.println(HandType.fromString("HIGH_CARD").get());
     }
+
 }

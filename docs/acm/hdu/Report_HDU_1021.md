@@ -2,7 +2,7 @@
 
 ## Subject
 [原题地址: Fibonacci Again](http://acm.hdu.edu.cn/showproblem.php?pid=1021)
-和传统的求取Fibonacci数列不同，该数列的起点为f0 = 7, f1 = 11, fn的取值范围为n < 100 0000
+和传统的求取Fibonacci数列不同，该数列的起点为f0 = 7, f1 = 11, fn的取值范围为n < 1000000, 求解fn是否被3整除？
 
 ## 解题思路
 自然而然想到的是使用矩阵的幂计算，加同余定力推到出fn的值，然后和3进行整除算出最终的答案。

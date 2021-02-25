@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * @author Administrator
- * @Description Ip networks 通过位运算求取，ip address的范围
+ * @Description Ip networks 求取01串的最大公共子串
  * Input:
  */
 public class Main {

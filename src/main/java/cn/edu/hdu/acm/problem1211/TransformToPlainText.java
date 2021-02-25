@@ -75,10 +75,6 @@ public class TransformToPlainText implements Readable {
         }
     }
 
-    private static BigInteger toBigInteger(int item) {
-        return new BigInteger(new Integer(item).toString());
-    }
-
     private static BigInteger toBigInteger(String item) {
         return new BigInteger(item);
     }

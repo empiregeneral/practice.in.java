@@ -4,6 +4,9 @@ import java.io.BufferedInputStream;
 import java.math.BigInteger;
 import java.util.Scanner;
 
+/**
+ * @author Administrator
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(new BufferedInputStream(System.in));

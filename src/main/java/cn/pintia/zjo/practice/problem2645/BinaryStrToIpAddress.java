@@ -1,7 +1,5 @@
 package cn.pintia.zjo.practice.problem2645;
 
-import cn.pintia.zjo.practice.problem2482.BinaryToDecimal;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
