@@ -9,18 +9,18 @@ import java.util.List;
  */
 public class Solution implements Readable{
     private int count = 1;
-    private char[][] board;
-    private int answer = 0;
+    private final char[][] board;
+    private int answer;
     private final char empty = '.';
 
     public Solution(List<char[]> input) {
         board = input.toArray(new char[input.size()][]);
-
+        answer = 0;
     }
 
     private void solve(int k, int count) {
-        int r;
-        int c;
+        int x;
+        int y;
 
         if (k == board.length * board.length) {
             if (count > answer) {
@@ -28,12 +28,12 @@ public class Solution implements Readable{
                 return;
             }
         } else {
-            r = k / board.length;
-            c = k % board.length;
-            if (board[r][c] == empty && canPos(board, r, c)) {
-                board[r][c] = 'O';  // 放置碉堡
-                solve(k+1, count+1); // 下一个位置
-                board[r][c] = '.';  // 回溯
+            x = k / board.length;
+            y = k % board.length;
+            if (board[x][y] ==  empty && canPos(board, x, y)) {
+                board[x][y] = 'O';
+                solve(k+1, count+1);
+                board[x][y] = '.';
             }
             solve(k+1, count);
         }
@@ -72,7 +72,7 @@ public class Solution implements Readable{
             return -1;
         }
 
-        solve(0, answer);
+        solve(0, 0);
         cb.append(answer + "\n");
 
         return 10;
