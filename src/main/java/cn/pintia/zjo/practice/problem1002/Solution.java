@@ -16,6 +16,7 @@ public class Solution implements Readable{
     public Solution(List<char[]> input) {
         board = input.toArray(new char[input.size()][]);
         answer = 0;
+        solve(0, 0);
     }
 
     private void solve(int k, int count) {
@@ -72,7 +73,7 @@ public class Solution implements Readable{
             return -1;
         }
 
-        solve(0, 0);
+
         cb.append(answer + "\n");
 
         return 10;

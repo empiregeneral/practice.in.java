@@ -5,6 +5,9 @@ import java.math.BigInteger;
 import java.nio.CharBuffer;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class IntegerInquiry implements Readable{
     private int count = 1;
     private String result;
