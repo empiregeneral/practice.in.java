@@ -24,16 +24,13 @@ public class Solution implements Readable{
         int y;
 
         if (k == board.length * board.length) {
-            if (count > answer) {
-                answer = count;
-                return;
-            }
+            answer = (answer > count) ? answer : count;
         } else {
             x = k / board.length;
             y = k % board.length;
-            if (board[x][y] ==  empty && canPos(board, x, y)) {
+            if ((board[x][y] == empty) && canPos(board, x, y)) {
                 board[x][y] = 'O';
-                solve(k+1, count+1);
+                solve(k + 1, count+1);
                 board[x][y] = '.';
             }
             solve(k+1, count);
@@ -42,28 +39,27 @@ public class Solution implements Readable{
 
     private boolean canPos(char[][] board, int r, int c) {
 
-        // 判断每列是否能放置碉堡
-        for (int row = 0; row < r; row++) {
-            if (board[row][c] == 'O') {
-                return false;
-            }
-
-            if (board[row][c] == 'X') {
-                break;
-            }
+        if (board[r][c] == 'X') {
+            return false;
         }
 
-        // 判断每行是否能放置碉堡
-        for (int col = 0; col < c; col++) {
-            if (board[r][col] == 'O') {
-                return false;
-            }
-
+        for ( int col = c - 1; col >= 0; col--) {
             if (board[r][col] == 'X') {
                 break;
             }
+            if (board[r][col] == 'O') {
+                return false;
+            }
         }
 
+        for ( int row = r -1; row >= 0;  row--) {
+            if (board[row][c] == 'X') {
+                break;
+            }
+            if (board[row][c] == 'O') {
+                return false;
+            }
+        }
         return true;
     }
 
