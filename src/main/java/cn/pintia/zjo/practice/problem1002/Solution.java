@@ -17,7 +17,15 @@ public class Solution implements Readable{
 
     private final char pos = 'O';
 
+    private boolean isDebug = false;
+
     public Solution(List<char[]> input) {
+        board = input.toArray(new char[input.size()][]);
+        solve(0, 0);
+    }
+
+    public Solution(List<char[]> input, boolean isDebug) {
+        isDebug = isDebug;
         board = input.toArray(new char[input.size()][]);
         solve(0, 0);
     }
@@ -26,12 +34,10 @@ public class Solution implements Readable{
         int x;
         int y;
 
+        debugInfo(board);
         if (k == board.length * board.length) {
             answer = (answer > count) ? answer : count;
-            for (int i = 0; i < board[0].length; i++) {
-                System.out.println(Arrays.toString(board[i]));
-            }
-            System.out.println();
+            debugInfo(board);
         } else {
             x = k / board.length;
             y = k % board.length;
@@ -40,10 +46,7 @@ public class Solution implements Readable{
                 solve(k + 1, count+1);
                 board[x][y] = empty;
             }
-            for (int i = 0; i < board[0].length; i++) {
-                System.out.println(Arrays.toString(board[i]));
-            }
-            System.out.println();
+            debugInfo(board);
             solve(k+1, count);
         }
     }
@@ -73,6 +76,13 @@ public class Solution implements Readable{
         }
 
         return true;
+    }
+
+    private void debugInfo(char[][] board) {
+        for (int i = 0; i < board[0].length; i++) {
+            System.out.println(Arrays.toString(board[i]));
+        }
+        System.out.println();
     }
 
     @Override

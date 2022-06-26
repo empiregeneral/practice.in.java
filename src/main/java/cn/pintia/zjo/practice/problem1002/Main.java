@@ -22,7 +22,7 @@ public class Main {
                     char[] rows = input.next().toCharArray();
                     board.add(rows);
                 }
-                Scanner output = new Scanner(new Solution(board));
+                Scanner output = new Scanner(new Solution(board, true));
                 while(output.hasNext()) {
                     System.out.println(output.next());
                 }
