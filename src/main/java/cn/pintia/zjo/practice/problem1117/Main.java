@@ -1,4 +1,4 @@
-package cn.pintia.zjo.practice.problem1091;
+package cn.pintia.zjo.practice.problem1117;
 
 import java.util.Scanner;
 
@@ -6,9 +6,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
-            String[] input = scanner.nextLine().split(" ");
-            Readable readable = new Solution(input[0], input[1]);
-            Scanner output = new Scanner(readable);
+            String inputText = scanner.nextLine();
+            if (inputText.equals("END")) {
+                break;
+            }
+            Scanner output = new Scanner(new Solution(inputText));
             while(output.hasNextLine()) {
                 System.out.println(output.nextLine());
             }
