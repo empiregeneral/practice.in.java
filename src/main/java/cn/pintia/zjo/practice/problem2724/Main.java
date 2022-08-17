@@ -35,35 +35,7 @@ class WindowsProcessMsg implements Comparable<WindowsProcessMsg> {
     }
 }
 
-interface Command {
-    void execute();
-}
 
-class Receiver {
-    public void action(String input) {
-
-
-    }
-
-}
-
-class GetCommand implements Command {
-
-
-    @Override
-    public void execute() {
-
-    }
-}
-
-class PutCommand implements Command {
-
-
-    @Override
-    public void execute() {
-
-    }
-}
 
 class Solution implements Readable {
     private int count = 1;
