@@ -1,18 +1,21 @@
 package cn.pintia.zjo.practice.problem2109;
 
 
-public class FoodAndBean implements Comparable<FoodAndBean> {
+public class BeansAndFood implements Comparable<BeansAndFood> {
 
-    private int haveFood;
 
     private int haveBeans;
 
+
+    private int haveFood;
+
     private double radio;
 
-    public FoodAndBean(int haveFood, int haveBeans) {
-        this.haveFood = haveFood;
+    public BeansAndFood(int haveBeans, int haveFood) {
         this.haveBeans = haveBeans;
-        radio = 1.0 * haveFood / haveBeans;
+        this.haveFood = haveFood;
+        radio = 1.0 * haveBeans / haveFood;
+
     }
 
 
@@ -29,7 +32,7 @@ public class FoodAndBean implements Comparable<FoodAndBean> {
     }
 
     @Override
-    public int compareTo(FoodAndBean o) {
+    public int compareTo(BeansAndFood o) {
         if (o.radio - this.radio > 0.0) {
             return 1;
         } else if (o.radio - this.radio < 0.0) {
@@ -41,9 +44,9 @@ public class FoodAndBean implements Comparable<FoodAndBean> {
 
     @Override
     public String toString() {
-        return "FoodAndBean{" +
-                "haveFood=" + haveFood +
-                ", haveBeans=" + haveBeans +
+        return "BeansAndFood{" +
+                "haveBeans=" + haveBeans +
+                ", haveFood=" + haveFood +
                 ", radio=" + radio +
                 '}';
     }

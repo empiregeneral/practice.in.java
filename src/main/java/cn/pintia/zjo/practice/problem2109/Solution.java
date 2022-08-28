@@ -7,33 +7,33 @@ import java.util.PriorityQueue;
 
 public class Solution implements Readable {
     private int count = 1;
-    private int totalOfBeans;
+    private int totalOfFood;
 
-    private PriorityQueue<FoodAndBean> heap;
+    private PriorityQueue<BeansAndFood> heap;
 
     private double result = 0.0;
 
-    public Solution(List<FoodAndBean> foodAndBeanList, int totalOfBeans) {
+    public Solution(List<BeansAndFood> myList, int totalOfFood) {
         this.heap = new PriorityQueue<>();
-        for (FoodAndBean foodAndBean : foodAndBeanList) {
-            heap.add(foodAndBean);
+        for (BeansAndFood beansAndfood : myList) {
+            heap.add(beansAndfood);
         }
 
-        this.totalOfBeans = totalOfBeans;
+        this.totalOfFood = totalOfFood;
         calc();
     }
 
     private void calc() {
         while(!heap.isEmpty()) {
-            FoodAndBean foodAndBean = heap.peek();
-            int haveFood = foodAndBean.getHaveFood();
-            int haveBeans = foodAndBean.getHaveBeans();
-            double radio = foodAndBean.getRadio();
-            if (haveBeans <= totalOfBeans) {
-                totalOfBeans = totalOfBeans - haveBeans;
-                result += haveFood;
+            BeansAndFood beansAndFood = heap.peek();
+            int foodCount = beansAndFood.getHaveFood();
+            int beans = beansAndFood.getHaveBeans();
+            double radio = beansAndFood.getRadio();
+            if (foodCount <= totalOfFood) {
+                totalOfFood = totalOfFood - foodCount;
+                result += beans;
             } else {
-                result += totalOfBeans * radio;
+                result += totalOfFood * radio;
                 break;
             }
             heap.poll();
