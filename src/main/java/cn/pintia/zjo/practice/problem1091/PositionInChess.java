@@ -2,17 +2,17 @@ package cn.pintia.zjo.practice.problem1091;
 
 import java.util.Objects;
 
-public class PositionInSquare {
+public class PositionInChess {
     private String position;
     private int x;
     private int y;
-    private int step;
 
-    public PositionInSquare() {
-
+    public PositionInChess(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public PositionInSquare(String position) {
+    public PositionInChess(String position) {
         assert position.length() == 2;
         this.position = position;
         init();
@@ -20,26 +20,25 @@ public class PositionInSquare {
 
     private void init() {
         char[] posInChar = position.toCharArray();
-        this.x = posInChar[0] - 'a';
-        this.y = posInChar[1] - '1';
-        this.step = 0;
+        this.y = (posInChar[0] - 'a');
+        this.x = (posInChar[1] - '1');
     }
 
-    public static PositionInSquare transfer(String from) {
-        return new PositionInSquare(from);
+    public static PositionInChess transfer(String pos) {
+        return new PositionInChess(pos);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionInSquare that = (PositionInSquare) o;
-        return x == that.x && y == that.y && step == that.step && Objects.equals(position, that.position);
+        PositionInChess that = (PositionInChess) o;
+        return x == that.x && y == that.y && Objects.equals(position, that.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, x, y, step);
+        return Objects.hash(position, x, y);
     }
 
     public String getPosition() {
@@ -66,11 +65,12 @@ public class PositionInSquare {
         this.y = y;
     }
 
-    public int getStep() {
-        return step;
-    }
-
-    public void setStep(int step) {
-        this.step = step;
+    @Override
+    public String toString() {
+        return "PositionInChess{" +
+                "position='" + position + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
