@@ -1,73 +1,50 @@
 package cn.pintia.zjo.practice.problem1951;
 
-import java.io.*;
-
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Scanner;
 
 public class Main {
-    private static final int upperLimitPrimes = 1000000;
 
-    private static int[] primes = new int[upperLimitPrimes];
-    public static void main(String[] args) throws FileNotFoundException {
-//        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
-//        byte[] bufferByte = readFileByNio(args[0]);
-//        Scanner scanner = new Scanner(new ByteArrayInputStream(bufferByte), "utf-8").useDelimiter("\r\n");
-        primes = SieveOfEratosthenes.listOfPrimes(upperLimitPrimes);
+    private static final int size = 1000000;
+    public static BitSet bitSet = new BitSet(size+100);
 
-        Scanner scanner = new Scanner(new DataInputStream(new BufferedInputStream(System.in)));
-        while(scanner.hasNextInt()) {
+    public static void main(String[] args) {
+        compute_prime_bitset();
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextInt()) {
             int n = scanner.nextInt();
-            if (n == 0 ) {
+            if (n == 0) {
                 break;
             }
-
-            int[] tmpArr = {0};
-
-            for (int index = 0; index < primes.length; index++) {
-                if (primes[index] > n) {
-                    tmpArr = Arrays.copyOfRange(primes, 0, index);
-                    break;
-                }
-            }
-
-            try {
-                Readable readable = new FindGoldbachEquationImp(tmpArr, n);
-                Scanner output = new Scanner(readable);
-                while(output.hasNextLine()) {
-                    System.out.println(output.nextLine());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            solve_case(n);
         }
+
     }
 
-    private static byte[] readFileByNio(String path) {
-        long fileLength = 0;
-        final int BUFFER_SIZE = 0x10000;// 0.5M的缓冲
-        File file = new File(path);
-        fileLength = file.length();
-        byte[] dst = new byte[BUFFER_SIZE];
-        try {
-            MappedByteBuffer inputBuffer = new RandomAccessFile(file, "r").getChannel().map(FileChannel.MapMode.READ_ONLY, 0, fileLength);// 读取大文件
+    private static void compute_prime_bitset() {
 
-            for (int offset = 0; offset < fileLength; offset+=BUFFER_SIZE) {
-                if (fileLength - offset >= BUFFER_SIZE) {
-                    for (int i = 0; i < BUFFER_SIZE; i++) {
-                        dst[i] = inputBuffer.get(offset + i);
-                    }
-                } else {
-                    for (int i = 0; i < fileLength - offset; i++) {
-                        dst[i] = inputBuffer.get(offset + i);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 2; i < size;i++) {
+            bitSet.set(i);
         }
-        return dst;
+
+        for (int i = 2; i <= (int)Math.sqrt(size); ) { /** i * i < n 故缩小平方根为判断条件*/
+            for (int j = i + i; j <= 1000000; j += i){
+                bitSet.clear(j);  /* delete all multiples of i */
+            }
+
+            for (i++; !bitSet.get(i); i++) { /* find next prime */
+
+            }
+        }
+
+    }
+
+    private static void solve_case(int n) {
+        for (int i = 3, j = n - 3; i <= j; i++, j--) {
+            if (bitSet.get(i) && bitSet.get(j)) {
+                System.out.printf("%d = %d + %d\n", n, i, j);
+                break;
+            }
+        }
     }
 }

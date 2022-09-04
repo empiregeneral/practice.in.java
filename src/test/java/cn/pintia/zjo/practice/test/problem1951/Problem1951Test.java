@@ -1,13 +1,10 @@
 package cn.pintia.zjo.practice.test.problem1951;
 
 
-import cn.pintia.zjo.practice.problem1951.FindGoldbachEquationImp;
-import cn.pintia.zjo.practice.problem1951.SieveOfEratosthenes;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

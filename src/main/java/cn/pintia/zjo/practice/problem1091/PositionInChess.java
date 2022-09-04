@@ -20,8 +20,8 @@ public class PositionInChess {
 
     private void init() {
         char[] posInChar = position.toCharArray();
-        this.y = (posInChar[0] - 'a');
         this.x = (posInChar[1] - '1');
+        this.y = (posInChar[0] - 'a');
     }
 
     public static PositionInChess transfer(String pos) {

@@ -171,13 +171,6 @@ public class Solution {
         int y = 5;
         int z = 4;
 
-//        int x = 2;
-//        int y = 6;
-//        int z = 5;
-
-//        int x = 1;
-//        int y = 2;
-//        int z = 3;
         boolean res = solution.canMeasureWater(x, y, z);
         System.out.println(res);
     }

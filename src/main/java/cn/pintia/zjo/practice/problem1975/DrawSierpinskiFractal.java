@@ -69,7 +69,7 @@ public class DrawSierpinskiFractal implements Readable {
     }
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 3;
         Scanner output = new Scanner(new DrawSierpinskiFractal(n));
         while(output.hasNextLine()) {
             System.out.println(output.nextLine());
