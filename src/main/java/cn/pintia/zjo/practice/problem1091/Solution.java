@@ -5,7 +5,7 @@ import java.nio.CharBuffer;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Solution implements Readable{
+public class Solution implements Readable {
     private int steps = 0;
     private int count = 1;
 
