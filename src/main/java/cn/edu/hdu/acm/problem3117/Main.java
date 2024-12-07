@@ -14,5 +14,6 @@ public class Main {
                 System.out.println(output.nextLine());
             }
         }
+        scanner.close();
     }
 }
